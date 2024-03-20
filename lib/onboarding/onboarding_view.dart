@@ -107,7 +107,11 @@ Widget getStarted(BuildContext context, mounted) {
       },
       child: Text(
         'Get Started',
-        style: TextStyle(color: Colors.white),
+        style: TextStyle(
+            color: Colors.white,
+            fontFamily: 'Poppins',
+            fontSize: 20,
+            fontWeight: FontWeight.bold),
       ),
     ),
   );
