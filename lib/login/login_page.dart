@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:new_mobile_app/constants/app_style.dart';
 import 'package:new_mobile_app/constants/global_colors.dart';
+import 'package:new_mobile_app/routes/app_routes.dart';
+import 'package:new_mobile_app/widgets/one_bytes_wigdet.dart';
 
 class LoginPageScreen extends StatefulWidget {
   const LoginPageScreen({Key? key}) : super(key: key);
@@ -16,8 +18,16 @@ class LoginPageScreenState extends State<LoginPageScreen> {
       backgroundColor: AppColors.scaffoldBackgroundColor,
       body: Column(
         children: [
-          _buildLogo(),
-          _buildTitle(),
+          buildLogo(),
+          Container(
+            child: const Text(
+              'Login',
+              style: TextStyle(
+                fontSize: 35,
+                fontFamily: 'MadimiOne',
+              ),
+            ),
+          ),
           Divider(color: AppColors.dividerColor),
           SizedBox(height: 20),
           Container(
@@ -33,7 +43,7 @@ class LoginPageScreenState extends State<LoginPageScreen> {
                 ),
                 TextButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/signup-page-screen');
+                      Navigator.pushNamed(context, AppRoutes.signUpPage);
                     },
                     child: Text('Continue with your email',
                         style: AppStyles.text14PxRegular.copyWith(
@@ -43,27 +53,6 @@ class LoginPageScreenState extends State<LoginPageScreen> {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildLogo() {
-    return Container(
-      child: Image.asset(
-        'assets/images/one_bytes_icon.png',
-        height: 250,
-      ),
-    );
-  }
-
-  Widget _buildTitle() {
-    return Container(
-      child: const Text(
-        'Login',
-        style: TextStyle(
-          fontSize: 35,
-          fontFamily: 'MadimiOne',
-        ),
       ),
     );
   }
