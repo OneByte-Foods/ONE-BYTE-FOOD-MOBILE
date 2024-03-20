@@ -5,8 +5,6 @@ import 'package:new_mobile_app/constants/global_colors.dart';
 class LoginPageScreen extends StatefulWidget {
   const LoginPageScreen({Key? key}) : super(key: key);
 
-  static const String routeName = '/login-page-screen';
-
   @override
   State<LoginPageScreen> createState() => LoginPageScreenState();
 }
@@ -34,7 +32,9 @@ class LoginPageScreenState extends State<LoginPageScreen> {
                   style: AppStyles.text14PxRegular.copyWith(fontSize: 14),
                 ),
                 TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/signup-page-screen');
+                    },
                     child: Text('Continue with your email',
                         style: AppStyles.text14PxRegular.copyWith(
                             fontSize: 14,

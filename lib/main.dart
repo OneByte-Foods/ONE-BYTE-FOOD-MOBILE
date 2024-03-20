@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:new_mobile_app/login/login_page.dart';
 import 'package:new_mobile_app/onboarding/onboarding_view.dart';
+import 'package:new_mobile_app/routes/app_routes.dart';
+import 'package:new_mobile_app/signup/signup_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
@@ -27,10 +29,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: onboarding ? LoginPageScreen() : OnBoardingView(),
-      routes: {
-        OnBoardingView.routeName: (context) => OnBoardingView(),
-        LoginPageScreen.routeName: (context) => LoginPageScreen(),
-      },
+      routes: AppRoutes.routes,
     );
   }
 }

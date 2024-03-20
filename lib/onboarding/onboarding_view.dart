@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:new_mobile_app/login/login_page.dart';
 import 'package:new_mobile_app/onboarding/onboarding_items.dart';
+import 'package:new_mobile_app/routes/app_routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnBoardingView extends StatefulWidget {
   const OnBoardingView({super.key});
 
-  static String routeName = '/on-boarding-screen';
   @override
   State<OnBoardingView> createState() => OnBoardingViewState();
 }
@@ -103,7 +103,7 @@ Widget getStarted(BuildContext context, mounted) {
         pres.setBool('onboarding', true);
 
         if (!mounted) return;
-        Navigator.pushNamed(context, LoginPageScreen.routeName);
+        Navigator.pushNamed(context, AppRoutes.loginPageScreen);
       },
       child: Text(
         'Get Started',
