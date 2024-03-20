@@ -10,6 +10,15 @@ class LoginPageScreen extends StatefulWidget {
 class LoginPageScreenState extends State<LoginPageScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Scaffold(
+      body: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+        Container(
+          child: Image.asset(
+            'assets/images/image.png',
+            height: 200,
+          ),
+        ),
+      ]),
+    );
   }
 }

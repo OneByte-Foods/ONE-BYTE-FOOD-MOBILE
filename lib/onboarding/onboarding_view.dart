@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:new_mobile_app/login/login_page.dart';
 import 'package:new_mobile_app/onboarding/onboarding_items.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnBoardingView extends StatefulWidget {
@@ -22,7 +23,7 @@ class OnBoardingViewState extends State<OnBoardingView> {
         color: Colors.white,
         padding: EdgeInsets.symmetric(vertical: 10),
         child: isLastPage
-            ? getStarted(context)
+            ? getStarted(context, mounted)
             : Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                 TextButton(
                   onPressed: () {
@@ -88,7 +89,7 @@ class OnBoardingViewState extends State<OnBoardingView> {
   }
 }
 
-Widget getStarted(BuildContext context) {
+Widget getStarted(BuildContext context, mounted) {
   return Container(
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(12),
@@ -97,7 +98,11 @@ Widget getStarted(BuildContext context) {
     width: MediaQuery.of(context).size.width * .9,
     height: 55,
     child: TextButton(
-      onPressed: () {
+      onPressed: () async {
+        final pres = await SharedPreferences.getInstance();
+        pres.setBool('onboarding', true);
+
+        if (!mounted) return;
         Navigator.pushNamed(context, LoginPageScreen.routeName);
       },
       child: Text(
