@@ -127,10 +127,9 @@ class LoginPageScreenState extends State<LoginPageScreen> {
                   child: ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        setState(() {
-                          email = emailController.text;
-                          password = passwordController.text;
-                        });
+                        email = emailController.text;
+                        password = passwordController.text;
+
                         _userLogin();
                       }
                     },
