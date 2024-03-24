@@ -34,6 +34,10 @@ class LoginPageScreenState extends State<LoginPageScreen> {
     super.dispose();
   }
 
+  void _navigateToForgotPassword() {
+    Navigator.pushNamed(context, AppRoutes.forgotPasswordScreen);
+  }
+
   userLogin() async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -146,6 +150,16 @@ class LoginPageScreenState extends State<LoginPageScreen> {
                         }
                       },
                       child: Text('Login'),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: _navigateToForgotPassword,
+                    child: Text(
+                      'Forgot Password?',
+                      style: TextStyle(
+                        fontSize: 14,
+                        decoration: TextDecoration.underline,
+                      ),
                     ),
                   ),
                 ],
