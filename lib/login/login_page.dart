@@ -13,17 +13,28 @@ class LoginPageScreen extends StatefulWidget {
 }
 
 class LoginPageScreenState extends State<LoginPageScreen> {
-  String email = '';
-  String password = '';
-
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  late TextEditingController emailController;
+  late TextEditingController passwordController;
 
   final _formKey = GlobalKey<FormState>();
 
   bool _obscureText = true;
 
-  _userLogin() async {
+  @override
+  void initState() {
+    super.initState();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  userLogin() async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text,
@@ -31,27 +42,30 @@ class LoginPageScreenState extends State<LoginPageScreen> {
       );
       Navigator.pushNamed(context, AppRoutes.homePageScreen);
     } on FirebaseAuthException catch (e) {
+      String errorMessage = 'An error occurred';
       if (e.code == "user-not-found") {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              'No user found for that email.',
-              style: TextStyle(fontSize: 16),
-            ),
-          ),
-        );
+        errorMessage = 'No user found for that email.';
       } else if (e.code == "wrong-password") {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              'Wrong password provided for that user.',
-              style: TextStyle(fontSize: 16),
-            ),
-          ),
-        );
+        errorMessage = 'Wrong password provided for that user.';
       }
-
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            errorMessage,
+            style: TextStyle(fontSize: 16),
+          ),
+        ),
+      );
+    } catch (e) {
       print(e);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'An unexpected error occurred.',
+            style: TextStyle(fontSize: 16),
+          ),
+        ),
+      );
     }
   }
 
@@ -59,111 +73,115 @@ class LoginPageScreenState extends State<LoginPageScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackgroundColor,
-      body: Column(
-        children: [
-          buildLogo(),
-          Container(
-            child: const Text(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            buildLogo(),
+            const SizedBox(height: 20),
+            Text(
               'Login',
               style: TextStyle(
                 fontSize: 35,
                 fontFamily: 'MadimiOne',
               ),
             ),
-          ),
-          Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Container(
-                  padding: EdgeInsets.only(left: 20, right: 20),
-                  child: TextFormField(
-                    controller: emailController,
-                    decoration: InputDecoration(
-                      labelText: 'Email',
-                      border: OutlineInputBorder(),
+            Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: TextFormField(
+                      controller: emailController,
+                      decoration: InputDecoration(
+                        labelText: 'Email',
+                        border: OutlineInputBorder(),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your email address.';
+                        }
+                        return null;
+                      },
                     ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your email address.';
-                      }
-                      return null;
-                    },
                   ),
-                ),
-                SizedBox(height: 20),
-                Container(
-                  padding: EdgeInsets.only(left: 20, right: 20),
-                  child: TextFormField(
-                    // controller: _passwordController,
-                    obscureText: _obscureText,
-                    decoration: InputDecoration(
-                      labelText: 'Password',
-                      border: OutlineInputBorder(),
-                      suffixIcon: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _obscureText = !_obscureText;
-                          });
-                        },
-                        child: Icon(
-                          _obscureText
-                              ? Icons.visibility
-                              : Icons.visibility_off,
+                  const SizedBox(height: 20),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: TextFormField(
+                      controller: passwordController,
+                      obscureText: _obscureText,
+                      decoration: InputDecoration(
+                        labelText: 'Password',
+                        border: OutlineInputBorder(),
+                        suffixIcon: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _obscureText = !_obscureText;
+                            });
+                          },
+                          child: Icon(
+                            _obscureText
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                          ),
                         ),
                       ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a password.';
+                        }
+                        return null;
+                      },
                     ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a password.';
-                      }
-                      return null;
-                    },
                   ),
-                ),
-                SizedBox(height: 20),
-                Container(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        email = emailController.text;
-                        password = passwordController.text;
-
-                        _userLogin();
-                      }
-                    },
-                    child: Text('Login'),
+                  const SizedBox(height: 20),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          userLogin();
+                        }
+                      },
+                      child: Text('Login'),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          Divider(color: AppColors.dividerColor),
-          SizedBox(height: 20),
-          Container(
-            margin: const EdgeInsets.only(left: 10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _buildGoogleSignInButton(),
-                SizedBox(height: 20),
-                Text(
-                  'or',
-                  style: AppStyles.text14PxRegular.copyWith(fontSize: 14),
-                ),
-                TextButton(
+            const SizedBox(height: 20),
+            Divider(color: AppColors.dividerColor),
+            const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _buildGoogleSignInButton(),
+                  const SizedBox(height: 20),
+                  Text(
+                    'or',
+                    style: AppStyles.text14PxRegular.copyWith(fontSize: 14),
+                  ),
+                  TextButton(
                     onPressed: () {
                       Navigator.pushNamed(context, AppRoutes.signUpPage);
                     },
-                    child: Text('Continue with your email',
-                        style: AppStyles.text14PxRegular.copyWith(
-                            fontSize: 14,
-                            decoration: TextDecoration.underline)))
-              ],
+                    child: Text(
+                      'Continue with your email',
+                      style: AppStyles.text14PxRegular.copyWith(
+                        fontSize: 14,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -177,7 +195,9 @@ class LoginPageScreenState extends State<LoginPageScreen> {
         color: AppColors.white,
       ),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          // Implement Google Sign-In functionality
+        },
         style: ElevatedButton.styleFrom(
           foregroundColor: AppColors.pitchColor,
           backgroundColor: AppColors.white,
