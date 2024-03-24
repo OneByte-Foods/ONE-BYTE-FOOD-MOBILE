@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "971806294877",
+    "project_id": "one-bytes-backend",
+    "storage_bucket": "one-bytes-backend.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:971806294877:android:1570a0ee9786be80911eb4",
+        "android_client_info": {
+          "package_name": "com.example.new_mobile_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATZfeqAe9X5Gk9xVbGSYTjLdHk84SiF9M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
