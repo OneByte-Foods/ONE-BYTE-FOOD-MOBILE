@@ -26,8 +26,8 @@ class LoginPageScreenState extends State<LoginPageScreen> {
   _userLogin() async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password,
+        email: emailController.text,
+        password: passwordController.text,
       );
       Navigator.pushNamed(context, AppRoutes.homePageScreen);
     } on FirebaseAuthException catch (e) {
