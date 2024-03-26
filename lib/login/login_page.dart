@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:new_mobile_app/constants/app_style.dart';
 import 'package:new_mobile_app/constants/global_colors.dart';
 import 'package:new_mobile_app/routes/app_routes.dart';
+import 'package:new_mobile_app/services/auth.dart';
 import 'package:new_mobile_app/widgets/one_bytes_wigdet.dart';
 
 class LoginPageScreen extends StatefulWidget {
@@ -210,7 +211,7 @@ class LoginPageScreenState extends State<LoginPageScreen> {
       ),
       child: ElevatedButton(
         onPressed: () {
-          // Implement Google Sign-In functionality
+          AuthMethods().signInWithGoogle(context);
         },
         style: ElevatedButton.styleFrom(
           foregroundColor: AppColors.pitchColor,
