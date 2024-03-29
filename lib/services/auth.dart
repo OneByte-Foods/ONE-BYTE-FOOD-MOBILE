@@ -39,15 +39,14 @@ class AuthMethods {
 
           await DatabaseMethods.addUser(userDetails.uid, userInfoMap);
           Navigator.pushNamed(context, AppRoutes.homePageScreen);
-          return; // Successfully signed in
+          return;
         }
       }
       throw FirebaseAuthException(
           message: 'Sign in with Google failed', code: '');
     } catch (e) {
-      // Handle errors gracefully
       print('Error signing in with Google: $e');
-      throw e; // Rethrow the error for upper layers to handle
+      throw e;
     }
   }
 }
