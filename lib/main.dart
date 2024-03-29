@@ -1,14 +1,17 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:new_mobile_app/bloc/cinema/cinema_bloc.dart';
 import 'package:new_mobile_app/firebase_options.dart';
-import 'package:new_mobile_app/home/home_screen.dart';
 import 'package:new_mobile_app/login/login_page.dart';
 import 'package:new_mobile_app/onboarding/onboarding_view.dart';
 import 'package:new_mobile_app/routes/app_routes.dart';
+import 'package:new_mobile_app/seat%20reservation/screen/seat_reservation_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // Initialize Firebase
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   final prefs = await SharedPreferences.getInstance();
   final onboarding = prefs.getBool('onboarding') ?? false;
@@ -22,15 +25,21 @@ void main() async {
 class MyApp extends StatelessWidget {
   final bool onboarding;
   final bool isLoggedIn;
-  const MyApp({super.key, this.onboarding = false, this.isLoggedIn = false})
-      : super();
+  const MyApp({Key? key, required this.onboarding, required this.isLoggedIn})
+      : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     Widget initialRoute;
     if (isLoggedIn) {
-      initialRoute = HomeScreen();
+      initialRoute = BlocProvider<CinemaBloc>(
+        create: (context) => CinemaBloc(),
+        child: SeatReservationScreen(
+          imageMovie: "assets/images/image.png",
+          titleMovie: "Seat Reservation",
+          key: key,
+        ),
+      );
     } else if (onboarding) {
       initialRoute = LoginPageScreen();
     } else {

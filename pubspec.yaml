@@ -41,6 +41,8 @@ dependencies:
   firebase_auth: ^4.18.0
   google_sign_in: ^6.2.1
   cloud_firestore: ^4.15.10
+  google_fonts: ^6.2.1
+  flutter_bloc: ^8.1.5
 
   
 
