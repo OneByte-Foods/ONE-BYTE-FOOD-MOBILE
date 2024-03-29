@@ -5,6 +5,7 @@ import 'package:new_mobile_app/constants/global_colors.dart';
 import 'package:new_mobile_app/routes/app_routes.dart';
 import 'package:new_mobile_app/services/auth.dart';
 import 'package:new_mobile_app/widgets/one_bytes_wigdet.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPageScreen extends StatefulWidget {
   const LoginPageScreen({Key? key}) : super(key: key);
@@ -26,6 +27,7 @@ class LoginPageScreenState extends State<LoginPageScreen> {
     super.initState();
     emailController = TextEditingController();
     passwordController = TextEditingController();
+    checkLoginStatus();
   }
 
   @override
@@ -39,12 +41,21 @@ class LoginPageScreenState extends State<LoginPageScreen> {
     Navigator.pushNamed(context, AppRoutes.forgotPasswordScreen);
   }
 
+  void checkLoginStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    final isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+    if (isLoggedIn) {
+      Navigator.pushNamed(context, AppRoutes.homePageScreen);
+    }
+  }
+
   userLogin() async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
       );
+      await _setLoggedInStatus(true);
       Navigator.pushNamed(context, AppRoutes.homePageScreen);
     } on FirebaseAuthException catch (e) {
       String errorMessage = 'An error occurred';
@@ -72,6 +83,11 @@ class LoginPageScreenState extends State<LoginPageScreen> {
         ),
       );
     }
+  }
+
+  Future<void> _setLoggedInStatus(bool isLoggedIn) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isLoggedIn', isLoggedIn);
   }
 
   @override
@@ -210,7 +226,8 @@ class LoginPageScreenState extends State<LoginPageScreen> {
         color: AppColors.white,
       ),
       child: ElevatedButton(
-        onPressed: () {
+        onPressed: () async {
+          await _setLoggedInStatus(true);
           AuthMethods().signInWithGoogle(context);
         },
         style: ElevatedButton.styleFrom(
