@@ -2,13 +2,13 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:new_mobile_app/model/arm_chair_model.dart';
 import 'package:new_mobile_app/model/date_time_model.dart';
 import 'package:new_mobile_app/widgets/painter_screen.dart';
 import 'package:new_mobile_app/widgets/seat_row.dart';
 import 'package:new_mobile_app/widgets/textFrave.dart';
 
 import '../../bloc/cinema/cinema_bloc.dart';
-import '../../model/arm_chair_model.dart';
 
 class SeatReservationScreen extends StatelessWidget {
   final String titleMovie;
@@ -79,7 +79,7 @@ class SeatReservationScreen extends StatelessWidget {
                   children: [
                     Container(
                       padding: EdgeInsets.only(left: 20.0),
-                      height: 90,
+                      height: 100,
                       width: size.width,
                       child: ListView.builder(
                         physics: BouncingScrollPhysics(),
@@ -141,7 +141,8 @@ class SeatReservationScreen extends StatelessWidget {
                     color: Colors.amber,
                     borderRadius: BorderRadius.circular(8.0)),
                 child: TextFrave(
-                    text: 'Buy Ticket \$ 55.0', fontWeight: FontWeight.bold),
+                    text: 'Reserve your table \$ 55.0',
+                    fontWeight: FontWeight.bold),
               ),
             ),
           ),
