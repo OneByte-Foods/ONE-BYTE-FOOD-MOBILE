@@ -1,7 +1,7 @@
+import 'package:One_Bytes_Food/constants/global_colors.dart';
+import 'package:One_Bytes_Food/onboarding/onboarding_items.dart';
+import 'package:One_Bytes_Food/routes/app_routes.dart';
 import 'package:flutter/material.dart';
-import 'package:new_mobile_app/constants/global_colors.dart';
-import 'package:new_mobile_app/onboarding/onboarding_items.dart';
-import 'package:new_mobile_app/routes/app_routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 

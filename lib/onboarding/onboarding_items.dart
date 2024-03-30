@@ -1,4 +1,4 @@
-import 'package:new_mobile_app/onboarding/onboardig_info.dart';
+import 'package:One_Bytes_Food/onboarding/onboardig_info.dart';
 
 class OnboardingItems {
   List<OnboardingInfo> items = [

@@ -1,11 +1,10 @@
+import 'package:One_Bytes_Food/constants/global_colors.dart';
+import 'package:One_Bytes_Food/routes/app_routes.dart';
+import 'package:One_Bytes_Food/widgets/build_btn.dart';
+import 'package:One_Bytes_Food/widgets/custom_textField_widget.dart';
+import 'package:One_Bytes_Food/widgets/google_signin_btn.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:new_mobile_app/constants/global_colors.dart';
-import 'package:new_mobile_app/routes/app_routes.dart';
-import 'package:new_mobile_app/widgets/build_btn.dart';
-import 'package:new_mobile_app/widgets/custom_textField_widget.dart';
-import 'package:new_mobile_app/widgets/google_signin_btn.dart';
-import 'package:new_mobile_app/widgets/one_bytes_wigdet.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPageScreen extends StatefulWidget {
@@ -97,10 +96,16 @@ class LoginPageScreenState extends State<LoginPageScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  buildLogo(),
+                  Container(
+                    child: Image.asset(
+                      'assets/images/one_bytes_icon.png',
+                      height: 250,
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: CustomTextFormField(
+                      prefixIconData: Icons.email,
                       controller: emailController,
                       labelText: "Email address",
                       validator: (value) {
@@ -115,6 +120,7 @@ class LoginPageScreenState extends State<LoginPageScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: CustomTextFormField(
+                      prefixIconData: Icons.lock,
                       controller: passwordController,
                       labelText: "Password",
                       validator: (value) {
@@ -157,7 +163,7 @@ class LoginPageScreenState extends State<LoginPageScreen> {
             const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: buildGoogleSignInButton(context, "Login in with Google"),
+              child: GoogleSignInButton(text: "Login in with Google"),
             ),
           ],
         ),

@@ -1,11 +1,12 @@
+import 'package:One_Bytes_Food/constants/global_colors.dart';
+import 'package:One_Bytes_Food/services/database.dart';
+import 'package:One_Bytes_Food/widgets/build_btn.dart';
+import 'package:One_Bytes_Food/widgets/google_signin_btn.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:new_mobile_app/constants/global_colors.dart';
-import 'package:new_mobile_app/routes/app_routes.dart';
-import 'package:new_mobile_app/widgets/build_btn.dart';
-import 'package:new_mobile_app/widgets/custom_textField_widget.dart';
-import 'package:new_mobile_app/widgets/google_signin_btn.dart';
-import 'package:new_mobile_app/widgets/one_bytes_wigdet.dart';
+
+import '../routes/app_routes.dart';
+import '../widgets/custom_textfield_widget.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
@@ -16,16 +17,23 @@ class SignupScreen extends StatefulWidget {
 
 class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   void _registration() async {
     if (_formKey.currentState!.validate()) {
       try {
-        UserCredential userCredential = await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(
-                email: _emailController.text.trim(),
-                password: _passwordController.text.trim());
+        UserCredential userCredential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim(),
+        );
+        DatabaseMethods.randomSiginUsers(
+          userCredential,
+          _usernameController.text.trim(),
+          _emailController.text.trim(),
+        );
 
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -69,6 +77,7 @@ class _SignupScreenState extends State<SignupScreen> {
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
+    _usernameController.dispose();
     super.dispose();
   }
 
@@ -88,8 +97,26 @@ class _SignupScreenState extends State<SignupScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    buildLogo(),
+                    Container(
+                      child: Image.asset(
+                        'assets/images/one_bytes_icon.png',
+                        height: 250,
+                      ),
+                    ),
                     CustomTextFormField(
+                      prefixIconData: Icons.person,
+                      controller: _usernameController,
+                      labelText: "Username",
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your username.';
+                        }
+                        return null;
+                      },
+                    ),
+                    SizedBox(height: 20),
+                    CustomTextFormField(
+                      prefixIconData: Icons.email,
                       controller: _emailController,
                       labelText: "Email address",
                       validator: (value) {
@@ -101,6 +128,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                     SizedBox(height: 20),
                     CustomTextFormField(
+                      prefixIconData: Icons.lock,
                       controller: _passwordController,
                       labelText: "Password",
                       validator: (value) {
@@ -117,7 +145,9 @@ class _SignupScreenState extends State<SignupScreen> {
                         color: AppColors.green,
                         onPressed: _registration),
                     SizedBox(height: 20),
-                    buildGoogleSignInButton(context, "Sign up with Google"),
+                    GoogleSignInButton(
+                      text: "Sign up with Google",
+                    ),
                   ],
                 ),
               ),

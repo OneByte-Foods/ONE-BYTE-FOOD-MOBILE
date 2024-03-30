@@ -1,8 +1,8 @@
+import 'package:One_Bytes_Food/routes/app_routes.dart';
+import 'package:One_Bytes_Food/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:new_mobile_app/routes/app_routes.dart';
-import 'package:new_mobile_app/services/database.dart';
 
 class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;

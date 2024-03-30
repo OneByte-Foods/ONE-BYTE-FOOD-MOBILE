@@ -1,11 +1,12 @@
+import 'package:One_Bytes_Food/constants/global_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:new_mobile_app/constants/global_colors.dart';
 
-class CustomTextFormField extends StatelessWidget {
+class CustomTextFormField extends StatefulWidget {
   final TextEditingController controller;
   final String labelText;
   final String? Function(String?)? validator;
   final bool isPassword;
+  final IconData prefixIconData;
 
   const CustomTextFormField({
     Key? key,
@@ -13,57 +14,75 @@ class CustomTextFormField extends StatelessWidget {
     required this.labelText,
     this.validator,
     this.isPassword = false,
+    required this.prefixIconData,
   }) : super(key: key);
 
   @override
+  _CustomTextFormFieldState createState() => _CustomTextFormFieldState();
+}
+
+class _CustomTextFormFieldState extends State<CustomTextFormField> {
+  bool _isLoading = false;
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 60.0,
-      child: TextFormField(
-        controller: controller,
-        obscureText: isPassword,
-        decoration: InputDecoration(
-          labelText: labelText,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          prefixIcon: isPassword ? Icon(Icons.lock) : Icon(Icons.email),
-          suffixIcon: isPassword
-              ? IconButton(
-                  icon: Icon(
-                    Icons.visibility,
-                    size: 20,
-                  ),
-                  onPressed: () {},
-                )
-              : controller.text.isEmpty
+    return Stack(
+      children: [
+        Container(
+          width: double.infinity,
+          height: 60.0,
+          child: TextFormField(
+            controller: widget.controller,
+            obscureText: widget.isPassword,
+            decoration: InputDecoration(
+              labelText: widget.labelText,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              prefixIcon: Icon(widget.prefixIconData),
+              suffixIcon: widget.isPassword
                   ? IconButton(
                       icon: Icon(
-                        Icons.close,
+                        Icons.visibility,
                         size: 20,
                       ),
-                      onPressed: () {
-                        controller.clear();
-                      },
+                      onPressed: () {},
                     )
-                  : null,
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: AppColors.green, width: 2.0),
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.red, width: 2.0),
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          focusedErrorBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.red, width: 2.0),
-            borderRadius: BorderRadius.circular(10.0),
+                  : widget.controller.text.isEmpty
+                      ? IconButton(
+                          icon: Icon(
+                            Icons.close,
+                            size: 20,
+                          ),
+                          onPressed: () {
+                            widget.controller.clear();
+                          },
+                        )
+                      : null,
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: AppColors.green, width: 2.0),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.red, width: 2.0),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.red, width: 2.0),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+            ),
+            style: TextStyle(fontSize: 16),
+            validator: widget.validator,
           ),
         ),
-        style: TextStyle(fontSize: 16),
-        validator: validator,
-      ),
+        if (_isLoading)
+          Positioned.fill(
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          ),
+      ],
     );
   }
 }

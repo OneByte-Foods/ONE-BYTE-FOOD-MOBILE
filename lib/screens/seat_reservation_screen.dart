@@ -1,9 +1,9 @@
 import 'dart:ui';
 
+import 'package:One_Bytes_Food/model/date_time_model.dart';
+import 'package:One_Bytes_Food/widgets/textFrave.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:new_mobile_app/model/date_time_model.dart';
-import 'package:new_mobile_app/widgets/textFrave.dart';
 
 import '../bloc/cinema/cinema_bloc.dart';
 import '../model/arm_chair_model.dart';

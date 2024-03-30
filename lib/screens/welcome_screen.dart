@@ -1,7 +1,7 @@
+import 'package:One_Bytes_Food/constants/global_colors.dart';
+import 'package:One_Bytes_Food/routes/app_routes.dart';
+import 'package:One_Bytes_Food/widgets/build_btn.dart';
 import 'package:flutter/material.dart';
-import 'package:new_mobile_app/constants/global_colors.dart';
-import 'package:new_mobile_app/routes/app_routes.dart';
-import 'package:new_mobile_app/widgets/build_btn.dart';
 
 class WelcomeScreen extends StatefulWidget {
   @override

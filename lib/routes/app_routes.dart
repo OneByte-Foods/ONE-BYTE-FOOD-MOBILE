@@ -1,11 +1,11 @@
+import 'package:One_Bytes_Food/onboarding/onboarding_view.dart';
+import 'package:One_Bytes_Food/screens/forgot_password.dart';
+import 'package:One_Bytes_Food/screens/home_screen.dart';
+import 'package:One_Bytes_Food/screens/login_page.dart';
+import 'package:One_Bytes_Food/screens/seat_reservation_screen.dart';
+import 'package:One_Bytes_Food/screens/signup_screen.dart';
+import 'package:One_Bytes_Food/screens/welcome_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:new_mobile_app/onboarding/onboarding_view.dart';
-import 'package:new_mobile_app/screens/forgot_password.dart';
-import 'package:new_mobile_app/screens/home_screen.dart';
-import 'package:new_mobile_app/screens/login_page.dart';
-import 'package:new_mobile_app/screens/seat_reservation_screen.dart';
-import 'package:new_mobile_app/screens/signup_screen.dart';
-import 'package:new_mobile_app/screens/welcome_screen.dart';
 
 class AppRoutes {
 // route names
