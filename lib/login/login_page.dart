@@ -1,10 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:new_mobile_app/constants/app_style.dart';
 import 'package:new_mobile_app/constants/global_colors.dart';
 import 'package:new_mobile_app/routes/app_routes.dart';
-import 'package:new_mobile_app/services/auth.dart';
-import 'package:new_mobile_app/widgets/one_bytes_wigdet.dart';
+import 'package:new_mobile_app/widgets/build_btn.dart';
+import 'package:new_mobile_app/widgets/google_signin_btn.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPageScreen extends StatefulWidget {
@@ -55,7 +54,7 @@ class LoginPageScreenState extends State<LoginPageScreen> {
         email: emailController.text,
         password: passwordController.text,
       );
-      await _setLoggedInStatus(true);
+      await setLoggedInStatus(true);
       Navigator.pushNamed(context, AppRoutes.homePageScreen);
     } on FirebaseAuthException catch (e) {
       String errorMessage = 'An error occurred';
@@ -85,11 +84,6 @@ class LoginPageScreenState extends State<LoginPageScreen> {
     }
   }
 
-  Future<void> _setLoggedInStatus(bool isLoggedIn) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('isLoggedIn', isLoggedIn);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,15 +91,7 @@ class LoginPageScreenState extends State<LoginPageScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            buildLogo(),
-            const SizedBox(height: 20),
-            Text(
-              'Login',
-              style: TextStyle(
-                fontSize: 35,
-                fontFamily: 'MadimiOne',
-              ),
-            ),
+            SizedBox(height: 40),
             Form(
               key: _formKey,
               child: Column(
@@ -157,27 +143,28 @@ class LoginPageScreenState extends State<LoginPageScreen> {
                       },
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 200),
+                    child: TextButton(
+                      onPressed: _navigateToForgotPassword,
+                      child: Text(
+                        'Forgot Password?',
+                        style: TextStyle(
+                            fontSize: 14,
+                            color: AppColors.green,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                  ),
                   const SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          userLogin();
-                        }
-                      },
-                      child: Text('Login'),
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: _navigateToForgotPassword,
-                    child: Text(
-                      'Forgot Password?',
-                      style: TextStyle(
-                        fontSize: 14,
-                        decoration: TextDecoration.underline,
-                      ),
-                    ),
+                    child: buildButton(context,
+                        text: "Login", color: AppColors.green, onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        userLogin();
+                      }
+                    }),
                   ),
                 ],
               ),
@@ -187,74 +174,9 @@ class LoginPageScreenState extends State<LoginPageScreen> {
             const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _buildGoogleSignInButton(),
-                  const SizedBox(height: 20),
-                  Text(
-                    'or',
-                    style: AppStyles.text14PxRegular.copyWith(fontSize: 14),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, AppRoutes.signUpPage);
-                    },
-                    child: Text(
-                      'Continue with your email',
-                      style: AppStyles.text14PxRegular.copyWith(
-                        fontSize: 14,
-                        decoration: TextDecoration.underline,
-                      ),
-                    ),
-                  )
-                ],
-              ),
+              child: buildGoogleSignInButton(context),
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildGoogleSignInButton() {
-    return Container(
-      height: 50,
-      width: 300,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
-        color: AppColors.white,
-      ),
-      child: ElevatedButton(
-        onPressed: () async {
-          await _setLoggedInStatus(true);
-          AuthMethods().signInWithGoogle(context);
-        },
-        style: ElevatedButton.styleFrom(
-          foregroundColor: AppColors.pitchColor,
-          backgroundColor: AppColors.white,
-          elevation: 5,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5),
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Image.asset(
-                'assets/icons/google_icon.png',
-                scale: 20,
-              ),
-              Text(
-                'Continue with Google',
-                style: TextStyle(
-                  fontSize: 14,
-                ),
-              ),
-            ],
-          ),
         ),
       ),
     );

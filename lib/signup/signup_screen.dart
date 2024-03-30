@@ -1,8 +1,9 @@
-// Revised code with improvements and fixes
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:new_mobile_app/constants/global_colors.dart';
 import 'package:new_mobile_app/routes/app_routes.dart';
+import 'package:new_mobile_app/widgets/build_btn.dart';
+import 'package:new_mobile_app/widgets/google_signin_btn.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
@@ -79,13 +80,6 @@ class _SignupScreenState extends State<SignupScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Logo widget
-              SizedBox(height: 100),
-              Text(
-                'Sign Up',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
               SizedBox(height: 20),
               Form(
                 key: _formKey,
@@ -121,10 +115,12 @@ class _SignupScreenState extends State<SignupScreen> {
                       },
                     ),
                     SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: _registration,
-                      child: Text('Sign Up'),
-                    ),
+                    buildButton(context,
+                        text: "Registration",
+                        color: AppColors.green,
+                        onPressed: _registration),
+                    SizedBox(height: 20),
+                    buildGoogleSignInButton(context),
                   ],
                 ),
               ),
