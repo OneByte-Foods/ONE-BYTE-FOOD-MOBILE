@@ -3,7 +3,7 @@ import 'package:new_mobile_app/constants/global_colors.dart';
 import 'package:new_mobile_app/services/auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-Widget buildGoogleSignInButton(BuildContext context) {
+Widget buildGoogleSignInButton(BuildContext context, String text) {
   return Container(
     height: 50,
     width: 300,
@@ -34,7 +34,7 @@ Widget buildGoogleSignInButton(BuildContext context) {
               scale: 20,
             ),
             Text(
-              'Continue with Google',
+              text,
               style: TextStyle(
                 fontSize: 14,
               ),

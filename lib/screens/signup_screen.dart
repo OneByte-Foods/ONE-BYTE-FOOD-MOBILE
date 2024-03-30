@@ -5,6 +5,7 @@ import 'package:new_mobile_app/routes/app_routes.dart';
 import 'package:new_mobile_app/widgets/build_btn.dart';
 import 'package:new_mobile_app/widgets/custom_textField_widget.dart';
 import 'package:new_mobile_app/widgets/google_signin_btn.dart';
+import 'package:new_mobile_app/widgets/one_bytes_wigdet.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
@@ -87,6 +88,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
+                    buildLogo(),
                     CustomTextFormField(
                       controller: _emailController,
                       labelText: "Email address",
@@ -115,7 +117,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         color: AppColors.green,
                         onPressed: _registration),
                     SizedBox(height: 20),
-                    buildGoogleSignInButton(context),
+                    buildGoogleSignInButton(context, "Sign up with Google"),
                   ],
                 ),
               ),

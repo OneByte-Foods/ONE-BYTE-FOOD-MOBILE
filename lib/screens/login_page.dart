@@ -5,6 +5,7 @@ import 'package:new_mobile_app/routes/app_routes.dart';
 import 'package:new_mobile_app/widgets/build_btn.dart';
 import 'package:new_mobile_app/widgets/custom_textField_widget.dart';
 import 'package:new_mobile_app/widgets/google_signin_btn.dart';
+import 'package:new_mobile_app/widgets/one_bytes_wigdet.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPageScreen extends StatefulWidget {
@@ -19,8 +20,6 @@ class LoginPageScreenState extends State<LoginPageScreen> {
   late TextEditingController passwordController;
   bool isLoading = false;
   final _formKey = GlobalKey<FormState>();
-
-  bool _obscureText = true;
 
   @override
   void initState() {
@@ -98,6 +97,7 @@ class LoginPageScreenState extends State<LoginPageScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  buildLogo(),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: CustomTextFormField(
@@ -157,7 +157,7 @@ class LoginPageScreenState extends State<LoginPageScreen> {
             const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: buildGoogleSignInButton(context),
+              child: buildGoogleSignInButton(context, "Login in with Google"),
             ),
           ],
         ),

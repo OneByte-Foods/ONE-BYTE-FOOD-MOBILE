@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:new_mobile_app/constants/global_colors.dart';
-import 'package:new_mobile_app/screens/login_page.dart';
-import 'package:new_mobile_app/screens/signup_screen.dart';
+import 'package:new_mobile_app/routes/app_routes.dart';
 import 'package:new_mobile_app/widgets/build_btn.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -23,37 +22,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   void dispose() {
     _pageController.dispose();
     super.dispose();
-  }
-
-  void _popSignup(BuildContext context) {
-    final snackBar = SnackBar(
-      duration: Duration(seconds: 10),
-      elevation: 0,
-      backgroundColor: Colors.transparent,
-      behavior: SnackBarBehavior.fixed,
-      content: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50),
-          color: Colors.white,
-        ),
-        height: 600,
-        width: 400,
-        child: PageView(
-          controller: _pageController,
-          onPageChanged: (index) {
-            setState(() {
-              _currentPageIndex = index;
-            });
-          },
-          children: [
-            SignupScreen(),
-            LoginPageScreen(),
-          ],
-        ),
-      ),
-    );
-
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   @override
@@ -95,7 +63,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             text: 'Get Started',
             color: AppColors.green,
             onPressed: () {
-              _popSignup(context);
+              Navigator.pushNamed(context, AppRoutes.signUpPage);
             },
           ),
           SizedBox(height: 10),
@@ -105,7 +73,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             color: AppColors.pitchGreenColor,
             textColor: AppColors.pitchGreenLightColor,
             onPressed: () {
-              // Add your logic here
+              Navigator.pushNamed(context, AppRoutes.loginPageScreen);
             },
           ),
           Padding(
