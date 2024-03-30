@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
 import 'package:new_mobile_app/bloc/cinema/cinema_bloc.dart';
-import 'package:new_mobile_app/seat%20reservation/screen/seat_reservation_screen.dart';
+import 'package:new_mobile_app/screens/seat_reservation_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);

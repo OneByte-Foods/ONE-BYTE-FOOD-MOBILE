@@ -5,9 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mobile_app/model/date_time_model.dart';
 import 'package:new_mobile_app/widgets/textFrave.dart';
 
-import '../../bloc/cinema/cinema_bloc.dart';
-import '../../model/arm_chair_model.dart';
-import '../../widgets/seat_row.dart';
+import '../bloc/cinema/cinema_bloc.dart';
+import '../model/arm_chair_model.dart';
+import '../widgets/seat_row.dart';
 
 class SeatReservationScreen extends StatelessWidget {
   final String titleMovie;

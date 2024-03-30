@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:new_mobile_app/constants/global_colors.dart';
-import 'package:new_mobile_app/login/login_page.dart';
-import 'package:new_mobile_app/signup/signup_screen.dart';
+import 'package:new_mobile_app/screens/login_page.dart';
+import 'package:new_mobile_app/screens/signup_screen.dart';
 import 'package:new_mobile_app/widgets/build_btn.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -33,9 +33,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       behavior: SnackBarBehavior.fixed,
       content: Container(
         decoration: BoxDecoration(
-          borderRadius:
-              BorderRadius.circular(50), // Adjust the border radius as needed
-          color: Colors.white, // Add a background color if needed
+          borderRadius: BorderRadius.circular(50),
+          color: Colors.white,
         ),
         height: 600,
         width: 400,

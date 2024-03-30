@@ -2,10 +2,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
 import 'package:new_mobile_app/firebase_options.dart';
-import 'package:new_mobile_app/home/home_screen.dart';
-import 'package:new_mobile_app/login/login_page.dart';
 import 'package:new_mobile_app/onboarding/onboarding_view.dart';
 import 'package:new_mobile_app/routes/app_routes.dart';
+import 'package:new_mobile_app/screens/home_screen.dart';
+import 'package:new_mobile_app/screens/login_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
