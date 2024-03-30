@@ -1,15 +1,18 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:new_mobile_app/bloc/cinema/cinema_bloc.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
 import 'package:new_mobile_app/firebase_options.dart';
-import 'package:new_mobile_app/home/home_screen.dart';
 import 'package:new_mobile_app/login/login_page.dart';
 import 'package:new_mobile_app/onboarding/onboarding_view.dart';
 import 'package:new_mobile_app/routes/app_routes.dart';
+import 'package:new_mobile_app/seat%20reservation/screen/seat_reservation_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // Initialize Firebase
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   final prefs = await SharedPreferences.getInstance();
   final onboarding = prefs.getBool('onboarding') ?? false;
@@ -30,7 +33,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget initialRoute;
     if (isLoggedIn) {
-      initialRoute = HomeScreen();
+      initialRoute = BlocProvider<CinemaBloc>(
+        create: (context) => CinemaBloc(),
+        child: SeatReservationScreen(
+          titleMovie: "Seat Reservation",
+          key: key,
+        ),
+      );
     } else if (onboarding) {
       initialRoute = LoginPageScreen();
     } else {

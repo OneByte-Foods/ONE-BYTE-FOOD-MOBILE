@@ -17,7 +17,7 @@ class LoginPageScreen extends StatefulWidget {
 class LoginPageScreenState extends State<LoginPageScreen> {
   late TextEditingController emailController;
   late TextEditingController passwordController;
-
+  bool isLoading = false;
   final _formKey = GlobalKey<FormState>();
 
   bool _obscureText = true;
