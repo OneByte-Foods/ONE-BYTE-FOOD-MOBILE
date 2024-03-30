@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:khalti_flutter/khalti_flutter.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
@@ -17,9 +18,13 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    if (index == 4) {
+      payWithKhaltiInApp();
+    } else {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
   }
 
   @override
@@ -46,6 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
             buildBottomNavItem(Icons.shopping_cart, "Shop", 1),
             buildBottomNavItem(Icons.favorite, "Fav", 2),
             buildBottomNavItem(Icons.settings, "Setting", 3),
+            buildBottomNavItem(Icons.payment, "Khalti", 4),
           ],
         ),
       ),
@@ -73,6 +79,51 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
     );
+  }
+
+  payWithKhaltiInApp() {
+    KhaltiScope.of(context).pay(
+      config: PaymentConfig(
+        amount: 1000, //in paisa
+        productIdentity: 'Product Id',
+        productName: 'Product Name',
+        mobileReadOnly: false,
+      ),
+      preferences: [
+        PaymentPreference.khalti,
+      ],
+      onSuccess: onSuccess,
+      onFailure: onFailure,
+      onCancel: onCancel,
+    );
+  }
+
+  void onSuccess(PaymentSuccessModel success) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Payment Successful'),
+          actions: [
+            SimpleDialogOption(
+                child: const Text('OK'),
+                onPressed: () {
+                  Navigator.pop(context);
+                })
+          ],
+        );
+      },
+    );
+  }
+
+  void onFailure(PaymentFailureModel failure) {
+    debugPrint(
+      failure.toString(),
+    );
+  }
+
+  void onCancel() {
+    debugPrint('Cancelled');
   }
 }
 
