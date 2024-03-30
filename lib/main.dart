@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mobile_app/bloc/cinema/cinema_bloc.dart';
+import 'package:khalti_flutter/khalti_flutter.dart';
 import 'package:new_mobile_app/firebase_options.dart';
 import 'package:new_mobile_app/login/login_page.dart';
 import 'package:new_mobile_app/onboarding/onboarding_view.dart';
@@ -45,15 +46,25 @@ class MyApp extends StatelessWidget {
       initialRoute = OnBoardingView();
     }
 
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: initialRoute,
-      routes: AppRoutes.routes,
+    return KhaltiScope(
+      publicKey: "test_public_key_36942feb1dbd4caa9a724433cdf0254f",
+      enabledDebugging: true,
+      builder: (context, navKey) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            useMaterial3: true,
+          ),
+          home: initialRoute,
+          navigatorKey: navKey,
+          routes: AppRoutes.routes,
+          localizationsDelegates: const [
+            KhaltiLocalizations.delegate,
+          ],
+        );
+      },
     );
   }
 }
