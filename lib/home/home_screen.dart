@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
+import 'package:new_mobile_app/bloc/cinema/cinema_bloc.dart';
+import 'package:new_mobile_app/seat%20reservation/screen/seat_reservation_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -12,7 +15,12 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
   final List<Widget> _pages = [
     HomePage(),
-    ShopPage(),
+    BlocProvider<CinemaBloc>(
+      create: (context) => CinemaBloc(),
+      child: SeatReservationScreen(
+        titleMovie: "Seat Reservation",
+      ),
+    ),
     FavoritesPage(),
     SettingsPage(),
   ];
@@ -131,22 +139,12 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.red, // Example color, replace with your content
+      color: Colors.yellow,
       child: Center(
-        child: Text('Home Page'),
-      ),
-    );
-  }
-}
-
-class ShopPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.blue, // Example color, replace with your content
-      child: Center(
-        child: Text('Shop Page'),
-      ),
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [],
+      )),
     );
   }
 }
