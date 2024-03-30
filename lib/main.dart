@@ -35,7 +35,6 @@ class MyApp extends StatelessWidget {
       initialRoute = BlocProvider<CinemaBloc>(
         create: (context) => CinemaBloc(),
         child: SeatReservationScreen(
-          imageMovie: "assets/images/image.png",
           titleMovie: "Seat Reservation",
           key: key,
         ),

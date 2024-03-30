@@ -2,21 +2,20 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:new_mobile_app/model/arm_chair_model.dart';
 import 'package:new_mobile_app/model/date_time_model.dart';
-import 'package:new_mobile_app/widgets/painter_screen.dart';
-import 'package:new_mobile_app/widgets/seat_row.dart';
 import 'package:new_mobile_app/widgets/textFrave.dart';
 
 import '../../bloc/cinema/cinema_bloc.dart';
+import '../../model/arm_chair_model.dart';
+import '../../widgets/seat_row.dart';
 
 class SeatReservationScreen extends StatelessWidget {
   final String titleMovie;
-  final String imageMovie;
 
-  const SeatReservationScreen(
-      {Key? key, required this.titleMovie, required this.imageMovie})
-      : super(key: key);
+  const SeatReservationScreen({
+    Key? key,
+    required this.titleMovie,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +31,8 @@ class SeatReservationScreen extends StatelessWidget {
             width: size.width,
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    fit: BoxFit.cover, image: AssetImage(imageMovie))),
+                    fit: BoxFit.cover,
+                    image: AssetImage("assets/images/Onboarding_2.gif"))),
             child: Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(begin: Alignment.bottomRight, colors: [
@@ -98,13 +98,7 @@ class SeatReservationScreen extends StatelessWidget {
                           itemBuilder: (_, i) =>
                               _ItemTime(time: DateTimeModel.listTime[i])),
                     ),
-                    SizedBox(height: 15.0),
-                    PainterScreenMovie(),
-                    TextFrave(
-                        text: 'Screen',
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500),
-                    SizedBox(height: 40.0),
+                    SizedBox(height: 55.0),
                     Container(
                         height: 240,
                         width: size.width,
@@ -120,7 +114,7 @@ class SeatReservationScreen extends StatelessWidget {
                                         ArmChairsModel.listChairs[i].rowSeats,
                                   )),
                         )),
-                    SizedBox(height: 10.0),
+                    SizedBox(height: 55.0),
                     _ItemsDescription(size: size)
                   ],
                 ),
