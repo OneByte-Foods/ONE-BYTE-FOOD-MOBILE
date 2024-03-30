@@ -10,6 +10,9 @@ class AppColors {
   static const Color white = Color(0xFFFFFFFF);
   static const Color green = Color(0xfff32B768);
   static const Color pitchWhiteColor = Color(0xFFDCEDFF);
+  static const Color pitchBlackColor = Color(0xFF1F2937);
+  static const Color pitchGreenColor = Color(0xFFD1FAE5);
+  static const Color pitchGreenLightColor = Color(0xFF10B981);
   static const Color successColor = Color(0xFF23A462);
   static const Color warningColor = Color(0xFFE74C3C);
   static const Color pendingColor = Color(0xFFF39C12);

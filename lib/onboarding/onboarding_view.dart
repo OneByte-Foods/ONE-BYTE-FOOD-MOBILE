@@ -84,7 +84,7 @@ class OnBoardingViewState extends State<OnBoardingView> {
                       controller.items[index].description,
                       style: TextStyle(
                         color: Color(0xff4B5563),
-                        fontSize: 12,
+                        fontSize: 14,
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -113,7 +113,7 @@ Widget getStarted(BuildContext context, mounted) {
         pres.setBool('onboarding', true);
 
         if (!mounted) return;
-        Navigator.pushNamed(context, AppRoutes.loginPageScreen);
+        Navigator.pushNamed(context, AppRoutes.welcomeScreen);
       },
       child: Text(
         'Get Started',

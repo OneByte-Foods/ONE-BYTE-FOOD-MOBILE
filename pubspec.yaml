@@ -96,10 +96,9 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: MadimiOne
+    - family: Inter
       fonts:
-        - asset: assets/fonts/MadimiOne-Regular.ttf
-          weight: 200
+        - asset: assets/fonts/Inter-Regular.ttf
 
   #
   # For details regarding fonts from package dependencies,
