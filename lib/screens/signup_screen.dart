@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:new_mobile_app/constants/global_colors.dart';
 import 'package:new_mobile_app/routes/app_routes.dart';
 import 'package:new_mobile_app/widgets/build_btn.dart';
+import 'package:new_mobile_app/widgets/custom_textField_widget.dart';
 import 'package:new_mobile_app/widgets/google_signin_btn.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -86,12 +87,9 @@ class _SignupScreenState extends State<SignupScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    TextFormField(
+                    CustomTextFormField(
                       controller: _emailController,
-                      decoration: InputDecoration(
-                        labelText: 'Email',
-                        border: OutlineInputBorder(),
-                      ),
+                      labelText: "Email address",
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your email address.';
@@ -100,19 +98,16 @@ class _SignupScreenState extends State<SignupScreen> {
                       },
                     ),
                     SizedBox(height: 20),
-                    TextFormField(
+                    CustomTextFormField(
                       controller: _passwordController,
-                      decoration: InputDecoration(
-                        labelText: 'Password',
-                        border: OutlineInputBorder(),
-                      ),
-                      obscureText: true,
+                      labelText: "Password",
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter a password.';
+                          return 'Please enter your password.';
                         }
                         return null;
                       },
+                      isPassword: true,
                     ),
                     SizedBox(height: 20),
                     buildButton(context,

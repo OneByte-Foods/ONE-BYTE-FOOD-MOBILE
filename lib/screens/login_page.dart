@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:new_mobile_app/constants/global_colors.dart';
 import 'package:new_mobile_app/routes/app_routes.dart';
 import 'package:new_mobile_app/widgets/build_btn.dart';
+import 'package:new_mobile_app/widgets/custom_textField_widget.dart';
 import 'package:new_mobile_app/widgets/google_signin_btn.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -99,12 +100,9 @@ class LoginPageScreenState extends State<LoginPageScreen> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: TextFormField(
+                    child: CustomTextFormField(
                       controller: emailController,
-                      decoration: InputDecoration(
-                        labelText: 'Email',
-                        border: OutlineInputBorder(),
-                      ),
+                      labelText: "Email address",
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your email address.';
@@ -116,31 +114,16 @@ class LoginPageScreenState extends State<LoginPageScreen> {
                   const SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: TextFormField(
+                    child: CustomTextFormField(
                       controller: passwordController,
-                      obscureText: _obscureText,
-                      decoration: InputDecoration(
-                        labelText: 'Password',
-                        border: OutlineInputBorder(),
-                        suffixIcon: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              _obscureText = !_obscureText;
-                            });
-                          },
-                          child: Icon(
-                            _obscureText
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                          ),
-                        ),
-                      ),
+                      labelText: "Password",
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter a password.';
+                          return 'Please enter your password.';
                         }
                         return null;
                       },
+                      isPassword: true,
                     ),
                   ),
                   Padding(
