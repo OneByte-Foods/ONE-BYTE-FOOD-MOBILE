@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:new_mobile_app/constants/global_colors.dart';
 import 'package:new_mobile_app/onboarding/onboarding_items.dart';
 import 'package:new_mobile_app/routes/app_routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -28,7 +29,10 @@ class OnBoardingViewState extends State<OnBoardingView> {
                   onPressed: () {
                     pageController.jumpToPage(controller.items.length - 1);
                   },
-                  child: Text('Skip'),
+                  child: Text(
+                    'Skip',
+                    style: TextStyle(color: AppColors.green),
+                  ),
                 ),
                 SmoothPageIndicator(
                   onDotClicked: (index) {
@@ -38,16 +42,20 @@ class OnBoardingViewState extends State<OnBoardingView> {
                   },
                   controller: pageController,
                   count: controller.items.length,
-                  effect: WormEffect(activeDotColor: Colors.purple),
+                  effect: WormEffect(
+                    activeDotColor: AppColors.green,
+                    dotColor: Color(0xffE6E6E6),
+                  ),
                 ),
                 TextButton(
-                  onPressed: () {
-                    pageController.nextPage(
-                        duration: Duration(milliseconds: 300),
-                        curve: Curves.easeIn);
-                  },
-                  child: Text('Next'),
-                )
+                    onPressed: () {
+                      pageController.nextPage(
+                          duration: Duration(milliseconds: 300),
+                          curve: Curves.easeIn);
+                    },
+                    child: SizedBox(
+                      child: Image.asset('assets/icons/arrow.png'),
+                    ))
               ]),
       ),
       body: Center(
@@ -67,16 +75,19 @@ class OnBoardingViewState extends State<OnBoardingView> {
                   SizedBox(height: 15),
                   Text(
                     controller.items[index].title,
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 15),
-                  Text(
-                    controller.items[index].description,
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 17,
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(
+                      controller.items[index].description,
+                      style: TextStyle(
+                        color: Color(0xff4B5563),
+                        fontSize: 12,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
-                    textAlign: TextAlign.center,
                   )
                 ],
               );
@@ -92,7 +103,7 @@ Widget getStarted(BuildContext context, mounted) {
   return Container(
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(12),
-      color: Colors.purple,
+      color: AppColors.green,
     ),
     width: MediaQuery.of(context).size.width * .9,
     height: 55,
