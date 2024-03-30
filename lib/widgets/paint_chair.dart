@@ -30,15 +30,6 @@ class _PainterChair extends CustomPainter {
     final path = Path();
 
     path.moveTo(0, size.height * .2);
-    path.lineTo(size.width * .2, size.height * .25);
-    path.lineTo(size.width * .2, size.height * .7);
-    path.lineTo(size.width * .1, size.height);
-    path.lineTo(size.width * .2, size.height * .7);
-    path.lineTo(size.width * .8, size.height * .7);
-    path.lineTo(size.width * .95, size.height);
-    path.lineTo(size.width * .8, size.height * .7);
-    path.lineTo(size.width * .8, size.height * .25);
-    path.lineTo(size.width, size.height * .2);
 
     canvas.drawPath(path, paint);
   }

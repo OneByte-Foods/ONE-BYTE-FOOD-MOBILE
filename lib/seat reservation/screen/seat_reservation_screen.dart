@@ -55,23 +55,20 @@ class SeatReservationScreen extends StatelessWidget {
             ),
           ),
           Positioned(
-              top: 30,
-              child: Container(
+            top: 30,
+            child: Container(
+                margin: EdgeInsets.symmetric(vertical: 10),
                 width: size.width,
-                child: IconButton(
-                    onPressed: () => Navigator.pop(context),
-                    icon: Row(
-                      children: [
-                        Icon(Icons.arrow_back_ios_new_rounded,
-                            color: Colors.white),
-                        SizedBox(width: 20.0),
-                        TextFrave(
-                            text: titleMovie,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold)
-                      ],
-                    )),
-              )),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextFrave(
+                        text: titleMovie,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold)
+                  ],
+                )),
+          ),
           Positioned(
               top: 100,
               child: Container(

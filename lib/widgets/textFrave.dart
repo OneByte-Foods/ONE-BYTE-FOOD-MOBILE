@@ -23,7 +23,7 @@ class TextFrave extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: GoogleFonts.getFont('Roboto',
+      style: GoogleFonts.getFont('Poppins',
           fontSize: fontSize, fontWeight: fontWeight, color: color),
       overflow: textOverflow,
       maxLines: maxLines,
