@@ -48,6 +48,9 @@ class LoginPageScreenState extends State<LoginPageScreen> {
   }
 
   userLogin() async {
+    setState(() {
+      isLoading = true;
+    });
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text,
@@ -80,6 +83,10 @@ class LoginPageScreenState extends State<LoginPageScreen> {
           ),
         ),
       );
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 
@@ -148,12 +155,24 @@ class LoginPageScreenState extends State<LoginPageScreen> {
                   const SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: buildButton(context,
-                        text: "Login", color: AppColors.green, onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        userLogin();
-                      }
-                    }),
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        buildButton(context,
+                            text: isLoading ? "" : "Login",
+                            color: AppColors.green, onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            userLogin();
+                          }
+                        }),
+                        if (isLoading)
+                          Positioned(
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
+                          ),
+                      ],
+                    ),
                   ),
                 ],
               ),

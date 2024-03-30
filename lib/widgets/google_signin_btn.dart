@@ -49,7 +49,9 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
           ),
         ),
         child: isLoading
-            ? CircularProgressIndicator()
+            ? CircularProgressIndicator(
+                color: Colors.white,
+              )
             : Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Row(

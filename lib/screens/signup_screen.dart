@@ -19,10 +19,14 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool isLoading = false;
   final _formKey = GlobalKey<FormState>();
 
   void _registration() async {
     if (_formKey.currentState!.validate()) {
+      setState(() {
+        isLoading = true;
+      });
       try {
         UserCredential userCredential =
             await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -69,6 +73,10 @@ class _SignupScreenState extends State<SignupScreen> {
             ),
           ),
         );
+      } finally {
+        setState(() {
+          isLoading = false;
+        });
       }
     }
   }
@@ -95,7 +103,7 @@ class _SignupScreenState extends State<SignupScreen> {
               Form(
                 key: _formKey,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
                       child: Image.asset(
@@ -140,10 +148,16 @@ class _SignupScreenState extends State<SignupScreen> {
                       isPassword: true,
                     ),
                     SizedBox(height: 20),
-                    buildButton(context,
-                        text: "Registration",
-                        color: AppColors.green,
-                        onPressed: _registration),
+                    isLoading
+                        ? CircularProgressIndicator(
+                            color: Colors.green,
+                          )
+                        : Container(
+                            child: buildButton(context,
+                                text: "Registration",
+                                color: AppColors.green,
+                                onPressed: _registration),
+                          ),
                     SizedBox(height: 20),
                     GoogleSignInButton(
                       text: "Sign up with Google",
