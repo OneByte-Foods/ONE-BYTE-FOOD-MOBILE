@@ -105,12 +105,6 @@ class _SignupScreenState extends State<SignupScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Container(
-                      child: Image.asset(
-                        'assets/images/one_bytes_icon.png',
-                        height: 250,
-                      ),
-                    ),
                     CustomTextFormField(
                       prefixIconData: Icons.person,
                       controller: _usernameController,

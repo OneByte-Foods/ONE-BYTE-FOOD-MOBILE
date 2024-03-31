@@ -1,5 +1,5 @@
 import 'package:One_Bytes_Food/constants/global_colors.dart';
-import 'package:One_Bytes_Food/routes/app_routes.dart';
+import 'package:One_Bytes_Food/widgets/bottom_modal_sheet.dart';
 import 'package:One_Bytes_Food/widgets/build_btn.dart';
 import 'package:flutter/material.dart';
 
@@ -8,19 +8,22 @@ class WelcomeScreen extends StatefulWidget {
   _WelcomeScreenState createState() => _WelcomeScreenState();
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen> {
-  late PageController _pageController;
+class _WelcomeScreenState extends State<WelcomeScreen>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController = TabController(
+    length: 2,
+    vsync: this,
+  );
   int _currentPageIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    _pageController = PageController(initialPage: _currentPageIndex);
   }
 
   @override
   void dispose() {
-    _pageController.dispose();
+    _tabController.dispose();
     super.dispose();
   }
 
@@ -63,7 +66,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             text: 'Get Started',
             color: AppColors.green,
             onPressed: () {
-              Navigator.pushNamed(context, AppRoutes.signUpPage);
+              modalBottomSheet(context, _tabController);
+              // Navigator.pushNamed(context, AppRoutes.signUpPage);
             },
           ),
           SizedBox(height: 10),
@@ -73,7 +77,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             color: AppColors.pitchGreenColor,
             textColor: AppColors.pitchGreenLightColor,
             onPressed: () {
-              Navigator.pushNamed(context, AppRoutes.loginPageScreen);
+              modalBottomSheet(context, _tabController);
+
+              // Navigator.pushNamed(context, AppRoutes.loginPageScreen);
             },
           ),
           Padding(
