@@ -58,7 +58,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           ),
         ));
       }
+      print(e);
     }
+    Navigator.pushNamed(context, AppRoutes.backEmailScreen);
   }
 
   @override
@@ -123,7 +125,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                           text: 'Sign in',
                           style: TextStyle(color: Colors.green),
                           recognizer: TapGestureRecognizer()
-                            ..onTap = () => AppRoutes.signUpPage,
+                            ..onTap = () => Navigator.pushReplacementNamed(
+                                context, AppRoutes.signUpPage),
                         ),
                       ],
                     ),
