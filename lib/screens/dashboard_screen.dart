@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class DashboardScreen extends StatefulWidget {
+  const DashboardScreen({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<DashboardScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<DashboardScreen> {
   int _selectedIndex = 0;
   final List<Widget> _pages = [
     HomePage(),
@@ -38,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green[50],
+      backgroundColor: Colors.transparent,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
@@ -57,7 +57,6 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             buildBottomNavItem(Icons.home, "Home", 0),
             buildBottomNavItem(Icons.shopping_cart, "Shop", 1),
-            buildBottomNavItem(Icons.favorite, "Fav", 2),
             buildBottomNavItem(Icons.settings, "Setting", 3),
             buildBottomNavItem(Icons.payment, "Khalti", 4),
           ],
@@ -153,7 +152,7 @@ class FavoritesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.green, // Example color, replace with your content
+      color: Colors.green,
       child: Center(
         child: Text('Favorites Page'),
       ),

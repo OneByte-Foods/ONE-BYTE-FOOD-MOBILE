@@ -2,7 +2,7 @@ import 'package:One_Bytes_Food/constants/global_colors.dart';
 import 'package:One_Bytes_Food/firebase_options.dart';
 import 'package:One_Bytes_Food/onboarding/onboarding_view.dart';
 import 'package:One_Bytes_Food/routes/app_routes.dart';
-import 'package:One_Bytes_Food/screens/home_screen.dart';
+import 'package:One_Bytes_Food/screens/dashboard_screen.dart';
 import 'package:One_Bytes_Food/screens/login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -32,13 +32,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget initialRoute;
     if (isLoggedIn) {
-      initialRoute = HomeScreen();
+      initialRoute = DashboardScreen();
     } else if (onboarding) {
       initialRoute = LoginPageScreen();
     } else {
       initialRoute = OnBoardingView();
     }
-
     return KhaltiScope(
       publicKey: "test_public_key_36942feb1dbd4caa9a724433cdf0254f",
       enabledDebugging: true,
