@@ -1,4 +1,6 @@
 import 'package:One_Bytes_Food/bloc/cinema/cinema_bloc.dart';
+import 'package:One_Bytes_Food/constants/global_colors.dart';
+import 'package:One_Bytes_Food/screens/home_page_screen.dart';
 import 'package:One_Bytes_Food/screens/seat_reservation_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -38,7 +40,7 @@ class _HomeScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: Colors.white,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
@@ -67,7 +69,7 @@ class _HomeScreenState extends State<DashboardScreen> {
   }
 
   Widget buildBottomNavItem(IconData icon, String label, int index) {
-    return InkWell(
+    return GestureDetector(
       onTap: () {
         _onItemTapped(index);
       },
@@ -76,12 +78,14 @@ class _HomeScreenState extends State<DashboardScreen> {
         children: [
           Icon(
             icon,
-            color: Colors.white,
+            color: index == _selectedIndex ? AppColors.green : AppColors.white,
           ),
           SizedBox(height: 4),
           Text(
             label,
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(
+                color:
+                    index == _selectedIndex ? AppColors.green : Colors.white),
           ),
         ],
       ),
@@ -131,20 +135,6 @@ class _HomeScreenState extends State<DashboardScreen> {
 
   void onCancel() {
     debugPrint('Cancelled');
-  }
-}
-
-class HomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.yellow,
-      child: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [],
-      )),
-    );
   }
 }
 

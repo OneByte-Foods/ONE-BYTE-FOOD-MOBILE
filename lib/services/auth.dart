@@ -1,8 +1,10 @@
-import 'package:One_Bytes_Food/routes/app_routes.dart';
 import 'package:One_Bytes_Food/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
+import '../models/user_information_model.dart';
+import '../routes/app_routes.dart';
 
 class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -11,7 +13,7 @@ class AuthMethods {
     return _auth.currentUser;
   }
 
-  Future<void> signInWithGoogle(context) async {
+  Future<void> signInWithGoogle(BuildContext context) async {
     try {
       final GoogleSignIn googleSignIn = GoogleSignIn();
       final GoogleSignInAccount? googleSignInAccount =
@@ -30,14 +32,10 @@ class AuthMethods {
         final User? userDetails = result.user;
 
         if (userDetails != null) {
-          final userInfoMap = {
-            "email": userDetails.email,
-            "username": userDetails.displayName,
-            "imgUrl": userDetails.photoURL,
-            "id": userDetails.uid,
-          };
+          final userInformation = UserInformation.fromUser(userDetails);
 
-          await DatabaseMethods.addUser(userDetails.uid, userInfoMap);
+          await DatabaseMethods.addUser(
+              userDetails.uid, userInformation.toMap());
           Navigator.pushNamed(context, AppRoutes.homePageScreen);
           return;
         }

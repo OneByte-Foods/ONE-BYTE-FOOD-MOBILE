@@ -25,5 +25,5 @@ class AppColors {
   static const Color inactiveColor = Color(0xFF929CA6);
   static const Color dividerColor = Color(0xFFE0E0E0);
 
-  static const Color scaffoldBackgroundColor = Color(0xffF9F9F9);
+  static const Color scaffoldBackgroundColor = Color(0xffF6F6F6);
 }
