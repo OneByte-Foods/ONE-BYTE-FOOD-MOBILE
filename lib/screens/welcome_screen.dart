@@ -80,7 +80,6 @@ class _WelcomeScreenState extends State<WelcomeScreen>
             textColor: AppColors.pitchGreenLightColor,
             onPressed: () {
               modalBottomSheet(context, _tabController);
-
               // Navigator.pushNamed(context, AppRoutes.loginPageScreen);
             },
           ),

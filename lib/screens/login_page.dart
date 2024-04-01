@@ -103,12 +103,6 @@ class LoginPageScreenState extends State<LoginPageScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Container(
-                    child: Image.asset(
-                      'assets/images/one_bytes_icon.png',
-                      height: 250,
-                    ),
-                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: CustomTextFormField(
