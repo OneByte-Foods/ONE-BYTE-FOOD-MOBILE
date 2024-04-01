@@ -62,10 +62,11 @@ class BackEmailScreen extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             SizedBox(height: 150),
-            buildButton(context, text: "Done", color: AppColors.green,
-                onPressed: () {
-              AppRoutes.homePageScreen;
-            })
+            buildButton(context,
+                text: "Done",
+                color: AppColors.green,
+                onPressed: () =>
+                    Navigator.pushNamed(context, AppRoutes.homePageScreen))
           ],
         ),
       ),

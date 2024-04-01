@@ -28,15 +28,18 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   void resetPassword() async {
     try {
       if (_formKey.currentState!.validate()) {
+        email = _emailController.text;
+
         await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(
             'Password Reset email has been sent to $email',
             style: TextStyle(
-              fontSize: 20,
+              fontSize: 12,
             ),
           ),
         ));
+        Navigator.pushNamed(context, AppRoutes.backEmailScreen);
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == "user-not-found") {
@@ -60,7 +63,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       }
       print(e);
     }
-    Navigator.pushNamed(context, AppRoutes.backEmailScreen);
   }
 
   @override
