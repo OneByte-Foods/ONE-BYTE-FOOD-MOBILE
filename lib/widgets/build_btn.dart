@@ -4,6 +4,7 @@ Widget buildButton(
   BuildContext context, {
   required String text,
   required Color color,
+  double? width,
   Color textColor = Colors.white,
   required VoidCallback onPressed,
 }) {
@@ -12,7 +13,7 @@ Widget buildButton(
       borderRadius: BorderRadius.circular(12),
       color: color,
     ),
-    width: MediaQuery.of(context).size.width * .7,
+    width: width ?? MediaQuery.of(context).size.width * .7,
     height: 49,
     child: TextButton(
       onPressed: onPressed,

@@ -1,3 +1,4 @@
+import 'package:One_Bytes_Food/constants/global_colors.dart';
 import 'package:One_Bytes_Food/firebase_options.dart';
 import 'package:One_Bytes_Food/onboarding/onboarding_view.dart';
 import 'package:One_Bytes_Food/routes/app_routes.dart';
@@ -46,7 +47,8 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
           theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            colorScheme: ColorScheme.fromSeed(seedColor: AppColors.green),
+            primaryColor: AppColors.green,
             useMaterial3: true,
           ),
           home: initialRoute,

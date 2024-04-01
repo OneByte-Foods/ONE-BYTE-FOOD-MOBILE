@@ -29,8 +29,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
     return Stack(
       children: [
         Container(
-          width: double.infinity,
-          height: 60.0,
+          width: MediaQuery.of(context).size.width * 0.9,
+          height: MediaQuery.of(context).size.height * 0.08,
           child: TextFormField(
             controller: widget.controller,
             obscureText: widget.isPassword,

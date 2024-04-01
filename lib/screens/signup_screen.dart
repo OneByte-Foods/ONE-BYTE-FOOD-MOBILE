@@ -28,6 +28,12 @@ class _SignupScreenState extends State<SignupScreen> {
         isLoading = true;
       });
       try {
+        bool isGoogleEmail =
+            _emailController.text.trim().endsWith('@gmail.com');
+        if (!isGoogleEmail) {
+          throw FirebaseAuthException(code: 'invalid-email');
+        }
+
         UserCredential userCredential =
             await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: _emailController.text.trim(),
@@ -54,6 +60,8 @@ class _SignupScreenState extends State<SignupScreen> {
           errorMessage = 'Password provided is too weak';
         } else if (e.code == 'email-already-in-use') {
           errorMessage = 'Email address is already in use';
+        } else if (e.code == 'invalid-email') {
+          errorMessage = 'Please enter a valid Google email address';
         }
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -105,12 +113,6 @@ class _SignupScreenState extends State<SignupScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Container(
-                      child: Image.asset(
-                        'assets/images/one_bytes_icon.png',
-                        height: 250,
-                      ),
-                    ),
                     CustomTextFormField(
                       prefixIconData: Icons.person,
                       controller: _usernameController,
@@ -153,7 +155,9 @@ class _SignupScreenState extends State<SignupScreen> {
                             color: Colors.green,
                           )
                         : Container(
-                            child: buildButton(context,
+                            child: buildButton(
+                                width: MediaQuery.of(context).size.width * .7,
+                                context,
                                 text: "Registration",
                                 color: AppColors.green,
                                 onPressed: _registration),

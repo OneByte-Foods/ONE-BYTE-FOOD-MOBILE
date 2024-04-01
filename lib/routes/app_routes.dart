@@ -7,6 +7,8 @@ import 'package:One_Bytes_Food/screens/signup_screen.dart';
 import 'package:One_Bytes_Food/screens/welcome_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../screens/back_email_screen.dart';
+
 class AppRoutes {
 // route names
 
@@ -17,6 +19,7 @@ class AppRoutes {
   static const String forgotPasswordScreen = '/forgot-password-page-screen';
   static const String seatReservationScreen = '/seat-reservation-screen';
   static const String welcomeScreen = '/welcome-screen';
+  static const String backEmailScreen = '/back-email-screen';
 
   static Map<String, WidgetBuilder> routes = {
     onBoardingScreen: (context) => OnBoardingView(),
@@ -25,6 +28,7 @@ class AppRoutes {
     forgotPasswordScreen: (context) => ForgotPasswordScreen(),
     homePageScreen: (context) => HomeScreen(),
     welcomeScreen: (context) => WelcomeScreen(),
+    backEmailScreen: (context) => BackEmailScreen(),
     seatReservationScreen: (context) =>
         SeatReservationScreen(titleMovie: "Seat Reservation"),
   };
