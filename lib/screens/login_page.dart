@@ -103,6 +103,12 @@ class LoginPageScreenState extends State<LoginPageScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  Container(
+                    child: Image.asset(
+                      'assets/images/one_bytes_icon.png',
+                      height: 250,
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: CustomTextFormField(
@@ -152,7 +158,9 @@ class LoginPageScreenState extends State<LoginPageScreen> {
                     child: Stack(
                       alignment: Alignment.center,
                       children: [
-                        buildButton(context,
+                        buildButton(
+                            width: MediaQuery.of(context).size.width * .7,
+                            context,
                             text: isLoading ? "" : "Login",
                             color: AppColors.green, onPressed: () {
                           if (_formKey.currentState!.validate()) {

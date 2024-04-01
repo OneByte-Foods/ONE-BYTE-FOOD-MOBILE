@@ -62,6 +62,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
           ),
           SizedBox(height: 150),
           buildButton(
+            width: MediaQuery.of(context).size.width * .7,
             context,
             text: 'Get Started',
             color: AppColors.green,
@@ -72,6 +73,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
           ),
           SizedBox(height: 10),
           buildButton(
+            width: MediaQuery.of(context).size.width * .7,
             context,
             text: 'Login',
             color: AppColors.pitchGreenColor,

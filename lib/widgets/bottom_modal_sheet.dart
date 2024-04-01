@@ -24,11 +24,19 @@ Future modalBottomSheet(BuildContext context, TabController _tabController) {
               controller: _tabController,
               tabs: [
                 Tab(
-                  text: 'Sign Up',
-                ),
+                    text: 'Sign Up',
+                    height: 80,
+                    icon: Icon(
+                      Icons.person,
+                      size: 25,
+                    )),
                 Tab(
-                  text: 'Login',
-                )
+                    text: 'Login',
+                    height: 80,
+                    icon: Icon(
+                      Icons.lock,
+                      size: 25,
+                    ))
               ],
             ),
             SizedBox(height: 12),
