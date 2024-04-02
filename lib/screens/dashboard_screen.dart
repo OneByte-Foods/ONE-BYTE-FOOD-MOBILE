@@ -46,7 +46,8 @@ class _HomeScreenState extends State<DashboardScreen> {
         onPressed: () {},
         child: Icon(Icons.add),
         backgroundColor: Colors.green,
-        foregroundColor: Colors.yellow,
+        foregroundColor: Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
         elevation: 0,
       ),
       bottomNavigationBar: BottomAppBar(
@@ -57,10 +58,10 @@ class _HomeScreenState extends State<DashboardScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           mainAxisSize: MainAxisSize.max,
           children: [
-            buildBottomNavItem(Icons.home, "Home", 0),
-            buildBottomNavItem(Icons.shopping_cart, "Shop", 1),
-            buildBottomNavItem(Icons.settings, "Setting", 3),
-            buildBottomNavItem(Icons.payment, "Khalti", 4),
+            buildBottomNavItem("assets/icons/home_icon.png", "Home", 0),
+            buildBottomNavItem("assets/icons/board_icon.png", "Shop", 1),
+            buildBottomNavItem("assets/icons/person_icon.png", "Setting", 3),
+            buildBottomNavItem("assets/icons/person_icon.png", "Khalti", 4),
           ],
         ),
       ),
@@ -68,7 +69,7 @@ class _HomeScreenState extends State<DashboardScreen> {
     );
   }
 
-  Widget buildBottomNavItem(IconData icon, String label, int index) {
+  Widget buildBottomNavItem(String icon, String label, int index) {
     return GestureDetector(
       onTap: () {
         _onItemTapped(index);
@@ -76,7 +77,8 @@ class _HomeScreenState extends State<DashboardScreen> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
+          Image.asset(
+            scale: 2,
             icon,
             color: index == _selectedIndex ? AppColors.green : AppColors.white,
           ),
@@ -142,7 +144,7 @@ class FavoritesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.green,
+      color: Colors.white,
       child: Center(
         child: Text('Favorites Page'),
       ),
@@ -154,7 +156,7 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.orange,
+      color: Colors.white,
       child: Center(
         child: Text('Settings Page'),
       ),

@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../models/user_information_model.dart';
+import '../model/user_information_model.dart';
 
 class UserConstants {
   static final userImageUrl = FirebaseAuth.instance.currentUser != null

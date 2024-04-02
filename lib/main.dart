@@ -1,12 +1,14 @@
 import 'package:One_Bytes_Food/constants/global_colors.dart';
 import 'package:One_Bytes_Food/firebase_options.dart';
 import 'package:One_Bytes_Food/onboarding/onboarding_view.dart';
+import 'package:One_Bytes_Food/provider/location_provider.dart';
 import 'package:One_Bytes_Food/routes/app_routes.dart';
 import 'package:One_Bytes_Food/screens/dashboard_screen.dart';
 import 'package:One_Bytes_Food/screens/login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
@@ -16,9 +18,14 @@ void main() async {
   final prefs = await SharedPreferences.getInstance();
   final onboarding = prefs.getBool('onboarding') ?? false;
   final isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
-  runApp(MyApp(
-    onboarding: onboarding,
-    isLoggedIn: isLoggedIn,
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (context) => LocationProvider()),
+    ],
+    child: MyApp(
+      onboarding: onboarding,
+      isLoggedIn: isLoggedIn,
+    ),
   ));
 }
 

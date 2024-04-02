@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import '../models/user_information_model.dart';
+import '../model/user_information_model.dart';
 import '../routes/app_routes.dart';
 
 class AuthMethods {
