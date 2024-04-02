@@ -5,6 +5,8 @@ import 'package:One_Bytes_Food/provider/location_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../widgets/search_bar_widget.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -22,18 +24,18 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(),
-      backgroundColor: AppColors.scaffoldBackgroundColor,
-      body: Center(
-        child: Text(
-          "Home Page",
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-    );
+        appBar: buildAppBar(),
+        backgroundColor: AppColors.scaffoldBackgroundColor,
+        body: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ModernSearchBar(),
+              ],
+            ),
+          ],
+        ));
   }
 }
 
@@ -46,13 +48,14 @@ PreferredSizeWidget buildAppBar() {
     backgroundColor: AppColors.scaffoldBackgroundColor,
     title: Consumer<LocationProvider>(
       builder: (context, locationProvider, child) {
+        print("Location -> " + locationProvider.currentLocation);
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(width: 60),
+                SizedBox(width: 30),
                 Image.asset(
                   "assets/icons/location_icon.png",
                   width: 20,
@@ -67,7 +70,7 @@ PreferredSizeWidget buildAppBar() {
             CircleAvatar(
               backgroundImage: NetworkImage(
                 UserConstants.userImageUrl ??
-                    "https://www.google.com/url?sa=i&url=https%3A%2F%2Fpngtree.com%2Fso%2Fcolor-avatar&psig=AOvVaw3LBqsd-Zyur4YjI7mf7MyE&ust=1712128009079000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCKjrmYH8ooUDFQAAAAAdAAAAABAJ",
+                    "https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745",
               ),
               radius: 15,
             ),

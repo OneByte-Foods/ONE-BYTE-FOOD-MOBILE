@@ -1,6 +1,6 @@
-import 'dart:ui';
-
+import 'package:One_Bytes_Food/constants/global_colors.dart';
 import 'package:One_Bytes_Food/model/date_time_model.dart';
+import 'package:One_Bytes_Food/widgets/build_btn.dart';
 import 'package:One_Bytes_Food/widgets/textFrave.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,32 +25,16 @@ class SeatReservationScreen extends StatelessWidget {
       body: Stack(
         children: [
           Container(
-              height: size.height, width: size.width, color: Color(0xff21242C)),
+            height: size.height,
+            width: size.width,
+            color: AppColors.scaffoldBackgroundColor,
+          ),
           Container(
             height: size.height * .7,
             width: size.width,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage("assets/images/Onboarding_2.gif"))),
             child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(begin: Alignment.bottomRight, colors: [
-                  Color(0xff21242C),
-                  Color(0xff21242C).withOpacity(.9),
-                  Color(0xff21242C).withOpacity(.1),
-                ]),
-              ),
               child: ClipRRect(
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(
-                    sigmaX: 20.0,
-                    sigmaY: 20.0,
-                  ),
-                  child: Container(
-                    color: Color(0xff21242C).withOpacity(0.1),
-                  ),
-                ),
+                child: Container(),
               ),
             ),
           ),
@@ -120,23 +104,13 @@ class SeatReservationScreen extends StatelessWidget {
                 ),
               )),
           Positioned(
-            left: 60,
-            right: 60,
-            bottom: 20,
-            child: InkWell(
-              onTap: () {},
-              child: Container(
-                alignment: Alignment.center,
-                height: 55,
-                decoration: BoxDecoration(
-                    color: Colors.amber,
-                    borderRadius: BorderRadius.circular(8.0)),
-                child: TextFrave(
-                    text: 'Reserve your table \$ 55.0',
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-          ),
+              left: 60,
+              right: 60,
+              bottom: 20,
+              child: buildButton(context,
+                  text: "Reserve your table",
+                  color: AppColors.green,
+                  onPressed: () {})),
         ],
       ),
     );

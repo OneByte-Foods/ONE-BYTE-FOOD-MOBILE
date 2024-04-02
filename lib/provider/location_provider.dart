@@ -20,12 +20,19 @@ class LocationProvider with ChangeNotifier {
           desiredAccuracy: LocationAccuracy.high);
       List<Placemark> placemarks =
           await placemarkFromCoordinates(position.latitude, position.longitude);
-      _currentLocation =
-          (placemarks.isNotEmpty ? placemarks[0].name : "Unknown")!;
+      if (placemarks.isNotEmpty) {
+        String locality = placemarks[0].locality ?? "Unknown";
+        String country = placemarks[0].country ?? "Unknown";
+        _currentLocation = "$locality, $country";
+      } else {
+        _currentLocation = "Unknown";
+      }
       print("Location -> " + _currentLocation);
       notifyListeners();
     } catch (e) {
       print("Error getting location: $e");
+      _currentLocation = "Error getting location";
+      notifyListeners();
     }
   }
 
