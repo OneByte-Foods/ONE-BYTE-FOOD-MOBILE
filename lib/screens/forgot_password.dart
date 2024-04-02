@@ -136,7 +136,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 ],
               ),
             ),
-            SizedBox(height: 400),
+            SizedBox(height: 450),
             Padding(
               padding: const EdgeInsets.only(left: 50, right: 50),
               child: buildButton(

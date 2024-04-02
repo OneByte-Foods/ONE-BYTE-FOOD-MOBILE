@@ -11,7 +11,6 @@ class LocationProvider with ChangeNotifier {
     try {
       bool locationPermissionGranted = await _checkLocationPermission();
       if (!locationPermissionGranted) {
-        // Handle if permission is not granted
         _currentLocation = "Permission not granted";
         notifyListeners();
         return;
@@ -23,6 +22,7 @@ class LocationProvider with ChangeNotifier {
           await placemarkFromCoordinates(position.latitude, position.longitude);
       _currentLocation =
           (placemarks.isNotEmpty ? placemarks[0].name : "Unknown")!;
+      print("Location -> " + _currentLocation);
       notifyListeners();
     } catch (e) {
       print("Error getting location: $e");

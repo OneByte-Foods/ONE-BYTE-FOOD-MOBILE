@@ -39,32 +39,35 @@ class _HomePageState extends State<HomePage> {
 
 PreferredSizeWidget buildAppBar() {
   return AppBar(
-    leading: Image.asset("assets/icons/drawer_icon.png"),
+    leading: Image.asset(
+      "assets/icons/drawer_icon.png",
+      width: 20,
+    ),
     backgroundColor: AppColors.scaffoldBackgroundColor,
     title: Consumer<LocationProvider>(
       builder: (context, locationProvider, child) {
         return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(
-              width: 5,
-            ),
-            Image.asset(
-              "assets/icons/location_icon.png",
-              width: 20,
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Text(
-              locationProvider.currentLocation,
-              style: AppStyles.text12PxRegular,
-            ),
-            SizedBox(
-              width: 70,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(width: 60),
+                Image.asset(
+                  "assets/icons/location_icon.png",
+                  width: 20,
+                ),
+                SizedBox(width: 5),
+                Text(
+                  locationProvider.currentLocation,
+                  style: AppStyles.text12PxRegular,
+                ),
+              ],
             ),
             CircleAvatar(
               backgroundImage: NetworkImage(
-                UserConstants.userImageUrl ?? "https://via.placeholder.com/150",
+                UserConstants.userImageUrl ??
+                    "https://www.google.com/url?sa=i&url=https%3A%2F%2Fpngtree.com%2Fso%2Fcolor-avatar&psig=AOvVaw3LBqsd-Zyur4YjI7mf7MyE&ust=1712128009079000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCKjrmYH8ooUDFQAAAAAdAAAAABAJ",
               ),
               radius: 15,
             ),
