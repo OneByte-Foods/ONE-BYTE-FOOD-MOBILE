@@ -31,7 +31,7 @@ class LocationProvider with ChangeNotifier {
       notifyListeners();
     } catch (e) {
       print("Error getting location: $e");
-      _currentLocation = "Error getting location";
+      _currentLocation = "Loading...";
       notifyListeners();
     }
   }

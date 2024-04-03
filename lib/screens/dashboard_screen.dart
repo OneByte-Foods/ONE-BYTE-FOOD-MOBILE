@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
 
+import 'profile_page_screen.dart';
+
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({Key? key}) : super(key: key);
 
@@ -24,13 +26,11 @@ class _HomeScreenState extends State<DashboardScreen> {
       ),
     ),
     FavoritesPage(),
-    SettingsPage(),
+    ProfilePage(),
   ];
 
   void _onItemTapped(int index) {
-    if (index == 4) {
-      payWithKhaltiInApp();
-    } else {
+    if (index == index) {
       setState(() {
         _selectedIndex = index;
       });
@@ -41,15 +41,6 @@ class _HomeScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: Icon(Icons.qr_code_scanner_rounded),
-        backgroundColor: Colors.green,
-        foregroundColor: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-        elevation: 0,
-      ),
       bottomNavigationBar: BottomAppBar(
         notchMargin: 5.0,
         shape: CircularNotchedRectangle(),
@@ -60,8 +51,8 @@ class _HomeScreenState extends State<DashboardScreen> {
           children: [
             buildBottomNavItem("assets/icons/home_icon.png", "Home", 0),
             buildBottomNavItem("assets/icons/board_icon.png", "Shop", 1),
-            buildBottomNavItem("assets/icons/person_icon.png", "Setting", 3),
-            buildBottomNavItem("assets/icons/person_icon.png", "Khalti", 4),
+            buildBottomNavItem("assets/icons/table_icon.png", "Booking", 2),
+            buildBottomNavItem("assets/icons/person_icon.png", "Profile", 3),
           ],
         ),
       ),
@@ -70,26 +61,29 @@ class _HomeScreenState extends State<DashboardScreen> {
   }
 
   Widget buildBottomNavItem(String icon, String label, int index) {
-    return GestureDetector(
-      onTap: () {
-        _onItemTapped(index);
-      },
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Image.asset(
-            scale: 2,
-            icon,
-            color: index == _selectedIndex ? AppColors.green : AppColors.white,
-          ),
-          SizedBox(height: 4),
-          Text(
-            label,
-            style: TextStyle(
-                color:
-                    index == _selectedIndex ? AppColors.green : Colors.white),
-          ),
-        ],
+    return Container(
+      child: GestureDetector(
+        onTap: () {
+          _onItemTapped(index);
+        },
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image.asset(
+              scale: 2,
+              icon,
+              color:
+                  index == _selectedIndex ? AppColors.green : AppColors.white,
+            ),
+            SizedBox(height: 4),
+            Text(
+              label,
+              style: TextStyle(
+                  color:
+                      index == _selectedIndex ? AppColors.green : Colors.white),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -97,7 +91,7 @@ class _HomeScreenState extends State<DashboardScreen> {
   payWithKhaltiInApp() {
     KhaltiScope.of(context).pay(
       config: PaymentConfig(
-        amount: 1000, //in paisa
+        amount: 1000,
         productIdentity: 'Product Id',
         productName: 'Product Name',
         mobileReadOnly: false,
@@ -147,18 +141,6 @@ class FavoritesPage extends StatelessWidget {
       color: Colors.white,
       child: Center(
         child: Text('Favorites Page'),
-      ),
-    );
-  }
-}
-
-class SettingsPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Center(
-        child: Text('Settings Page'),
       ),
     );
   }

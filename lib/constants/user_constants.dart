@@ -9,4 +9,7 @@ class UserConstants {
   static final userNameUrl = FirebaseAuth.instance.currentUser != null
       ? UserInformation.fromUser(FirebaseAuth.instance.currentUser!).username
       : null;
+  static final userEmail = FirebaseAuth.instance.currentUser != null
+      ? UserInformation.fromUser(FirebaseAuth.instance.currentUser!).email
+      : null;
 }

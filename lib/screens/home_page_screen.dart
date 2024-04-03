@@ -1,7 +1,7 @@
 import 'package:One_Bytes_Food/constants/app_style.dart';
 import 'package:One_Bytes_Food/constants/global_colors.dart';
-import 'package:One_Bytes_Food/constants/user_constants.dart';
 import 'package:One_Bytes_Food/provider/location_provider.dart';
+import 'package:One_Bytes_Food/widgets/circle_avatar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -67,13 +67,7 @@ PreferredSizeWidget buildAppBar() {
                 ),
               ],
             ),
-            CircleAvatar(
-              backgroundImage: NetworkImage(
-                UserConstants.userImageUrl ??
-                    "https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745",
-              ),
-              radius: 15,
-            ),
+            buildCircleAvatar(radius: 15)
           ],
         );
       },

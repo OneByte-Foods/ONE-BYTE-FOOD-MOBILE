@@ -14,7 +14,6 @@ class _WelcomeScreenState extends State<WelcomeScreen>
     length: 2,
     vsync: this,
   );
-  int _currentPageIndex = 0;
 
   @override
   void initState() {
@@ -68,7 +67,6 @@ class _WelcomeScreenState extends State<WelcomeScreen>
             color: AppColors.green,
             onPressed: () {
               modalBottomSheet(context, _tabController);
-              // Navigator.pushNamed(context, AppRoutes.signUpPage);
             },
           ),
           SizedBox(height: 10),
@@ -80,7 +78,6 @@ class _WelcomeScreenState extends State<WelcomeScreen>
             textColor: AppColors.pitchGreenLightColor,
             onPressed: () {
               modalBottomSheet(context, _tabController);
-              // Navigator.pushNamed(context, AppRoutes.loginPageScreen);
             },
           ),
           Padding(
