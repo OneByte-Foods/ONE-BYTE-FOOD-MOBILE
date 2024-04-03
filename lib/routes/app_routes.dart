@@ -5,6 +5,7 @@ import 'package:One_Bytes_Food/screens/login_page.dart';
 import 'package:One_Bytes_Food/screens/seat_reservation_screen.dart';
 import 'package:One_Bytes_Food/screens/signup_screen.dart';
 import 'package:One_Bytes_Food/screens/welcome_screen.dart';
+import 'package:One_Bytes_Food/widgets/qr_code_scanner_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../screens/back_email_screen.dart';
@@ -20,6 +21,7 @@ class AppRoutes {
   static const String seatReservationScreen = '/seat-reservation-screen';
   static const String welcomeScreen = '/welcome-screen';
   static const String backEmailScreen = '/back-email-screen';
+  static const String qrCodeScannerScreen = '/qr-code-scanner-screen';
 
   static Map<String, WidgetBuilder> routes = {
     onBoardingScreen: (context) => OnBoardingView(),
@@ -28,6 +30,7 @@ class AppRoutes {
     forgotPasswordScreen: (context) => ForgotPasswordScreen(),
     homePageScreen: (context) => DashboardScreen(),
     welcomeScreen: (context) => WelcomeScreen(),
+    qrCodeScannerScreen: (context) => QrCodeScanner(),
     backEmailScreen: (context) => BackEmailScreen(),
     seatReservationScreen: (context) =>
         SeatReservationScreen(titleMovie: "Seat Reservation"),

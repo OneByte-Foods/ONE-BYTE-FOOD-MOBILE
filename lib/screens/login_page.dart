@@ -93,7 +93,6 @@ class LoginPageScreenState extends State<LoginPageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBackgroundColor,
       body: SingleChildScrollView(
         child: Column(
           children: [
