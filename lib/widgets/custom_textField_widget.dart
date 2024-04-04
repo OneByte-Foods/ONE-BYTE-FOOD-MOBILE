@@ -23,7 +23,7 @@ class CustomTextFormField extends StatefulWidget {
 
 class _CustomTextFormFieldState extends State<CustomTextFormField> {
   bool _isLoading = false;
-
+  bool _isObscure = true;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -33,7 +33,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           height: MediaQuery.of(context).size.height * 0.08,
           child: TextFormField(
             controller: widget.controller,
-            obscureText: widget.isPassword,
+            obscureText: _isObscure,
             decoration: InputDecoration(
               labelText: widget.labelText,
               border: OutlineInputBorder(
@@ -46,7 +46,11 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                         Icons.visibility,
                         size: 20,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                          _isObscure = !_isObscure;
+                        });
+                      },
                     )
                   : widget.controller.text.isEmpty
                       ? IconButton(

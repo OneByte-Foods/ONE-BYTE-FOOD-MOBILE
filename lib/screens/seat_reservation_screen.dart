@@ -1,5 +1,6 @@
 import 'package:One_Bytes_Food/constants/global_colors.dart';
 import 'package:One_Bytes_Food/model/date_time_model.dart';
+import 'package:One_Bytes_Food/services/khalti_payment.dart';
 import 'package:One_Bytes_Food/widgets/build_btn.dart';
 import 'package:One_Bytes_Food/widgets/textFrave.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ class SeatReservationScreen extends StatelessWidget {
           Container(
             height: size.height,
             width: size.width,
-            color: AppColors.scaffoldBackgroundColor,
+            color: AppColors.lightYellow,
           ),
           Container(
             height: size.height * .7,
@@ -48,7 +49,7 @@ class SeatReservationScreen extends StatelessWidget {
                   children: [
                     TextFrave(
                         text: titleMovie,
-                        color: Colors.white,
+                        color: AppColors.green,
                         fontWeight: FontWeight.bold)
                   ],
                 )),
@@ -108,9 +109,10 @@ class SeatReservationScreen extends StatelessWidget {
               right: 60,
               bottom: 20,
               child: buildButton(context,
-                  text: "Reserve your table",
-                  color: AppColors.green,
-                  onPressed: () {})),
+                  text: "Reserve your table ${2.0}",
+                  color: AppColors.green, onPressed: () {
+                payWithKhaltiInApp(context);
+              })),
         ],
       ),
     );

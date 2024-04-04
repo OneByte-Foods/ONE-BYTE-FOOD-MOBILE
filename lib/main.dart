@@ -1,4 +1,5 @@
 import 'package:One_Bytes_Food/constants/global_colors.dart';
+import 'package:One_Bytes_Food/dependency_injection.dart';
 import 'package:One_Bytes_Food/firebase_options.dart';
 import 'package:One_Bytes_Food/onboarding/onboarding_view.dart';
 import 'package:One_Bytes_Food/provider/location_provider.dart';
@@ -7,6 +8,8 @@ import 'package:One_Bytes_Food/screens/dashboard_screen.dart';
 import 'package:One_Bytes_Food/screens/login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -27,6 +30,8 @@ void main() async {
       isLoggedIn: isLoggedIn,
     ),
   ));
+  // check network connection
+  DependencyInjection.init();
 }
 
 class MyApp extends StatelessWidget {
@@ -49,7 +54,8 @@ class MyApp extends StatelessWidget {
       publicKey: "test_public_key_36942feb1dbd4caa9a724433cdf0254f",
       enabledDebugging: true,
       builder: (context, navKey) {
-        return MaterialApp(
+        SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack);
+        return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
           theme: ThemeData(

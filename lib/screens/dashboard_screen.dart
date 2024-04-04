@@ -1,10 +1,8 @@
-import 'package:One_Bytes_Food/bloc/cinema/cinema_bloc.dart';
 import 'package:One_Bytes_Food/constants/global_colors.dart';
 import 'package:One_Bytes_Food/routes/app_routes.dart';
+import 'package:One_Bytes_Food/screens/booking_screen.dart';
 import 'package:One_Bytes_Food/screens/home_page_screen.dart';
-import 'package:One_Bytes_Food/screens/seat_reservation_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'profile_page_screen.dart';
 
@@ -19,12 +17,7 @@ class _HomeScreenState extends State<DashboardScreen> {
   int _selectedIndex = 0;
   final List<Widget> _pages = [
     HomePage(),
-    BlocProvider<CinemaBloc>(
-      create: (context) => CinemaBloc(),
-      child: SeatReservationScreen(
-        titleMovie: "Seat Reservation",
-      ),
-    ),
+    BookingScreen(),
     FavoritesPage(),
     ProfilePage(),
   ];
@@ -40,6 +33,7 @@ class _HomeScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       floatingActionButton: FloatingActionButton(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
@@ -64,9 +58,9 @@ class _HomeScreenState extends State<DashboardScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             buildBottomNavItem("assets/icons/home_icon.png", "Home", 0),
-            buildBottomNavItem("assets/icons/board_icon.png", "Shop", 1),
+            buildBottomNavItem("assets/icons/table_icon.png", "Booking", 1),
             SizedBox(width: 0.5),
-            buildBottomNavItem("assets/icons/table_icon.png", "Booking", 2),
+            buildBottomNavItem("assets/icons/board_icon.png", "Food", 2),
             buildBottomNavItem("assets/icons/person_icon.png", "Profile", 3),
           ],
         ),
@@ -110,7 +104,7 @@ class FavoritesPage extends StatelessWidget {
     return Container(
       color: Colors.white,
       child: Center(
-        child: Text('Favorites Page'),
+        child: Text('Online Food Ordering System'),
       ),
     );
   }

@@ -46,17 +46,6 @@ class _ProfilePageState extends State<ProfilePage> {
                           Text(UserConstants.userEmail ?? "Random User"),
                         ],
                       ),
-                      Container(
-                        padding: const EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Color.fromARGB(221, 187, 182, 182)
-                              .withOpacity(0.1),
-                        ),
-                        child: Image.asset(
-                          "assets/icons/notification_icon.png",
-                        ),
-                      )
                     ],
                   )),
             ),

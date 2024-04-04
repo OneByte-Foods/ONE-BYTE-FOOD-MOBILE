@@ -33,6 +33,7 @@ class _QrCodeScannerState extends State<QrCodeScanner> {
                       ),
                       Text(
                         "Scan QR Code",
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -42,6 +43,7 @@ class _QrCodeScannerState extends State<QrCodeScanner> {
                         height: 10,
                       ),
                       Text(
+                        textAlign: TextAlign.center,
                         "Place the QR code inside the frame to scan",
                         style: TextStyle(
                           fontSize: 16,

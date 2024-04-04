@@ -41,9 +41,7 @@ dependencies:
   firebase_auth: ^4.18.0
   google_sign_in: ^6.2.1
   cloud_firestore: ^4.15.10
-  google_fonts: ^6.2.1
   flutter_bloc: ^8.1.5
-  flutter_svg: ^2.0.10+1
   khalti_flutter: ^3.0.0
   modal_bottom_sheet: ^3.0.0
   geolocator: ^11.0.0
@@ -54,6 +52,9 @@ dependencies:
   url_launcher: ^6.2.5
   qr_scanner_overlay: ^0.0.2
   camera: ^0.10.5+9
+  connectivity_plus: ^6.0.1
+  get: ^4.6.6
+  google_fonts: ^6.2.1
 
   
 
