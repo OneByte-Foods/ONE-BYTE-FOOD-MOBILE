@@ -108,11 +108,14 @@ class SeatReservationScreen extends StatelessWidget {
               left: 60,
               right: 60,
               bottom: 20,
-              child: buildButton(context,
-                  text: "Reserve your table ${2.0}",
-                  color: AppColors.green, onPressed: () {
-                payWithKhaltiInApp(context);
-              })),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: buildButton(context,
+                    text: "Reserve your table ${2.0}",
+                    color: AppColors.green, onPressed: () {
+                  payWithKhaltiInApp(context);
+                }),
+              )),
         ],
       ),
     );

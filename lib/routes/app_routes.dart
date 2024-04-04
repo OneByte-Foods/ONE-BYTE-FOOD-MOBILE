@@ -2,6 +2,7 @@ import 'package:One_Bytes_Food/onboarding/onboarding_view.dart';
 import 'package:One_Bytes_Food/screens/dashboard_screen.dart';
 import 'package:One_Bytes_Food/screens/forgot_password.dart';
 import 'package:One_Bytes_Food/screens/login_page.dart';
+import 'package:One_Bytes_Food/screens/payment_portal_screen.dart';
 import 'package:One_Bytes_Food/screens/seat_reservation_screen.dart';
 import 'package:One_Bytes_Food/screens/signup_screen.dart';
 import 'package:One_Bytes_Food/screens/welcome_screen.dart';
@@ -24,6 +25,7 @@ class AppRoutes {
   static const String welcomeScreen = '/welcome-screen';
   static const String backEmailScreen = '/back-email-screen';
   static const String qrCodeScannerScreen = '/qr-code-scanner-screen';
+  static const String paymentPortalScreen = '/payment-portal-screen';
 
   static Map<String, WidgetBuilder> routes = {
     onBoardingScreen: (context) => OnBoardingView(),
@@ -34,6 +36,7 @@ class AppRoutes {
     welcomeScreen: (context) => WelcomeScreen(),
     qrCodeScannerScreen: (context) => QrCodeScanner(),
     backEmailScreen: (context) => BackEmailScreen(),
+    paymentPortalScreen: (context) => PaymentPortalScreen(),
     seatReservationScreen: (context) => BlocProvider<CinemaBloc>(
           create: (context) => CinemaBloc(),
           child: SeatReservationScreen(

@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:One_Bytes_Food/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
@@ -31,6 +32,15 @@ class _QrCodeScannerState extends State<QrCodeScanner> {
                       SizedBox(
                         height: 50,
                       ),
+                      Row(
+                        children: [
+                          Image.asset(
+                            "assets/icons/khalti_logo.png",
+                            width: 100,
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 10),
                       Text(
                         "Scan QR Code",
                         textAlign: TextAlign.center,
@@ -72,21 +82,10 @@ class _QrCodeScannerState extends State<QrCodeScanner> {
                       if (Uri.tryParse(barcodeValue)?.isAbsolute ?? false) {
                         _launchURL(barcodeValue);
                       } else {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: Text("Scanned Value"),
-                              content: Text(barcodeValue),
-                              actions: [
-                                TextButton(
-                                  onPressed: () => Navigator.pop(context),
-                                  child: Text('Close',
-                                      style: TextStyle(color: Colors.blue)),
-                                ),
-                              ],
-                            );
-                          },
+                        Navigator.pushNamed(
+                          context,
+                          AppRoutes.paymentPortalScreen,
+                          arguments: barcodeValue,
                         );
                       }
                     }
