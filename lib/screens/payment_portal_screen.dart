@@ -1,10 +1,11 @@
-import 'package:One_Bytes_Food/constants/global_colors.dart';
-import 'package:One_Bytes_Food/widgets/build_btn.dart';
-import 'package:One_Bytes_Food/widgets/circle_avatar_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:khalti_flutter/khalti_flutter.dart';
 import 'package:provider/provider.dart';
 
+import '../constants/global_colors.dart';
 import '../provider/qr_code_provider.dart';
+import '../widgets/build_btn.dart';
+import '../widgets/circle_avatar_widget.dart';
 
 class PaymentPortalScreen extends StatefulWidget {
   final String? qrcodeValue;
@@ -25,12 +26,15 @@ class _PaymentPortalScreenState extends State<PaymentPortalScreen> {
   @override
   void initState() {
     super.initState();
-    final provider = Provider.of<QrCodeProvider>(context, listen: false);
-    var qrCodeValueObj = provider.getQrCodeObject();
-    if (qrCodeValueObj != null) {
-      String? khaltiID = qrCodeValueObj['Khalti_ID'];
-      _phoneNumberController.text = khaltiID ?? "";
-    }
+    // Moved context-dependent logic to didChangeDependencies to ensure availability of context
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      final provider = Provider.of<QrCodeProvider>(context, listen: false);
+      var qrCodeValueObj = provider.getQrCodeObject();
+      if (qrCodeValueObj != null) {
+        String? khaltiID = qrCodeValueObj['Khalti_ID'];
+        _phoneNumberController.text = khaltiID ?? "";
+      }
+    });
   }
 
   @override
@@ -59,71 +63,85 @@ class _PaymentPortalScreenState extends State<PaymentPortalScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
-        child: Column(
-          children: [
-            Column(
-              children: [
-                Text(
-                  'Send From Khalti Account',
-                  style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.khaltiColor),
-                ),
-                SizedBox(height: 10),
-              ],
-            ),
-            SizedBox(height: 20),
-            SizedBox(height: 20),
-            _buildTextFormField(
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter the Khalti mobile number';
-                }
-              },
-              controller: _phoneNumberController,
-              labelText: 'Khalti Mobile Number',
-              keyboardType: TextInputType.phone,
-            ),
-            SizedBox(height: 20),
-            _buildTextFormField(
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter the Payment amount';
-                }
-              },
-              controller: _paymentController,
-              labelText: 'Amount',
-              keyboardType: TextInputType.number,
-            ),
-            SizedBox(height: 20),
-            _buildPurposeDropdownFormField(),
-            SizedBox(height: 20),
-            _buildTextFormField(
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter the Remarks';
-                }
-              },
-              controller: _remarksController,
-              labelText: 'Remarks',
-            ),
-            SizedBox(height: 70),
-            buildButton(context,
-                text: "Procced",
+        child: Form(
+          key: _formKey, // Added Form widget and assigned GlobalKey
+          child: Column(
+            children: [
+              Column(
+                children: [
+                  Text(
+                    'Send From Khalti Account',
+                    style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.khaltiColor),
+                  ),
+                  SizedBox(height: 10),
+                ],
+              ),
+              SizedBox(height: 20),
+              _buildTextFormField(
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter the Khalti mobile number';
+                  }
+                  return null; // Added to handle valid case
+                },
+                controller: _phoneNumberController,
+                labelText: 'Khalti Mobile Number',
+                keyboardType: TextInputType.phone,
+              ),
+              SizedBox(height: 20),
+              _buildTextFormField(
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter the Payment amount';
+                  }
+                  return null; // Added to handle valid case
+                },
+                controller: _paymentController,
+                labelText: 'Amount',
+                keyboardType: TextInputType.number,
+              ),
+              SizedBox(height: 20),
+              _buildPurposeDropdownFormField(),
+              SizedBox(height: 20),
+              _buildTextFormField(
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter the Remarks';
+                  }
+                  return null; // Added to handle valid case
+                },
+                controller: _remarksController,
+                labelText: 'Remarks',
+              ),
+              SizedBox(height: 70),
+              buildButton(
+                context,
+                text: "Proceed",
                 color: AppColors.khaltiColor,
                 borederRadius: BorderRadius.circular(5),
-                width: MediaQuery.of(context).size.width * 0.8, onPressed: () {
-              if (_formKey.currentState!.validate()) {}
-            })
-          ],
+                width: MediaQuery.of(context).size.width * 0.8,
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    // Added check for form validation
+                    _payWithKhaltiInApp(
+                      context,
+                      amount: int.parse(_paymentController.text) * 100,
+                      mobileNum: _phoneNumberController.text,
+                    );
+                  }
+                },
+              )
+            ],
+          ),
         ),
       ),
     );
   }
 
   _buildPurposeDropdownFormField() {
-    // List of predefined purpose options
     List<String> purposeOptions = [
       'Product Purchase',
       'Service Payment',
@@ -215,4 +233,50 @@ class _PaymentPortalScreenState extends State<PaymentPortalScreen> {
       ),
     );
   }
+}
+
+void _payWithKhaltiInApp(context,
+    {required int amount, required String mobileNum}) {
+  KhaltiScope.of(context).pay(
+    config: PaymentConfig(
+        amount: amount,
+        productIdentity: 'Product Id',
+        productName: 'Product Name',
+        mobileReadOnly: false,
+        mobile: mobileNum),
+    preferences: [
+      PaymentPreference.khalti,
+    ],
+    onSuccess: (success) => onSuccess(context, success),
+    onFailure: onFailure,
+    onCancel: onCancel,
+  );
+}
+
+void onSuccess(BuildContext context, PaymentSuccessModel success) {
+  showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: const Text('Payment Successful'),
+        actions: [
+          SimpleDialogOption(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.pop(context);
+              })
+        ],
+      );
+    },
+  );
+}
+
+void onFailure(PaymentFailureModel failure) {
+  debugPrint(
+    failure.toString(),
+  );
+}
+
+void onCancel() {
+  debugPrint('Cancelled');
 }

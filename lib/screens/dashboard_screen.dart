@@ -2,7 +2,7 @@ import 'package:One_Bytes_Food/constants/global_colors.dart';
 import 'package:One_Bytes_Food/routes/app_routes.dart';
 import 'package:One_Bytes_Food/screens/booking_screen.dart';
 import 'package:One_Bytes_Food/screens/home_page_screen.dart';
-import 'package:One_Bytes_Food/screens/payment_portal_screen.dart';
+import 'package:One_Bytes_Food/screens/profile_page_screen.dart';
 import 'package:flutter/material.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -18,7 +18,7 @@ class _HomeScreenState extends State<DashboardScreen> {
     HomePage(),
     BookingScreen(),
     FavoritesPage(),
-    PaymentPortalScreen(),
+    ProfilePage()
   ];
 
   void _onItemTapped(int index) {

@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
         SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack);
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
+          title: 'One Bytes Food',
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: AppColors.green),
             primaryColor: AppColors.green,
