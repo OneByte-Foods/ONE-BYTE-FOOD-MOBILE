@@ -16,6 +16,7 @@ class AppColors {
   static const Color successColor = Color(0xFF23A462);
   static const Color warningColor = Color(0xFFE74C3C);
   static const Color pendingColor = Color(0xFFF39C12);
+  static const Color khaltiColor = Color(0XFF5A2D92);
   static const Color backgroundcolor = Color(0XFFF4F5F9);
   static const Color darkBackgroundColor = Color(0xFF202125);
   static const Color borderColor = Color(0xFFE0E0E0);

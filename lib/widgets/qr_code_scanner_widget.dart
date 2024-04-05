@@ -4,8 +4,11 @@ import 'package:One_Bytes_Food/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:provider/provider.dart';
 import 'package:qr_scanner_overlay/qr_scanner_overlay.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../provider/qr_code_provider.dart';
 
 class QrCodeScanner extends StatefulWidget {
   const QrCodeScanner({Key? key}) : super(key: key);
@@ -79,13 +82,15 @@ class _QrCodeScannerState extends State<QrCodeScanner> {
                     final Uint8List? image = capture.image;
                     if (barcodes.isNotEmpty) {
                       final String barcodeValue = barcodes.first.rawValue ?? "";
+                      final provider =
+                          Provider.of<QrCodeProvider>(context, listen: false);
+                      provider.setQrCodeValue(barcodeValue);
                       if (Uri.tryParse(barcodeValue)?.isAbsolute ?? false) {
                         _launchURL(barcodeValue);
                       } else {
                         Navigator.pushNamed(
                           context,
                           AppRoutes.paymentPortalScreen,
-                          arguments: barcodeValue,
                         );
                       }
                     }

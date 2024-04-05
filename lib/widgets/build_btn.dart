@@ -5,12 +5,13 @@ Widget buildButton(
   required String text,
   required Color color,
   double? width,
+  BorderRadius? borederRadius,
   Color textColor = Colors.white,
   required VoidCallback onPressed,
 }) {
   return Container(
     decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(12),
+      borderRadius: borederRadius ?? BorderRadius.circular(12),
       color: color,
     ),
     width: width ?? MediaQuery.of(context).size.width * .7,

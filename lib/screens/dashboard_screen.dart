@@ -2,9 +2,8 @@ import 'package:One_Bytes_Food/constants/global_colors.dart';
 import 'package:One_Bytes_Food/routes/app_routes.dart';
 import 'package:One_Bytes_Food/screens/booking_screen.dart';
 import 'package:One_Bytes_Food/screens/home_page_screen.dart';
+import 'package:One_Bytes_Food/screens/payment_portal_screen.dart';
 import 'package:flutter/material.dart';
-
-import 'profile_page_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({Key? key}) : super(key: key);
@@ -19,7 +18,7 @@ class _HomeScreenState extends State<DashboardScreen> {
     HomePage(),
     BookingScreen(),
     FavoritesPage(),
-    ProfilePage(),
+    PaymentPortalScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -71,27 +70,31 @@ class _HomeScreenState extends State<DashboardScreen> {
 
   Widget buildBottomNavItem(String icon, String label, int index) {
     return Container(
-      child: GestureDetector(
+      child: InkWell(
         onTap: () {
           _onItemTapped(index);
         },
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Image.asset(
-              scale: 2,
-              icon,
-              color:
-                  index == _selectedIndex ? AppColors.green : AppColors.white,
-            ),
-            SizedBox(height: 4),
-            Text(
-              label,
-              style: TextStyle(
-                  color:
-                      index == _selectedIndex ? AppColors.green : Colors.white),
-            ),
-          ],
+        child: Container(
+          padding: EdgeInsets.all(4.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image.asset(
+                scale: 2,
+                icon,
+                color:
+                    index == _selectedIndex ? AppColors.green : AppColors.white,
+              ),
+              SizedBox(height: 4),
+              Text(
+                label,
+                style: TextStyle(
+                    color: index == _selectedIndex
+                        ? AppColors.green
+                        : Colors.white),
+              ),
+            ],
+          ),
         ),
       ),
     );
