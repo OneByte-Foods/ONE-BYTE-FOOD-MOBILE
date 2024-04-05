@@ -1,6 +1,6 @@
 import 'package:One_Bytes_Food/constants/global_colors.dart';
 import 'package:One_Bytes_Food/model/date_time_model.dart';
-import 'package:One_Bytes_Food/services/khalti_payment.dart';
+import 'package:One_Bytes_Food/widgets/bottom_modal_sheet.dart';
 import 'package:One_Bytes_Food/widgets/build_btn.dart';
 import 'package:One_Bytes_Food/widgets/textFrave.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +10,7 @@ import '../bloc/cinema/cinema_bloc.dart';
 import '../model/arm_chair_model.dart';
 import '../widgets/seat_row.dart';
 
-class SeatReservationScreen extends StatelessWidget {
+class SeatReservationScreen extends StatefulWidget {
   final String titleMovie;
 
   const SeatReservationScreen({
@@ -19,9 +19,18 @@ class SeatReservationScreen extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<SeatReservationScreen> createState() => _SeatReservationScreenState();
+}
+
+class _SeatReservationScreenState extends State<SeatReservationScreen>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController = TabController(
+    length: 2,
+    vsync: this,
+  );
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
     return Scaffold(
       body: Stack(
         children: [
@@ -48,7 +57,7 @@ class SeatReservationScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextFrave(
-                        text: titleMovie,
+                        text: widget.titleMovie,
                         color: AppColors.green,
                         fontWeight: FontWeight.bold)
                   ],
@@ -113,7 +122,7 @@ class SeatReservationScreen extends StatelessWidget {
                 child: buildButton(context,
                     text: "Reserve your table ${2.0}",
                     color: AppColors.green, onPressed: () {
-                  payWithKhaltiInApp(context);
+                  modalBottomSheet(context, _tabController);
                 }),
               )),
         ],

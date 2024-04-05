@@ -239,11 +239,12 @@ void _payWithKhaltiInApp(context,
     {required int amount, required String mobileNum}) {
   KhaltiScope.of(context).pay(
     config: PaymentConfig(
-        amount: amount,
-        productIdentity: 'Product Id',
-        productName: 'Product Name',
-        mobileReadOnly: false,
-        mobile: mobileNum),
+      amount: amount,
+      productIdentity: 'Product Id',
+      productName: 'Product Name',
+      mobileReadOnly: false,
+      mobile: mobileNum,
+    ),
     preferences: [
       PaymentPreference.khalti,
     ],

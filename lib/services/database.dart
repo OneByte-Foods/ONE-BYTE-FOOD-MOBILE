@@ -22,4 +22,17 @@ class DatabaseMethods {
       'email': email,
     });
   }
+
+  static Future<String?> getUsername(String userId) async {
+    DocumentSnapshot snapshot = await FirebaseFirestore.instance
+        .collection('Random_Signin_Users')
+        .doc(userId)
+        .get();
+
+    if (snapshot.exists) {
+      return snapshot.get('username');
+    } else {
+      return null;
+    }
+  }
 }

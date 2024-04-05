@@ -33,7 +33,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           height: MediaQuery.of(context).size.height * 0.08,
           child: TextFormField(
             controller: widget.controller,
-            obscureText: _isObscure,
+            obscureText: widget.isPassword ? _isObscure : false,
             decoration: InputDecoration(
               labelText: widget.labelText,
               border: OutlineInputBorder(
