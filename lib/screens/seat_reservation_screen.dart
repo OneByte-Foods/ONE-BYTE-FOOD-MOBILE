@@ -1,16 +1,38 @@
-import 'package:One_Bytes_Food/widgets/table_booking_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/global_colors.dart';
 import '../model/arm_chair_model.dart';
 import '../widgets/build_btn.dart';
 import '../widgets/seat_row.dart';
+import '../widgets/table_booking_bottom_sheet.dart';
 import '../widgets/textFrave.dart';
 
-class SeatReservationScreen extends StatelessWidget {
-  const SeatReservationScreen({
-    Key? key,
-  }) : super(key: key);
+class SeatReservationScreen extends StatefulWidget {
+  const SeatReservationScreen({Key? key}) : super(key: key);
+
+  @override
+  State<SeatReservationScreen> createState() => _SeatReservationScreenState();
+}
+
+class _SeatReservationScreenState extends State<SeatReservationScreen> {
+  late Stream<List<ArmChairsModel>> _armChairsStream;
+
+  @override
+  void initState() {
+    super.initState();
+    _armChairsStream = fetchArmChairsData();
+    _armChairsStream.listen((List<ArmChairsModel> chairs) {
+      // Data fetched successfully
+      for (var chair in chairs) {
+        print('Row Seats: ${chair.rowSeats}');
+        print('Seats: ${chair.seats}');
+        print('Free Seats: ${chair.freeSeats}');
+      } // You can use the data to update your UI
+    }, onError: (error) {
+      // Handle error
+      print("Error fetching arm chairs data: $error");
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,39 +45,52 @@ class SeatReservationScreen extends StatelessWidget {
             width: size.width,
             color: AppColors.lightYellow,
           ),
-          Container(
-            height: size.height * .7,
-            width: size.width,
-            child: Container(
-              child: ClipRRect(
-                child: Container(),
-              ),
-            ),
-          ),
-          Positioned(
-            top: 100,
-            child: Container(
-              child: Column(
-                children: [
-                  SizedBox(height: 30.0),
-                  SizedBox(height: 55.0),
-                  Container(
-                    height: 240,
-                    width: size.width,
-                    child: Column(
-                      children: List.generate(
-                        ArmChairsModel.listChairs.length,
-                        (i) => SeatsRow(
-                          numSeats: ArmChairsModel.listChairs[i].seats,
-                          freeSeats: ArmChairsModel.listChairs[i].freeSeats,
-                          rowSeats: ArmChairsModel.listChairs[i].rowSeats,
-                        ),
-                      ),
+          Positioned.fill(
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(height: 30.0),
+                    SizedBox(height: 55.0),
+                    StreamBuilder<List<ArmChairsModel>>(
+                      stream: fetchArmChairsData(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return CircularProgressIndicator();
+                        } else if (snapshot.hasError) {
+                          return Text('Error: ${snapshot.error}');
+                        } else {
+                          return SizedBox(
+                            height: 200,
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: snapshot.data?.length ?? 0,
+                              itemBuilder: (context, i) {
+                                print('Generating SeatsRow $i');
+
+                                return Column(
+                                  children: [
+                                    SeatsRow(
+                                      numSeats: snapshot.data![i].seats,
+                                      freeSeats: snapshot.data![i].freeSeats,
+                                      rowSeats: snapshot.data![i].rowSeats,
+                                    ),
+                                    SizedBox(height: 20.0),
+                                  ],
+                                );
+                              },
+                            ),
+                          );
+                        }
+                      },
                     ),
-                  ),
-                  SizedBox(height: 55.0),
-                  _ItemsDescription(size: size)
-                ],
+                    SizedBox(height: 55.0),
+                    _ItemsDescription(size: size),
+                  ],
+                ),
               ),
             ),
           ),
@@ -65,11 +100,14 @@ class SeatReservationScreen extends StatelessWidget {
             bottom: 20,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: buildButton(context,
-                  text: "Reserve your table ${2.0}",
-                  color: AppColors.green, onPressed: () {
-                table_booking_bottom_sheet(context);
-              }),
+              child: buildButton(
+                context,
+                text: "Reserve your table ${2.0}",
+                color: AppColors.green,
+                onPressed: () {
+                  table_booking_bottom_sheet(context);
+                },
+              ),
             ),
           ),
         ],
@@ -97,7 +135,7 @@ class _ItemsDescription extends StatelessWidget {
             children: [
               Icon(Icons.circle, color: Colors.white, size: 10),
               SizedBox(width: 10.0),
-              TextFrave(text: 'Free', fontSize: 20, color: Colors.white)
+              TextFrave(text: 'Free', fontSize: 20, color: Colors.white),
             ],
           ),
           Row(
@@ -105,14 +143,21 @@ class _ItemsDescription extends StatelessWidget {
               Icon(Icons.circle, color: Color(0xff4A5660), size: 10),
               SizedBox(width: 10.0),
               TextFrave(
-                  text: 'Reserved', fontSize: 20, color: Color(0xff4A5660))
+                text: 'Reserved',
+                fontSize: 20,
+                color: Color(0xff4A5660),
+              ),
             ],
           ),
           Row(
             children: [
               Icon(Icons.circle, color: Colors.amber, size: 10),
               SizedBox(width: 10.0),
-              TextFrave(text: 'Selected', fontSize: 20, color: Colors.amber)
+              TextFrave(
+                text: 'Selected',
+                fontSize: 20,
+                color: Colors.amber,
+              ),
             ],
           ),
         ],

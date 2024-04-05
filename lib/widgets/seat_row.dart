@@ -15,15 +15,14 @@ class SeatsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Container(
       child: Row(
-        mainAxisSize: MainAxisSize.min,
         children: List.generate(numSeats, (i) {
           if (freeSeats.contains(i + 1)) {
             return InkWell(
               onTap: () => print('Seat ${rowSeats}${i + 1} selected.'),
               child: PaintChair(
-                color: Colors.white,
+                color: Colors.yellow,
               ),
             );
           }

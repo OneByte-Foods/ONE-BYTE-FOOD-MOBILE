@@ -55,6 +55,7 @@ dependencies:
   connectivity_plus: ^6.0.1
   get: ^4.6.6
   google_fonts: ^6.2.1
+  firebase_database: ^10.5.0
 
   
 

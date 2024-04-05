@@ -17,11 +17,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // Initialize Firebase
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   final prefs = await SharedPreferences.getInstance();
   final onboarding = prefs.getBool('onboarding') ?? false;
   final isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (context) => LocationProvider()),
@@ -32,6 +33,7 @@ void main() async {
       isLoggedIn: isLoggedIn,
     ),
   ));
+
   // check network connection
   DependencyInjection.init();
 }
@@ -39,8 +41,12 @@ void main() async {
 class MyApp extends StatelessWidget {
   final bool onboarding;
   final bool isLoggedIn;
-  const MyApp({Key? key, required this.onboarding, required this.isLoggedIn})
-      : super(key: key);
+
+  const MyApp({
+    Key? key,
+    required this.onboarding,
+    required this.isLoggedIn,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
