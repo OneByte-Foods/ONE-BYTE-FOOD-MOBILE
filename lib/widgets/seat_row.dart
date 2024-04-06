@@ -26,7 +26,6 @@ class _SeatsRowState extends State<SeatsRow> {
     selectedSeats = List.filled(widget.numSeats, false);
   }
 
-// i have keep all of the selected seat into the provider and then display it according in the bottom sheet
   @override
   Widget build(BuildContext context) {
     if (selectedSeats.isEmpty) {
@@ -44,7 +43,7 @@ class _SeatsRowState extends State<SeatsRow> {
                 });
               },
               child: PaintChair(
-                color: selectedSeats[i] ? Colors.green : Colors.yellow,
+                color: selectedSeats[i] ? Colors.yellow : Colors.white,
               ),
             );
           }
