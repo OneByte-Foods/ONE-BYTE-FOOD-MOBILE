@@ -21,17 +21,6 @@ class _SeatReservationScreenState extends State<SeatReservationScreen> {
   void initState() {
     super.initState();
     _armChairsStream = fetchArmChairsData();
-    _armChairsStream.listen((List<ArmChairsModel> chairs) {
-      // Data fetched successfully
-      for (var chair in chairs) {
-        print('Row Seats: ${chair.rowSeats}');
-        print('Seats: ${chair.seats}');
-        print('Free Seats: ${chair.freeSeats}');
-      } // You can use the data to update your UI
-    }, onError: (error) {
-      // Handle error
-      print("Error fetching arm chairs data: $error");
-    });
   }
 
   @override
@@ -55,7 +44,7 @@ class _SeatReservationScreenState extends State<SeatReservationScreen> {
                     SizedBox(height: 30.0),
                     SizedBox(height: 55.0),
                     StreamBuilder<List<ArmChairsModel>>(
-                      stream: fetchArmChairsData(),
+                      stream: _armChairsStream,
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
@@ -66,11 +55,9 @@ class _SeatReservationScreenState extends State<SeatReservationScreen> {
                           return SizedBox(
                             height: 200,
                             child: ListView.builder(
-                              shrinkWrap: true,
                               itemCount: snapshot.data?.length ?? 0,
                               itemBuilder: (context, i) {
                                 print('Generating SeatsRow $i');
-
                                 return Column(
                                   children: [
                                     SeatsRow(

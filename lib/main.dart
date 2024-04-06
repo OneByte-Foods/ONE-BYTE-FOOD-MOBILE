@@ -9,7 +9,6 @@ import 'package:One_Bytes_Food/screens/dashboard_screen.dart';
 import 'package:One_Bytes_Food/screens/login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
 import 'package:provider/provider.dart';
@@ -62,11 +61,14 @@ class MyApp extends StatelessWidget {
       publicKey: "test_public_key_36942feb1dbd4caa9a724433cdf0254f",
       enabledDebugging: true,
       builder: (context, navKey) {
-        SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack);
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'One Bytes Food',
           theme: ThemeData(
+            appBarTheme: const AppBarTheme(
+              backgroundColor: AppColors.green,
+              elevation: 0,
+            ),
             colorScheme: ColorScheme.fromSeed(seedColor: AppColors.green),
             primaryColor: AppColors.green,
             useMaterial3: true,
@@ -76,6 +78,8 @@ class MyApp extends StatelessWidget {
           routes: AppRoutes.routes,
           localizationsDelegates: const [
             KhaltiLocalizations.delegate,
+            DefaultWidgetsLocalizations.delegate,
+            DefaultMaterialLocalizations.delegate
           ],
         );
       },
