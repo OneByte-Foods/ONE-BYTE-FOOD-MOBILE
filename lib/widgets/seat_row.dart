@@ -1,7 +1,7 @@
 import 'package:One_Bytes_Food/widgets/paint_chair.dart';
 import 'package:flutter/material.dart';
 
-class SeatsRow extends StatelessWidget {
+class SeatsRow extends StatefulWidget {
   final int numSeats;
   final List<int> freeSeats;
   final String rowSeats;
@@ -14,15 +14,37 @@ class SeatsRow extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<SeatsRow> createState() => _SeatsRowState();
+}
+
+class _SeatsRowState extends State<SeatsRow> {
+  late List<bool> selectedSeats;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedSeats = List.filled(widget.numSeats, false);
+  }
+
+// i have keep all of the selected seat into the provider and then display it according in the bottom sheet
+  @override
   Widget build(BuildContext context) {
+    if (selectedSeats.isEmpty) {
+      return Container();
+    }
     return Container(
       child: Row(
-        children: List.generate(numSeats, (i) {
-          if (freeSeats.contains(i + 1)) {
+        children: List.generate(widget.numSeats, (i) {
+          if (widget.freeSeats.contains(i + 1)) {
             return InkWell(
-              onTap: () => print('Seat ${rowSeats}${i + 1} selected.'),
+              onTap: () {
+                print('Seat ${widget.rowSeats}${i + 1} selected.');
+                setState(() {
+                  selectedSeats[i] = !selectedSeats[i];
+                });
+              },
               child: PaintChair(
-                color: Colors.yellow,
+                color: selectedSeats[i] ? Colors.green : Colors.yellow,
               ),
             );
           }

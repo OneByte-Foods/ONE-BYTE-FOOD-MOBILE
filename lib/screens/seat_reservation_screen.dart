@@ -56,6 +56,14 @@ class _SeatReservationScreenState extends State<SeatReservationScreen> {
                             children: chairs.map((chair) {
                               return Column(
                                 children: [
+                                  Text(
+                                    chair.rowSeats.toString(),
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                   SeatsRow(
                                     numSeats: chair.seats,
                                     freeSeats: chair.freeSeats,
