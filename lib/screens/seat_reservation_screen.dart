@@ -32,17 +32,16 @@ class _SeatReservationScreenState extends State<SeatReservationScreen> {
           Container(
             height: size.height,
             width: size.width,
-            color: AppColors.lightYellow,
+            color: Color(0xff61C9A8),
           ),
-          Positioned.fill(
+          Positioned(
             child: Align(
               alignment: Alignment.topCenter,
               child: Container(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(height: 30.0),
-                    SizedBox(height: 55.0),
                     StreamBuilder<List<ArmChairsModel>>(
                       stream: _armChairsStream,
                       builder: (context, snapshot) {
@@ -52,24 +51,20 @@ class _SeatReservationScreenState extends State<SeatReservationScreen> {
                         } else if (snapshot.hasError) {
                           return Text('Error: ${snapshot.error}');
                         } else {
-                          return SizedBox(
-                            height: 200,
-                            child: ListView.builder(
-                              itemCount: snapshot.data?.length ?? 0,
-                              itemBuilder: (context, i) {
-                                print('Generating SeatsRow $i');
-                                return Column(
-                                  children: [
-                                    SeatsRow(
-                                      numSeats: snapshot.data![i].seats,
-                                      freeSeats: snapshot.data![i].freeSeats,
-                                      rowSeats: snapshot.data![i].rowSeats,
-                                    ),
-                                    SizedBox(height: 20.0),
-                                  ],
-                                );
-                              },
-                            ),
+                          final chairs = snapshot.data ?? [];
+                          return Column(
+                            children: chairs.map((chair) {
+                              return Column(
+                                children: [
+                                  SeatsRow(
+                                    numSeats: chair.seats,
+                                    freeSeats: chair.freeSeats,
+                                    rowSeats: chair.rowSeats,
+                                  ),
+                                  SizedBox(height: 20.0),
+                                ],
+                              );
+                            }).toList(),
                           );
                         }
                       },
@@ -89,7 +84,7 @@ class _SeatReservationScreenState extends State<SeatReservationScreen> {
               padding: const EdgeInsets.all(8.0),
               child: buildButton(
                 context,
-                text: "Reserve your table ${2.0}",
+                text: "Reserve your table",
                 color: AppColors.green,
                 onPressed: () {
                   table_booking_bottom_sheet(context);
@@ -138,12 +133,12 @@ class _ItemsDescription extends StatelessWidget {
           ),
           Row(
             children: [
-              Icon(Icons.circle, color: Colors.amber, size: 10),
+              Icon(Icons.circle, color: Colors.yellowAccent, size: 10),
               SizedBox(width: 10.0),
               TextFrave(
                 text: 'Selected',
                 fontSize: 20,
-                color: Colors.amber,
+                color: Colors.yellowAccent,
               ),
             ],
           ),
