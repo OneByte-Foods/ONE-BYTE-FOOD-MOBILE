@@ -30,125 +30,109 @@ class _SeatReservationScreenState extends State<SeatReservationScreen> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Container(
-            width: size.width * .9,
+            width: size.width * .99,
             height: size.height * .75,
             decoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-                color: AppColors.green,
-                borderRadius: BorderRadius.circular(25.0)),
+              shape: BoxShape.rectangle,
+              color: AppColors.green,
+              borderRadius: BorderRadius.circular(25.0),
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 10),
-                // Avaible seats and other information
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 25, vertical: 10),
-                      child: Text(" 4 seats available",
-                          style: AppStyles.text16PxRegular.copyWith(
-                            color: Colors.white,
-                          )),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 25, vertical: 10),
-                      child: Text("27 person",
-                          style: AppStyles.text16PxRegular.copyWith(
-                            color: Colors.white,
-                          )),
-                    ),
-                  ],
-                ),
-                // first row
-                Row(
-                  children: [
-                    SizedBox(width: 20),
-                    TableWidget(
-                      index: 1,
-                      circleRadius: 13,
-                      numSeats: 6.0,
-                    ),
-                    SizedBox(width: 20),
-                    TableWidget(
-                      index: 2,
-                      circleRadius: 13,
-                      numSeats: 2.0,
-                    ),
-                    SizedBox(width: 20),
-                    TableWidget(
-                      index: 3,
-                      circleRadius: 13,
-                      numSeats: 2.0,
-                    ),
-                  ],
-                ),
+                _buildSeatInformation(),
+                _buildTables(),
                 SizedBox(height: 10),
-                // second row
-                Row(
-                  children: [
-                    SizedBox(width: 20),
-                    TableWidget(
-                      index: 1,
-                      circleRadius: 13,
-                      numSeats: 4.0,
-                    ),
-                    SizedBox(width: 20),
-                    TableWidget(
-                      index: 2,
-                      circleRadius: 13,
-                      numSeats: 4.0,
-                    ),
-                    SizedBox(width: 20),
-                    TableWidget(
-                      index: 3,
-                      circleRadius: 13,
-                      numSeats: 2.0,
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10),
-                // third row
-                Row(
-                  children: [
-                    SizedBox(width: 20),
-                    TableWidget(
-                      index: 4,
-                      circleRadius: 13,
-                      numSeats: 4.0,
-                    ),
-                    SizedBox(width: 20),
-                    TableWidget(
-                      index: 5,
-                      circleRadius: 13,
-                      numSeats: 4.0,
-                    ),
-                    SizedBox(width: 20),
-                    TableWidget(
-                      index: 6,
-                      circleRadius: 13,
-                      numSeats: 2.0,
-                    ),
-                  ],
-                ),
-                // bar counter
-                SizedBox(height: 10),
-                Row(
-                  children: [
-                    SizedBox(width: 20),
-                    TableWidget(
-                      index: 7,
-                      circleRadius: 13,
-                      numSeats: 7.0,
-                    ),
-                  ],
-                ),
+                _buildBarCounter(),
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildSeatInformation() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        _buildSeatInfoText(" 4 seats available"),
+        _buildSeatInfoText("27 person"),
+      ],
+    );
+  }
+
+  Widget _buildSeatInfoText(String text) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+      child: Text(
+        text,
+        style: AppStyles.text16PxRegular.copyWith(color: Colors.white),
+      ),
+    );
+  }
+
+  Widget _buildTables() {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 16.0),
+      child: Column(
+        children: [
+          SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildTableRow(1, 6.0),
+              _buildTableRow(2, 2.0),
+              _buildTableRow(3, 2.0),
+            ],
+          ),
+          SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildTableRow(4, 4.0),
+              _buildTableRow(5, 4.0),
+              _buildTableRow(6, 2.0),
+            ],
+          ),
+          SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildTableRow(7, 4.0),
+              _buildTableRow(8, 4.0),
+              _buildTableRow(9, 2.0),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTableRow(int index, double numSeats) {
+    return Row(
+      children: [
+        TableWidget(
+          index: index,
+          circleRadius: 13,
+          numSeats: numSeats,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildBarCounter() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 20, top: 10),
+      child: Row(
+        children: [
+          TableWidget(
+            index: 7,
+            circleRadius: 13,
+            numSeats: 7.0,
+          ),
+        ],
       ),
     );
   }
@@ -168,28 +152,25 @@ class TableWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      alignment: WrapAlignment.start,
+    return Column(
       children: [
-        Column(
-          children: [
-            Container(
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: Color.fromARGB(242, 129, 228, 167),
-                borderRadius: BorderRadius.circular(25),
-              ),
-              child: buildSeatsWidget(
-                  numSeats: numSeats, circleRadius: circleRadius),
-            ),
-            tableName(index),
-          ],
+        Container(
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: Color.fromARGB(242, 129, 228, 167),
+            borderRadius: BorderRadius.circular(25),
+          ),
+          child: buildSeatsWidget(
+            numSeats: numSeats,
+            circleRadius: circleRadius,
+          ),
         ),
+        _buildTableName(index, numSeats),
       ],
     );
   }
 
-  Widget tableName(int index) {
+  Widget _buildTableName(int index, double numSeats) {
     if (numSeats == 6.0) {
       return Text(
         "The big Table",
@@ -202,7 +183,7 @@ class TableWidget extends StatelessWidget {
       );
     } else {
       return Text(
-        "Table ${index}",
+        "Table $index",
         style: AppStyles.text14PxRegular.copyWith(color: Colors.white),
       );
     }
@@ -224,37 +205,21 @@ class _ItemsDescription extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Row(
-            children: [
-              Icon(Icons.circle, color: Colors.white, size: 10),
-              SizedBox(width: 10.0),
-              TextFrave(text: 'Free', fontSize: 20, color: Colors.white),
-            ],
-          ),
-          Row(
-            children: [
-              Icon(Icons.circle, color: Color(0xff4A5660), size: 10),
-              SizedBox(width: 10.0),
-              TextFrave(
-                text: 'Reserved',
-                fontSize: 20,
-                color: Color(0xff4A5660),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              Icon(Icons.circle, color: Colors.yellowAccent, size: 10),
-              SizedBox(width: 10.0),
-              TextFrave(
-                text: 'Selected',
-                fontSize: 20,
-                color: Colors.yellowAccent,
-              ),
-            ],
-          ),
+          _buildSeatStatusWidget('Free', Colors.white),
+          _buildSeatStatusWidget('Reserved', Color(0xff4A5660)),
+          _buildSeatStatusWidget('Selected', Colors.yellowAccent),
         ],
       ),
+    );
+  }
+
+  Widget _buildSeatStatusWidget(String text, Color color) {
+    return Row(
+      children: [
+        Icon(Icons.circle, color: color, size: 10),
+        SizedBox(width: 10.0),
+        TextFrave(text: text, fontSize: 20, color: color),
+      ],
     );
   }
 }
