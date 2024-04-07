@@ -8,7 +8,6 @@ Future table_booking_bottom_sheet(BuildContext context) {
   final size = MediaQuery.of(context).size;
 
   return showMaterialModalBottomSheet(
-    expand: false,
     elevation: 0,
     shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(

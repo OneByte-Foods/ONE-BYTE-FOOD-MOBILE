@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import '../constants/app_style.dart';
 import '../constants/global_colors.dart';
-import '../model/arm_chair_model.dart';
 import '../widgets/item_description_widget.dart';
 import '../widgets/table_widget.dart';
 
@@ -16,12 +15,12 @@ class SeatReservationScreen extends StatefulWidget {
 }
 
 class _SeatReservationScreenState extends State<SeatReservationScreen> {
-  late Stream<List<ArmChairsModel>> _armChairsStream;
+  // late Stream<List<ArmChairsModel>> _armChairsStream;
 
   @override
   void initState() {
     super.initState();
-    _armChairsStream = fetchArmChairsData();
+    //_armChairsStream = fetchArmChairsData();
   }
 
   List<int> _floors = [1, 2, 3, 4, 5];

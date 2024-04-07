@@ -20,7 +20,7 @@ class TableWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<SeatModel>(
       builder: (context, seatModel, child) {
-        final selectedSeats = seatModel.seatColors.keys.toSet() ?? {};
+        final selectedSeats = seatModel.seatColors.keys.toSet();
 
         void handleSeatPressed(int seatIndex) {
           seatModel.toggleSeatColor(seatIndex);

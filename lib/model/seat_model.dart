@@ -9,7 +9,7 @@ class SeatModel extends ChangeNotifier {
     if (_seatColors.containsKey(seatNumber)) {
       _seatColors.remove(seatNumber);
     } else {
-      _seatColors[seatNumber] = Colors.blue;
+      _seatColors[seatNumber] = Colors.red;
     }
     notifyListeners();
   }

@@ -10,30 +10,20 @@ Widget buildSeatsWidget({
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: GestureDetector(
-            onTap: () {
-              onSeatPressed(4);
-            },
-            child: CircleAvatar(
-              backgroundColor: Colors.white,
-              radius: circleRadius,
+        for (int i = 0; i < numSeats; i++)
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: GestureDetector(
+              onTap: () {
+                onSeatPressed(i);
+              },
+              child: CircleAvatar(
+                backgroundColor:
+                    selectedSeats.contains(i) ? Colors.blue : Colors.white,
+                radius: circleRadius,
+              ),
             ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: GestureDetector(
-            onTap: () {
-              onSeatPressed(1);
-            },
-            child: CircleAvatar(
-              backgroundColor: Colors.white,
-              radius: circleRadius,
-            ),
-          ),
-        ),
       ],
     );
   } else if (numSeats == 4) {
