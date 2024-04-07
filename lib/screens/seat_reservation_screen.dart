@@ -1,9 +1,10 @@
+import 'package:One_Bytes_Food/widgets/build_btn.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/app_style.dart';
 import '../constants/global_colors.dart';
 import '../model/arm_chair_model.dart';
-import '../widgets/seats_widget.dart';
+import '../widgets/table_widget.dart';
 import '../widgets/textFrave.dart';
 
 class SeatReservationScreen extends StatefulWidget {
@@ -22,33 +23,58 @@ class _SeatReservationScreenState extends State<SeatReservationScreen> {
     _armChairsStream = fetchArmChairsData();
   }
 
+  List<int> _floors = [1, 2, 3, 4, 5];
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            width: size.width * .99,
-            height: size.height * .75,
-            decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
-              color: AppColors.green,
-              borderRadius: BorderRadius.circular(25.0),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 10),
-                _buildSeatInformation(),
-                _buildTables(),
-                SizedBox(height: 10),
-                _buildBarCounter(),
-              ],
+      body: ListView(
+        scrollDirection: Axis.horizontal,
+        children: [
+          for (int i = 0; i < _floors.length; i++)
+            _buildPage1(size, _floors[i]),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPage1(Size size, int floor) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text("Floor $floor", style: AppStyles.text20PxRegular),
+          Center(
+            child: Container(
+              width: size.width * .90,
+              height: size.height * .75,
+              decoration: BoxDecoration(
+                shape: BoxShape.rectangle,
+                color: AppColors.green,
+                borderRadius: BorderRadius.circular(25.0),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 10),
+                  _buildSeatInformation(),
+                  _buildTables(),
+                  _buildBarCounter(),
+                ],
+              ),
             ),
           ),
-        ),
+          SizedBox(height: 20),
+          buildButton(
+            context,
+            text: "Reserve Table",
+            color: Color(0XFF048BA8),
+            width: MediaQuery.of(context).size.width * .80,
+            onPressed: () {},
+          )
+        ],
       ),
     );
   }
@@ -135,58 +161,6 @@ class _SeatReservationScreenState extends State<SeatReservationScreen> {
         ],
       ),
     );
-  }
-}
-
-class TableWidget extends StatelessWidget {
-  final double circleRadius;
-  final double numSeats;
-  final int index;
-
-  const TableWidget({
-    Key? key,
-    required this.circleRadius,
-    required this.numSeats,
-    required this.index,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Color.fromARGB(242, 129, 228, 167),
-            borderRadius: BorderRadius.circular(25),
-          ),
-          child: buildSeatsWidget(
-            numSeats: numSeats,
-            circleRadius: circleRadius,
-          ),
-        ),
-        _buildTableName(index, numSeats),
-      ],
-    );
-  }
-
-  Widget _buildTableName(int index, double numSeats) {
-    if (numSeats == 6.0) {
-      return Text(
-        "The big Table",
-        style: AppStyles.text14PxRegular.copyWith(color: Colors.white),
-      );
-    } else if (numSeats == 7.0) {
-      return Text(
-        "bar counter",
-        style: AppStyles.text14PxRegular.copyWith(color: Colors.white),
-      );
-    } else {
-      return Text(
-        "Table $index",
-        style: AppStyles.text14PxRegular.copyWith(color: Colors.white),
-      );
-    }
   }
 }
 
