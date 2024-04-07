@@ -11,6 +11,7 @@ payWithKhaltiInApp(BuildContext context) {
     ),
     preferences: [
       PaymentPreference.khalti,
+      PaymentPreference.connectIPS,
     ],
     onSuccess: (success) => onSuccess(context, success),
     onFailure: onFailure,

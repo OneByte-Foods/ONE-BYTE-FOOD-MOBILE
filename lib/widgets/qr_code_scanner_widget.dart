@@ -41,6 +41,10 @@ class _QrCodeScannerState extends State<QrCodeScanner> {
                             "assets/icons/khalti_logo.png",
                             width: 100,
                           ),
+                          Image.asset(
+                            "assets/icons/connect_ips.png",
+                            width: 75,
+                          ),
                         ],
                       ),
                       SizedBox(height: 10),
