@@ -1,11 +1,12 @@
 import 'package:One_Bytes_Food/widgets/build_btn.dart';
+import 'package:One_Bytes_Food/widgets/table_booking_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/app_style.dart';
 import '../constants/global_colors.dart';
 import '../model/arm_chair_model.dart';
+import '../widgets/item_description_widget.dart';
 import '../widgets/table_widget.dart';
-import '../widgets/textFrave.dart';
 
 class SeatReservationScreen extends StatefulWidget {
   const SeatReservationScreen({Key? key}) : super(key: key);
@@ -29,12 +30,16 @@ class _SeatReservationScreenState extends State<SeatReservationScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      body: ListView(
+      backgroundColor: AppColors.scaffoldBackgroundColor,
+      body: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        children: [
-          for (int i = 0; i < _floors.length; i++)
-            _buildPage1(size, _floors[i]),
-        ],
+        physics: AlwaysScrollableScrollPhysics(),
+        child: Row(
+          children: [
+            for (int i = 0; i < _floors.length; i++)
+              _buildPage1(size, _floors[i]),
+          ],
+        ),
       ),
     );
   }
@@ -49,7 +54,7 @@ class _SeatReservationScreenState extends State<SeatReservationScreen> {
           Center(
             child: Container(
               width: size.width * .90,
-              height: size.height * .75,
+              height: size.height * .77,
               decoration: BoxDecoration(
                 shape: BoxShape.rectangle,
                 color: AppColors.green,
@@ -62,6 +67,8 @@ class _SeatReservationScreenState extends State<SeatReservationScreen> {
                   _buildSeatInformation(),
                   _buildTables(),
                   _buildBarCounter(),
+                  SizedBox(height: 10),
+                  ItemsDescription(size: size)
                 ],
               ),
             ),
@@ -72,7 +79,9 @@ class _SeatReservationScreenState extends State<SeatReservationScreen> {
             text: "Reserve Table",
             color: Color(0XFF048BA8),
             width: MediaQuery.of(context).size.width * .80,
-            onPressed: () {},
+            onPressed: () {
+              table_booking_bottom_sheet(context);
+            },
           )
         ],
       ),
@@ -160,40 +169,6 @@ class _SeatReservationScreenState extends State<SeatReservationScreen> {
           ),
         ],
       ),
-    );
-  }
-}
-
-class _ItemsDescription extends StatelessWidget {
-  const _ItemsDescription({
-    Key? key,
-    required this.size,
-  }) : super(key: key);
-
-  final Size size;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: size.width,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          _buildSeatStatusWidget('Free', Colors.white),
-          _buildSeatStatusWidget('Reserved', Color(0xff4A5660)),
-          _buildSeatStatusWidget('Selected', Colors.yellowAccent),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSeatStatusWidget(String text, Color color) {
-    return Row(
-      children: [
-        Icon(Icons.circle, color: color, size: 10),
-        SizedBox(width: 10.0),
-        TextFrave(text: text, fontSize: 20, color: color),
-      ],
     );
   }
 }

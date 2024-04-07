@@ -1,23 +1,42 @@
 import 'package:flutter/material.dart';
 
-Widget buildSeatsWidget(
-    {required double numSeats, required double circleRadius}) {
+Widget buildSeatsWidget({
+  required double numSeats,
+  required double circleRadius,
+  required Set<int> selectedSeats,
+  required Function(int) onSeatPressed,
+}) {
   if (numSeats == 2) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        for (int i = 0; i < numSeats; i++)
-          Padding(
-            padding: const EdgeInsets.all(8.0),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: GestureDetector(
+            onTap: () {
+              onSeatPressed(4);
+            },
             child: CircleAvatar(
               backgroundColor: Colors.white,
               radius: circleRadius,
             ),
-          )
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: GestureDetector(
+            onTap: () {
+              onSeatPressed(1);
+            },
+            child: CircleAvatar(
+              backgroundColor: Colors.white,
+              radius: circleRadius,
+            ),
+          ),
+        ),
       ],
     );
-  }
-  if (numSeats == 4) {
+  } else if (numSeats == 4) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -27,9 +46,15 @@ Widget buildSeatsWidget(
             for (int i = 0; i < numSeats / 2; i++)
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  radius: circleRadius,
+                child: GestureDetector(
+                  onTap: () {
+                    onSeatPressed(i);
+                  },
+                  child: CircleAvatar(
+                    backgroundColor:
+                        selectedSeats.contains(i) ? Colors.blue : Colors.white,
+                    radius: circleRadius,
+                  ),
                 ),
               )
           ],
@@ -37,12 +62,18 @@ Widget buildSeatsWidget(
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            for (double i = numSeats / 2; i < numSeats; i++)
+            for (int i = numSeats ~/ 2; i < numSeats; i++)
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  radius: circleRadius,
+                child: GestureDetector(
+                  onTap: () {
+                    onSeatPressed(i);
+                  },
+                  child: CircleAvatar(
+                    backgroundColor:
+                        selectedSeats.contains(i) ? Colors.blue : Colors.white,
+                    radius: circleRadius,
+                  ),
                 ),
               )
           ],
@@ -56,12 +87,18 @@ Widget buildSeatsWidget(
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            for (int i = numSeats ~/ 3; i < numSeats - 1; i++)
+            for (int i = 0; i < numSeats / 2; i++)
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  radius: circleRadius,
+                child: GestureDetector(
+                  onTap: () {
+                    onSeatPressed(i);
+                  },
+                  child: CircleAvatar(
+                    backgroundColor:
+                        selectedSeats.contains(i) ? Colors.blue : Colors.white,
+                    radius: circleRadius,
+                  ),
                 ),
               )
           ],
@@ -69,12 +106,18 @@ Widget buildSeatsWidget(
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            for (int i = numSeats ~/ 3; i < numSeats - 1; i++)
+            for (int i = numSeats ~/ 2; i < numSeats; i++)
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  radius: circleRadius,
+                child: GestureDetector(
+                  onTap: () {
+                    onSeatPressed(i);
+                  },
+                  child: CircleAvatar(
+                    backgroundColor:
+                        selectedSeats.contains(i) ? Colors.blue : Colors.white,
+                    radius: circleRadius,
+                  ),
                 ),
               )
           ],
@@ -88,9 +131,15 @@ Widget buildSeatsWidget(
         for (int i = 0; i < numSeats; i++)
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: CircleAvatar(
-              backgroundColor: Colors.white,
-              radius: circleRadius,
+            child: GestureDetector(
+              onTap: () {
+                onSeatPressed(i);
+              },
+              child: CircleAvatar(
+                backgroundColor:
+                    selectedSeats.contains(i) ? Colors.blue : Colors.white,
+                radius: circleRadius,
+              ),
             ),
           )
       ],
