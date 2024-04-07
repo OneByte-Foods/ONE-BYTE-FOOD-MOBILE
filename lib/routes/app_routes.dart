@@ -8,9 +8,7 @@ import 'package:One_Bytes_Food/screens/signup_screen.dart';
 import 'package:One_Bytes_Food/screens/welcome_screen.dart';
 import 'package:One_Bytes_Food/widgets/qr_code_scanner_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../bloc/cinema/cinema_bloc.dart';
 import '../screens/back_email_screen.dart';
 
 class AppRoutes {
@@ -37,11 +35,6 @@ class AppRoutes {
     qrCodeScannerScreen: (context) => QrCodeScanner(),
     backEmailScreen: (context) => BackEmailScreen(),
     paymentPortalScreen: (context) => PaymentPortalScreen(),
-    seatReservationScreen: (context) => BlocProvider<CinemaBloc>(
-          create: (context) => CinemaBloc(),
-          child: SeatReservationScreen(
-            titleMovie: "Seat Reservation",
-          ),
-        ),
+    seatReservationScreen: (context) => SeatReservationScreen(),
   };
 }

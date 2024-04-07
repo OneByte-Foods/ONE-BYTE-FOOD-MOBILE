@@ -37,10 +37,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       FutureBuilder<String?>(
                         future: UserConstants.getUsername,
                         builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return CircularProgressIndicator();
-                          } else if (snapshot.hasError) {
+                          if (snapshot.hasError) {
                             return Text('Error: ${snapshot.error}');
                           } else {
                             String? username = snapshot.data;

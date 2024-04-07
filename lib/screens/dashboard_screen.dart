@@ -1,5 +1,6 @@
 import 'package:One_Bytes_Food/constants/global_colors.dart';
 import 'package:One_Bytes_Food/routes/app_routes.dart';
+import 'package:One_Bytes_Food/screens/Favroute_page.dart';
 import 'package:One_Bytes_Food/screens/booking_screen.dart';
 import 'package:One_Bytes_Food/screens/home_page_screen.dart';
 import 'package:One_Bytes_Food/screens/profile_page_screen.dart';
@@ -96,18 +97,6 @@ class _HomeScreenState extends State<DashboardScreen> {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class FavoritesPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Center(
-        child: Text('Online Food Ordering System'),
       ),
     );
   }

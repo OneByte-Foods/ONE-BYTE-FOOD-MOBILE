@@ -1,242 +1,172 @@
-import 'package:One_Bytes_Food/constants/global_colors.dart';
-import 'package:One_Bytes_Food/model/date_time_model.dart';
-import 'package:One_Bytes_Food/widgets/bottom_modal_sheet.dart';
 import 'package:One_Bytes_Food/widgets/build_btn.dart';
-import 'package:One_Bytes_Food/widgets/textFrave.dart';
+import 'package:One_Bytes_Food/widgets/table_booking_bottom_sheet.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../bloc/cinema/cinema_bloc.dart';
-import '../model/arm_chair_model.dart';
-import '../widgets/seat_row.dart';
+import '../constants/app_style.dart';
+import '../constants/global_colors.dart';
+import '../widgets/item_description_widget.dart';
+import '../widgets/table_widget.dart';
 
 class SeatReservationScreen extends StatefulWidget {
-  final String titleMovie;
-
-  const SeatReservationScreen({
-    Key? key,
-    required this.titleMovie,
-  }) : super(key: key);
+  const SeatReservationScreen({Key? key}) : super(key: key);
 
   @override
   State<SeatReservationScreen> createState() => _SeatReservationScreenState();
 }
 
-class _SeatReservationScreenState extends State<SeatReservationScreen>
-    with SingleTickerProviderStateMixin {
-  late TabController _tabController = TabController(
-    length: 2,
-    vsync: this,
-  );
+class _SeatReservationScreenState extends State<SeatReservationScreen> {
+  // late Stream<List<ArmChairsModel>> _armChairsStream;
+
+  @override
+  void initState() {
+    super.initState();
+    //_armChairsStream = fetchArmChairsData();
+  }
+
+  List<int> _floors = [1, 2, 3, 4, 5];
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Stack(
+      backgroundColor: AppColors.scaffoldBackgroundColor,
+      body: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        physics: AlwaysScrollableScrollPhysics(),
+        child: Row(
+          children: [
+            for (int i = 0; i < _floors.length; i++)
+              _buildPage1(size, _floors[i]),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPage1(Size size, int floor) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-            height: size.height,
-            width: size.width,
-            color: AppColors.lightYellow,
-          ),
-          Container(
-            height: size.height * .7,
-            width: size.width,
+          Text("Floor $floor", style: AppStyles.text20PxRegular),
+          Center(
             child: Container(
-              child: ClipRRect(
-                child: Container(),
+              width: size.width * .90,
+              height: size.height * .77,
+              decoration: BoxDecoration(
+                shape: BoxShape.rectangle,
+                color: AppColors.green,
+                borderRadius: BorderRadius.circular(25.0),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 10),
+                  _buildSeatInformation(),
+                  _buildTables(),
+                  _buildBarCounter(),
+                  SizedBox(height: 10),
+                  ItemsDescription(size: size)
+                ],
               ),
             ),
           ),
-          Positioned(
-            top: 30,
-            child: Container(
-                margin: EdgeInsets.symmetric(vertical: 10),
-                width: size.width,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextFrave(
-                        text: widget.titleMovie,
-                        color: AppColors.green,
-                        fontWeight: FontWeight.bold)
-                  ],
-                )),
-          ),
-          Positioned(
-              top: 100,
-              child: Container(
-                child: Column(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.only(left: 20.0),
-                      height: 100,
-                      width: size.width,
-                      child: ListView.builder(
-                        physics: BouncingScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        itemCount: DateTimeModel.listDate.length,
-                        itemBuilder: (_, i) =>
-                            _ItemDate(date: DateTimeModel.listDate[i]),
-                      ),
-                    ),
-                    SizedBox(height: 30.0),
-                    Container(
-                      padding: EdgeInsets.only(left: 20.0),
-                      height: 40,
-                      width: size.width,
-                      child: ListView.builder(
-                          physics: BouncingScrollPhysics(),
-                          scrollDirection: Axis.horizontal,
-                          itemCount: DateTimeModel.listTime.length,
-                          itemBuilder: (_, i) =>
-                              _ItemTime(time: DateTimeModel.listTime[i])),
-                    ),
-                    SizedBox(height: 55.0),
-                    Container(
-                        height: 240,
-                        width: size.width,
-                        child: Column(
-                          children: List.generate(
-                              ArmChairsModel.listChairs.length,
-                              (i) => SeatsRow(
-                                    numSeats:
-                                        ArmChairsModel.listChairs[i].seats,
-                                    freeSeats:
-                                        ArmChairsModel.listChairs[i].freeSeats,
-                                    rowSeats:
-                                        ArmChairsModel.listChairs[i].rowSeats,
-                                  )),
-                        )),
-                    SizedBox(height: 55.0),
-                    _ItemsDescription(size: size)
-                  ],
-                ),
-              )),
-          Positioned(
-              left: 60,
-              right: 60,
-              bottom: 20,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: buildButton(context,
-                    text: "Reserve your table ${2.0}",
-                    color: AppColors.green, onPressed: () {
-                  modalBottomSheet(context, _tabController);
-                }),
-              )),
+          SizedBox(height: 20),
+          buildButton(
+            context,
+            text: "Reserve Table",
+            color: Color(0XFF048BA8),
+            width: MediaQuery.of(context).size.width * .80,
+            onPressed: () {
+              table_booking_bottom_sheet(context);
+            },
+          )
         ],
       ),
     );
   }
-}
 
-class _ItemsDescription extends StatelessWidget {
-  const _ItemsDescription({
-    Key? key,
-    required this.size,
-  }) : super(key: key);
-
-  final Size size;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: size.width,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Row(
-            children: [
-              Icon(Icons.circle, color: Colors.white, size: 10),
-              SizedBox(width: 10.0),
-              TextFrave(text: 'Free', fontSize: 20, color: Colors.white)
-            ],
-          ),
-          Row(
-            children: [
-              Icon(Icons.circle, color: Color(0xff4A5660), size: 10),
-              SizedBox(width: 10.0),
-              TextFrave(
-                  text: 'Reserved', fontSize: 20, color: Color(0xff4A5660))
-            ],
-          ),
-          Row(
-            children: [
-              Icon(Icons.circle, color: Colors.amber, size: 10),
-              SizedBox(width: 10.0),
-              TextFrave(text: 'Selected', fontSize: 20, color: Colors.amber)
-            ],
-          ),
-        ],
-      ),
+  Widget _buildSeatInformation() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        _buildSeatInfoText(" 4 seats available"),
+        _buildSeatInfoText("27 person"),
+      ],
     );
   }
-}
 
-class _ItemTime extends StatelessWidget {
-  final String time;
-
-  const _ItemTime({Key? key, required this.time}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final cinemaBloc = BlocProvider.of<CinemaBloc>(context);
-
+  Widget _buildSeatInfoText(String text) {
     return Padding(
-      padding: const EdgeInsets.only(right: 10.0),
-      child: InkWell(
-        onTap: () => cinemaBloc.add(OnSelectedTimeEvent(time)),
-        child: BlocBuilder<CinemaBloc, CinemaState>(
-          builder: (context, state) => Container(
-              alignment: Alignment.center,
-              padding: EdgeInsets.symmetric(horizontal: 18.0),
-              decoration: BoxDecoration(
-                  color: state.time == time ? Colors.amber : Color(0xff4D525A),
-                  borderRadius: BorderRadius.circular(8.0)),
-              child: TextFrave(text: time, color: Colors.white, fontSize: 16)),
-        ),
+      padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+      child: Text(
+        text,
+        style: AppStyles.text16PxRegular.copyWith(color: Colors.white),
       ),
     );
   }
-}
 
-class _ItemDate extends StatelessWidget {
-  final DateTimeModel date;
-
-  const _ItemDate({Key? key, required this.date}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final cinemaBloc = BlocProvider.of<CinemaBloc>(context);
-
-    return InkWell(
-      onTap: () => cinemaBloc.add(OnSelectedDateEvent(date.number)),
-      child: Padding(
-        padding: const EdgeInsets.only(right: 10.0),
-        child: BlocBuilder<CinemaBloc, CinemaState>(
-          builder: (context, state) => Container(
-            height: 100,
-            width: 75,
-            decoration: BoxDecoration(
-                color: state.date == date.number
-                    ? Colors.amber
-                    : Color(0xff4A5660),
-                borderRadius: BorderRadius.circular(15.0)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.circle,
-                    color: Color(0xff21242C).withOpacity(.8), size: 12),
-                SizedBox(height: 10.0),
-                TextFrave(text: date.day, color: Colors.white, fontSize: 17),
-                SizedBox(height: 5.0),
-                TextFrave(text: date.number, color: Colors.white, fontSize: 30),
-              ],
-            ),
+  Widget _buildTables() {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 16.0),
+      child: Column(
+        children: [
+          SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildTableRow(1, 6.0),
+              _buildTableRow(2, 2.0),
+              _buildTableRow(3, 2.0),
+            ],
           ),
+          SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildTableRow(4, 4.0),
+              _buildTableRow(5, 4.0),
+              _buildTableRow(6, 2.0),
+            ],
+          ),
+          SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildTableRow(7, 4.0),
+              _buildTableRow(8, 4.0),
+              _buildTableRow(9, 2.0),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTableRow(int index, double numSeats) {
+    return Row(
+      children: [
+        TableWidget(
+          index: index,
+          circleRadius: 13,
+          numSeats: numSeats,
         ),
+      ],
+    );
+  }
+
+  Widget _buildBarCounter() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 20, top: 10),
+      child: Row(
+        children: [
+          TableWidget(
+            index: 7,
+            circleRadius: 13,
+            numSeats: 7.0,
+          ),
+        ],
       ),
     );
   }

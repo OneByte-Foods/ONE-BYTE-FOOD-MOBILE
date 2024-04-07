@@ -1,5 +1,6 @@
-import 'package:One_Bytes_Food/routes/app_routes.dart';
 import 'package:flutter/material.dart';
+
+import '../routes/app_routes.dart';
 
 class BookingScreen extends StatefulWidget {
   const BookingScreen({super.key});
