@@ -26,6 +26,7 @@ class _SeatsWidgetState extends State<SeatsWidget> {
     final selectedSeats = widget.selectedSeats
         .where((seatIndex) => seatIndex ~/ 10 == widget.floorIndex)
         .toSet();
+
     if (widget.numSeats == 2) {
       return Column(
         mainAxisSize: MainAxisSize.min,
@@ -38,7 +39,7 @@ class _SeatsWidgetState extends State<SeatsWidget> {
                   widget.onSeatPressed(i);
                 },
                 child: CircleAvatar(
-                  child: widget.selectedSeats.contains(i)
+                  child: selectedSeats.contains(i)
                       ? buildCircleAvatar(radius: 20)
                       : Text((i + 1).toString()),
                   backgroundColor: Colors.white,
@@ -63,7 +64,7 @@ class _SeatsWidgetState extends State<SeatsWidget> {
                       widget.onSeatPressed(i);
                     },
                     child: CircleAvatar(
-                      child: widget.selectedSeats.contains(i)
+                      child: selectedSeats.contains(i)
                           ? buildCircleAvatar(radius: 30)
                           : Text((i + 1).toString()),
                       backgroundColor: Colors.white,
@@ -84,7 +85,7 @@ class _SeatsWidgetState extends State<SeatsWidget> {
                       widget.onSeatPressed(i);
                     },
                     child: CircleAvatar(
-                      child: widget.selectedSeats.contains(i)
+                      child: selectedSeats.contains(i)
                           ? buildCircleAvatar(radius: 20)
                           : Text((i + 1).toString()),
                       backgroundColor: Colors.white,
@@ -111,7 +112,7 @@ class _SeatsWidgetState extends State<SeatsWidget> {
                       widget.onSeatPressed(i);
                     },
                     child: CircleAvatar(
-                      child: widget.selectedSeats.contains(i)
+                      child: selectedSeats.contains(i)
                           ? buildCircleAvatar(radius: 20)
                           : Text((i + 1).toString()),
                       backgroundColor: Colors.white,
@@ -132,7 +133,7 @@ class _SeatsWidgetState extends State<SeatsWidget> {
                       widget.onSeatPressed(i);
                     },
                     child: CircleAvatar(
-                      child: widget.selectedSeats.contains(i)
+                      child: selectedSeats.contains(i)
                           ? buildCircleAvatar(radius: 20)
                           : Text((i + 1).toString()),
                       backgroundColor: Colors.white,
@@ -156,7 +157,7 @@ class _SeatsWidgetState extends State<SeatsWidget> {
                   widget.onSeatPressed(i);
                 },
                 child: CircleAvatar(
-                  child: widget.selectedSeats.contains(i)
+                  child: selectedSeats.contains(i)
                       ? buildCircleAvatar(radius: 20)
                       : Text((i + 1).toString()),
                   backgroundColor: Colors.white,

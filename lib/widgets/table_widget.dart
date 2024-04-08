@@ -3,23 +3,23 @@ import 'package:One_Bytes_Food/widgets/seats_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../model/seat_model.dart';
+import '../model/seat_provider.dart';
 
 class TableWidget extends StatelessWidget {
   final double circleRadius;
   final double numSeats;
   final int index;
   final int tableIndex;
-  final int floorIndex; // Add floorIndex parameter
+  final int floorIndex;
 
-  const TableWidget({
-    Key? key,
-    required this.circleRadius,
-    required this.numSeats,
-    required this.index,
-    required this.tableIndex,
-    required this.floorIndex, // Accept floorIndex
-  }) : super(key: key);
+  const TableWidget(
+      {Key? key,
+      required this.circleRadius,
+      required this.numSeats,
+      required this.index,
+      required this.tableIndex,
+      required this.floorIndex})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +28,18 @@ class TableWidget extends StatelessWidget {
         final selectedSeats = seatModel
                 .floorTableSeatColors[floorIndex]?[tableIndex]?.keys
                 .toSet() ??
-            {}; // Use floorIndex
+            {};
 
         void handleSeatPressed(int seatIndex) {
-          seatModel.toggleSeatColor(
-              floorIndex, tableIndex, seatIndex); // Pass floorIndex
+          int totalSeats = numSeats.toInt();
+          int seatsPerRow = totalSeats ~/ 2;
+
+          int rowIndex = seatIndex ~/ seatsPerRow;
+          int columnIndex = seatIndex % seatsPerRow;
+
+          int seatNumber = rowIndex * seatsPerRow + columnIndex + 1;
+
+          seatModel.toggleSeat(floorIndex, tableIndex, seatNumber, index);
         }
 
         return Column(
