@@ -1,6 +1,15 @@
+import 'package:One_Bytes_Food/constants/user_constants.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 class SeatProvider extends ChangeNotifier {
+  final DatabaseReference database = FirebaseDatabase.instanceFor(
+    app: Firebase.app(),
+    databaseURL:
+        "https://one-bytes-backend-default-rtdb.asia-southeast1.firebasedatabase.app/",
+  ).ref();
+
   // Map to store selected seats for each table on each floor
   Map<int, Map<int, Map<int, Color>>> _floorTableSeatColors = {};
 
@@ -35,13 +44,27 @@ class SeatProvider extends ChangeNotifier {
           Colors.green;
 
       print(
-          'Floor: $floorIndex, Row: $rowNumber, Table: ${whichTable()}, Seat: $seatNumber booked');
+          'Floor: $floorIndex, Row: $rowNumber, Table: ${whichTable()}, Seat: ${seatNumber} booked');
     } else {
       // Seat is already booked, so unbook it
       _floorTableSeatColors[floorIndex]![tableIndex]!.remove(seatNumber);
       print(
-          'Floor: $floorIndex, Row: $rowNumber, Table: ${whichTable()}, Seat: $seatNumber unbooked');
+          'Floor: $floorIndex, Row: $rowNumber, Table: ${whichTable()}, Seat: ${seatNumber} unbooked');
     }
+    database
+        .child('Bookings')
+        .child('floor$floorIndex')
+        .child('${whichTable().toString()}')
+        .child('seat${seatNumber - 10}')
+        .set({
+      "userName": UserConstants.userNameUrl.toString(),
+      "useProfilePic": UserConstants.userImageUrl.toString(),
+      'status': _floorTableSeatColors[floorIndex]![tableIndex]!
+              .containsKey(seatNumber)
+          ? 'booked'
+          : 'unbooked',
+    });
+
     notifyListeners();
   }
 }

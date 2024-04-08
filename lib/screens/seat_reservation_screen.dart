@@ -32,7 +32,6 @@ class _SeatReservationScreenState extends State<SeatReservationScreen> {
         physics: AlwaysScrollableScrollPhysics(),
         child: Row(
           children: [
-            // all of the floors and the pages are being looped here okay kusu !!
             for (int i = 0; i < _floors.length; i++)
               _buildPage1(size, _floors[i]),
           ],
