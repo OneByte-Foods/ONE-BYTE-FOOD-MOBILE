@@ -1,3 +1,4 @@
+import 'package:One_Bytes_Food/widgets/circle_avatar_widget.dart';
 import 'package:flutter/material.dart';
 
 Widget buildSeatsWidget({
@@ -18,8 +19,10 @@ Widget buildSeatsWidget({
                 onSeatPressed(i);
               },
               child: CircleAvatar(
-                backgroundColor:
-                    selectedSeats.contains(i) ? Colors.blue : Colors.white,
+                child: selectedSeats.contains(i)
+                    ? buildCircleAvatar(radius: 20)
+                    : Text((i + 1).toString()),
+                backgroundColor: Colors.white,
                 radius: circleRadius,
               ),
             ),
@@ -41,8 +44,10 @@ Widget buildSeatsWidget({
                     onSeatPressed(i);
                   },
                   child: CircleAvatar(
-                    backgroundColor:
-                        selectedSeats.contains(i) ? Colors.blue : Colors.white,
+                    child: selectedSeats.contains(i)
+                        ? buildCircleAvatar(radius: 30)
+                        : Text((i + 1).toString()),
+                    backgroundColor: Colors.white,
                     radius: circleRadius,
                   ),
                 ),
@@ -60,8 +65,10 @@ Widget buildSeatsWidget({
                     onSeatPressed(i);
                   },
                   child: CircleAvatar(
-                    backgroundColor:
-                        selectedSeats.contains(i) ? Colors.blue : Colors.white,
+                    child: selectedSeats.contains(i)
+                        ? buildCircleAvatar(radius: 20)
+                        : Text((i + 1).toString()),
+                    backgroundColor: Colors.white,
                     radius: circleRadius,
                   ),
                 ),
@@ -85,8 +92,10 @@ Widget buildSeatsWidget({
                     onSeatPressed(i);
                   },
                   child: CircleAvatar(
-                    backgroundColor:
-                        selectedSeats.contains(i) ? Colors.blue : Colors.white,
+                    child: selectedSeats.contains(i)
+                        ? buildCircleAvatar(radius: 20)
+                        : Text((i + 1).toString()),
+                    backgroundColor: Colors.white,
                     radius: circleRadius,
                   ),
                 ),
@@ -104,8 +113,8 @@ Widget buildSeatsWidget({
                     onSeatPressed(i);
                   },
                   child: CircleAvatar(
-                    backgroundColor:
-                        selectedSeats.contains(i) ? Colors.blue : Colors.white,
+                    child: Text((i + 1).toString()),
+                    backgroundColor: Colors.white,
                     radius: circleRadius,
                   ),
                 ),
@@ -126,8 +135,10 @@ Widget buildSeatsWidget({
                 onSeatPressed(i);
               },
               child: CircleAvatar(
-                backgroundColor:
-                    selectedSeats.contains(i) ? Colors.blue : Colors.white,
+                child: selectedSeats.contains(i)
+                    ? buildCircleAvatar(radius: 20)
+                    : Text((i + 1).toString()),
+                backgroundColor: Colors.white,
                 radius: circleRadius,
               ),
             ),

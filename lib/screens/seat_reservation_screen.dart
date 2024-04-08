@@ -15,12 +15,9 @@ class SeatReservationScreen extends StatefulWidget {
 }
 
 class _SeatReservationScreenState extends State<SeatReservationScreen> {
-  // late Stream<List<ArmChairsModel>> _armChairsStream;
-
   @override
   void initState() {
     super.initState();
-    //_armChairsStream = fetchArmChairsData();
   }
 
   List<int> _floors = [1, 2, 3, 4, 5];
