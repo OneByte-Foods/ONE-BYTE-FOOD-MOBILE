@@ -1,11 +1,11 @@
-import 'package:One_Bytes_Food/widgets/build_btn.dart';
-import 'package:One_Bytes_Food/widgets/table_booking_bottom_sheet.dart';
+import 'package:One_Bytes_Food/widgets/table_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/app_style.dart';
 import '../constants/global_colors.dart';
+import '../widgets/build_btn.dart';
 import '../widgets/item_description_widget.dart';
-import '../widgets/table_widget.dart';
+import '../widgets/table_booking_bottom_sheet.dart';
 
 class SeatReservationScreen extends StatefulWidget {
   const SeatReservationScreen({Key? key}) : super(key: key);
@@ -32,6 +32,7 @@ class _SeatReservationScreenState extends State<SeatReservationScreen> {
         physics: AlwaysScrollableScrollPhysics(),
         child: Row(
           children: [
+            // all of the floors and the pages are being looped here okay kusu !!
             for (int i = 0; i < _floors.length; i++)
               _buildPage1(size, _floors[i]),
           ],
@@ -113,27 +114,27 @@ class _SeatReservationScreenState extends State<SeatReservationScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _buildTableRow(1, 6.0),
-              _buildTableRow(2, 2.0),
-              _buildTableRow(3, 2.0),
+              _buildTableRow(1, 6.0, 1),
+              _buildTableRow(2, 2.0, 2),
+              _buildTableRow(3, 2.0, 3),
             ],
           ),
           SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _buildTableRow(4, 4.0),
-              _buildTableRow(5, 4.0),
-              _buildTableRow(6, 2.0),
+              _buildTableRow(4, 4.0, 4),
+              _buildTableRow(5, 4.0, 5),
+              _buildTableRow(6, 2.0, 6),
             ],
           ),
           SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _buildTableRow(7, 4.0),
-              _buildTableRow(8, 4.0),
-              _buildTableRow(9, 2.0),
+              _buildTableRow(7, 4.0, 7),
+              _buildTableRow(8, 4.0, 8),
+              _buildTableRow(9, 2.0, 9),
             ],
           ),
         ],
@@ -141,13 +142,14 @@ class _SeatReservationScreenState extends State<SeatReservationScreen> {
     );
   }
 
-  Widget _buildTableRow(int index, double numSeats) {
+  Widget _buildTableRow(int index, double numSeats, int tableIndex) {
     return Row(
       children: [
         TableWidget(
           index: index,
           circleRadius: 13,
           numSeats: numSeats,
+          tableIndex: tableIndex,
         ),
       ],
     );
@@ -162,6 +164,7 @@ class _SeatReservationScreenState extends State<SeatReservationScreen> {
             index: 7,
             circleRadius: 13,
             numSeats: 7.0,
+            tableIndex: 10, // Assign a unique index for the bar counter
           ),
         ],
       ),

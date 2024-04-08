@@ -28,7 +28,7 @@ void main() async {
       ChangeNotifierProvider(create: (context) => LocationProvider()),
       ChangeNotifierProvider(create: (context) => QrCodeProvider()),
       ChangeNotifierProvider(
-        create: (context) => SeatModel(),
+        create: (context) => SeatProvider(),
       )
     ],
     child: MyApp(

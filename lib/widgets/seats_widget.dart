@@ -25,6 +25,7 @@ class _SeatsWidgetState extends State<SeatsWidget> {
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          // table anusar le render garna paryo (numseats )
           for (int i = 0; i < widget.numSeats; i++)
             Padding(
               padding: const EdgeInsets.all(8.0),

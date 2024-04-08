@@ -20,5 +20,6 @@ class DateTimeModel {
     '7:30 PM',
     '8:30 PM',
     '9:30 PM',
+    '10:30 PM',
   ];
 }

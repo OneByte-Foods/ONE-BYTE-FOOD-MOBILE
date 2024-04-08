@@ -1,29 +1,34 @@
 import 'package:One_Bytes_Food/constants/app_style.dart';
-import 'package:One_Bytes_Food/model/seat_model.dart';
 import 'package:One_Bytes_Food/widgets/seats_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../model/seat_model.dart';
 
 class TableWidget extends StatelessWidget {
   final double circleRadius;
   final double numSeats;
   final int index;
+  final int tableIndex; // Add tableIndex parameter
 
   const TableWidget({
     Key? key,
     required this.circleRadius,
     required this.numSeats,
     required this.index,
+    required this.tableIndex, // Accept tableIndex
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<SeatModel>(
+    return Consumer<SeatProvider>(
       builder: (context, seatModel, child) {
-        final selectedSeats = seatModel.seatColors.keys.toSet();
+        final selectedSeats =
+            seatModel.tableSeatColors[tableIndex]?.keys.toSet() ??
+                {}; // Use tableIndex
 
         void handleSeatPressed(int seatIndex) {
-          seatModel.toggleSeatColor(seatIndex);
+          seatModel.toggleSeatColor(tableIndex, seatIndex); // Pass tableIndex
         }
 
         return Column(
