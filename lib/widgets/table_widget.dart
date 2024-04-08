@@ -34,7 +34,7 @@ class TableWidget extends StatelessWidget {
                 color: Color.fromARGB(242, 129, 228, 167),
                 borderRadius: BorderRadius.circular(25),
               ),
-              child: buildSeatsWidget(
+              child: SeatsWidget(
                 onSeatPressed: handleSeatPressed,
                 numSeats: numSeats,
                 circleRadius: circleRadius,
