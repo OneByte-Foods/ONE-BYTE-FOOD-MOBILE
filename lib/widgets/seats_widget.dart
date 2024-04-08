@@ -36,10 +36,11 @@ class _SeatsWidgetState extends State<SeatsWidget> {
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(
                 onTap: () {
-                  widget.onSeatPressed(i);
+                  int seatIndex = widget.floorIndex * 10 + i;
+                  widget.onSeatPressed(seatIndex);
                 },
                 child: CircleAvatar(
-                  child: selectedSeats.contains(i)
+                  child: selectedSeats.contains(widget.floorIndex * 10 + i + 1)
                       ? buildCircleAvatar(radius: 20)
                       : Text((i + 1).toString()),
                   backgroundColor: Colors.white,
@@ -61,12 +62,14 @@ class _SeatsWidgetState extends State<SeatsWidget> {
                   padding: const EdgeInsets.all(8.0),
                   child: GestureDetector(
                     onTap: () {
-                      widget.onSeatPressed(i);
+                      int seatIndex = widget.floorIndex * 10 + i;
+                      widget.onSeatPressed(seatIndex);
                     },
                     child: CircleAvatar(
-                      child: selectedSeats.contains(i)
-                          ? buildCircleAvatar(radius: 30)
-                          : Text((i + 1).toString()),
+                      child:
+                          selectedSeats.contains(widget.floorIndex * 10 + i + 1)
+                              ? buildCircleAvatar(radius: 30)
+                              : Text((i + 1).toString()),
                       backgroundColor: Colors.white,
                       radius: widget.circleRadius,
                     ),
@@ -82,12 +85,14 @@ class _SeatsWidgetState extends State<SeatsWidget> {
                   padding: const EdgeInsets.all(8.0),
                   child: GestureDetector(
                     onTap: () {
-                      widget.onSeatPressed(i);
+                      int seatIndex = widget.floorIndex * 10 + i;
+                      widget.onSeatPressed(seatIndex);
                     },
                     child: CircleAvatar(
-                      child: selectedSeats.contains(i)
-                          ? buildCircleAvatar(radius: 20)
-                          : Text((i + 1).toString()),
+                      child:
+                          selectedSeats.contains(widget.floorIndex * 10 + i + 1)
+                              ? buildCircleAvatar(radius: 20)
+                              : Text((i + 1).toString()),
                       backgroundColor: Colors.white,
                       radius: widget.circleRadius,
                     ),
@@ -109,12 +114,14 @@ class _SeatsWidgetState extends State<SeatsWidget> {
                   padding: const EdgeInsets.all(8.0),
                   child: GestureDetector(
                     onTap: () {
-                      widget.onSeatPressed(i);
+                      int seatIndex = widget.floorIndex * 10 + i;
+                      widget.onSeatPressed(seatIndex);
                     },
                     child: CircleAvatar(
-                      child: selectedSeats.contains(i)
-                          ? buildCircleAvatar(radius: 20)
-                          : Text((i + 1).toString()),
+                      child:
+                          selectedSeats.contains(widget.floorIndex * 10 + i + 1)
+                              ? buildCircleAvatar(radius: 20)
+                              : Text((i + 1).toString()),
                       backgroundColor: Colors.white,
                       radius: widget.circleRadius,
                     ),
@@ -130,12 +137,14 @@ class _SeatsWidgetState extends State<SeatsWidget> {
                   padding: const EdgeInsets.all(8.0),
                   child: GestureDetector(
                     onTap: () {
-                      widget.onSeatPressed(i);
+                      int seatIndex = widget.floorIndex * 10 + i;
+                      widget.onSeatPressed(seatIndex);
                     },
                     child: CircleAvatar(
-                      child: selectedSeats.contains(i)
-                          ? buildCircleAvatar(radius: 20)
-                          : Text((i + 1).toString()),
+                      child:
+                          selectedSeats.contains(widget.floorIndex * 10 + i + 1)
+                              ? buildCircleAvatar(radius: 20)
+                              : Text((i + 1).toString()),
                       backgroundColor: Colors.white,
                       radius: widget.circleRadius,
                     ),
@@ -154,10 +163,11 @@ class _SeatsWidgetState extends State<SeatsWidget> {
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(
                 onTap: () {
-                  widget.onSeatPressed(i);
+                  int seatIndex = widget.floorIndex * 10 + i;
+                  widget.onSeatPressed(seatIndex);
                 },
                 child: CircleAvatar(
-                  child: selectedSeats.contains(i)
+                  child: selectedSeats.contains(widget.floorIndex * 10 + i + 1)
                       ? buildCircleAvatar(radius: 20)
                       : Text((i + 1).toString()),
                   backgroundColor: Colors.white,
