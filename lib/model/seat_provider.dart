@@ -1,3 +1,4 @@
+import 'package:One_Bytes_Food/constants/db_constants.dart';
 import 'package:One_Bytes_Food/constants/user_constants.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -6,8 +7,7 @@ import 'package:flutter/material.dart';
 class SeatProvider extends ChangeNotifier {
   final DatabaseReference database = FirebaseDatabase.instanceFor(
     app: Firebase.app(),
-    databaseURL:
-        "https://one-bytes-backend-default-rtdb.asia-southeast1.firebasedatabase.app/",
+    databaseURL: DbConstants.dbUrl,
   ).ref();
 
   // Map to store selected seats for each table on each floor
