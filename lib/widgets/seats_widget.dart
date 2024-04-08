@@ -128,7 +128,9 @@ class _SeatsWidgetState extends State<SeatsWidget> {
                       widget.onSeatPressed(i);
                     },
                     child: CircleAvatar(
-                      child: Text((i + 1).toString()),
+                      child: widget.selectedSeats.contains(i)
+                          ? buildCircleAvatar(radius: 20)
+                          : Text((i + 1).toString()),
                       backgroundColor: Colors.white,
                       radius: widget.circleRadius,
                     ),
