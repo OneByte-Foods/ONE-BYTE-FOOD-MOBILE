@@ -62,8 +62,8 @@ class _SeatReservationScreenState extends State<SeatReservationScreen> {
                 children: [
                   SizedBox(height: 10),
                   _buildSeatInformation(),
-                  _buildTables(),
-                  _buildBarCounter(),
+                  _buildTables(floor),
+                  _buildBarCounter(floor),
                   SizedBox(height: 10),
                   ItemsDescription(size: size)
                 ],
@@ -105,7 +105,7 @@ class _SeatReservationScreenState extends State<SeatReservationScreen> {
     );
   }
 
-  Widget _buildTables() {
+  Widget _buildTables(int floor) {
     return Padding(
       padding: EdgeInsets.only(bottom: 16.0),
       child: Column(
@@ -114,27 +114,27 @@ class _SeatReservationScreenState extends State<SeatReservationScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _buildTableRow(1, 6.0, 1),
-              _buildTableRow(2, 2.0, 2),
-              _buildTableRow(3, 2.0, 3),
+              _buildTableRow(1, 6.0, 1, floor),
+              _buildTableRow(2, 2.0, 2, floor),
+              _buildTableRow(3, 2.0, 3, floor),
             ],
           ),
           SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _buildTableRow(4, 4.0, 4),
-              _buildTableRow(5, 4.0, 5),
-              _buildTableRow(6, 2.0, 6),
+              _buildTableRow(4, 4.0, 4, floor),
+              _buildTableRow(5, 4.0, 5, floor),
+              _buildTableRow(6, 2.0, 6, floor),
             ],
           ),
           SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _buildTableRow(7, 4.0, 7),
-              _buildTableRow(8, 4.0, 8),
-              _buildTableRow(9, 2.0, 9),
+              _buildTableRow(7, 4.0, 7, floor),
+              _buildTableRow(8, 4.0, 8, floor),
+              _buildTableRow(9, 2.0, 9, floor),
             ],
           ),
         ],
@@ -142,10 +142,12 @@ class _SeatReservationScreenState extends State<SeatReservationScreen> {
     );
   }
 
-  Widget _buildTableRow(int index, double numSeats, int tableIndex) {
+  Widget _buildTableRow(
+      int index, double numSeats, int tableIndex, int floorIndex) {
     return Row(
       children: [
         TableWidget(
+          floorIndex: floorIndex,
           index: index,
           circleRadius: 13,
           numSeats: numSeats,
@@ -155,16 +157,17 @@ class _SeatReservationScreenState extends State<SeatReservationScreen> {
     );
   }
 
-  Widget _buildBarCounter() {
+  Widget _buildBarCounter(int floorIndex) {
     return Padding(
       padding: const EdgeInsets.only(left: 20, top: 10),
       child: Row(
         children: [
           TableWidget(
+            floorIndex: floorIndex,
             index: 7,
             circleRadius: 13,
             numSeats: 7.0,
-            tableIndex: 10, // Assign a unique index for the bar counter
+            tableIndex: 10,
           ),
         ],
       ),

@@ -1,19 +1,27 @@
 import 'package:flutter/material.dart';
 
 class SeatProvider extends ChangeNotifier {
-  Map<int, Map<int, Color>> _tableSeatColors = {};
+  // Map to store selected seats for each table on each floor
+  Map<int, Map<int, Map<int, Color>>> _floorTableSeatColors = {};
 
-  Map<int, Map<int, Color>> get tableSeatColors => _tableSeatColors;
+  // Getter to access the selected seats for each table on each floor
+  Map<int, Map<int, Map<int, Color>>> get floorTableSeatColors =>
+      _floorTableSeatColors;
 
-  void toggleSeatColor(int tableIndex, int seatNumber) {
-    if (!_tableSeatColors.containsKey(tableIndex)) {
-      _tableSeatColors[tableIndex] = {};
+  void toggleSeatColor(int floorIndex, int tableIndex, int seatNumber) {
+    if (!_floorTableSeatColors.containsKey(floorIndex)) {
+      _floorTableSeatColors[floorIndex] = {};
     }
 
-    if (_tableSeatColors[tableIndex]!.containsKey(seatNumber)) {
-      _tableSeatColors[tableIndex]!.remove(seatNumber);
+    if (!_floorTableSeatColors[floorIndex]!.containsKey(tableIndex)) {
+      _floorTableSeatColors[floorIndex]![tableIndex] = {};
+    }
+
+    if (_floorTableSeatColors[floorIndex]![tableIndex]!
+        .containsKey(seatNumber)) {
+      _floorTableSeatColors[floorIndex]![tableIndex]!.remove(seatNumber);
     } else {
-      _tableSeatColors[tableIndex]![seatNumber] = Colors.red;
+      _floorTableSeatColors[floorIndex]![tableIndex]![seatNumber] = Colors.red;
     }
     notifyListeners();
   }

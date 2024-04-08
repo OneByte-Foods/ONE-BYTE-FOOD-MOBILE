@@ -6,9 +6,11 @@ class SeatsWidget extends StatefulWidget {
   final double circleRadius;
   final Set<int> selectedSeats;
   final Function(int) onSeatPressed;
+  final int floorIndex;
 
   SeatsWidget({
     required this.numSeats,
+    required this.floorIndex,
     required this.circleRadius,
     required this.selectedSeats,
     required this.onSeatPressed,
@@ -21,11 +23,13 @@ class SeatsWidget extends StatefulWidget {
 class _SeatsWidgetState extends State<SeatsWidget> {
   @override
   Widget build(BuildContext context) {
+    final selectedSeats = widget.selectedSeats
+        .where((seatIndex) => seatIndex ~/ 10 == widget.floorIndex)
+        .toSet();
     if (widget.numSeats == 2) {
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // table anusar le render garna paryo (numseats )
           for (int i = 0; i < widget.numSeats; i++)
             Padding(
               padding: const EdgeInsets.all(8.0),

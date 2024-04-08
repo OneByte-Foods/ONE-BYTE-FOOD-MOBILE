@@ -9,26 +9,30 @@ class TableWidget extends StatelessWidget {
   final double circleRadius;
   final double numSeats;
   final int index;
-  final int tableIndex; // Add tableIndex parameter
+  final int tableIndex;
+  final int floorIndex; // Add floorIndex parameter
 
   const TableWidget({
     Key? key,
     required this.circleRadius,
     required this.numSeats,
     required this.index,
-    required this.tableIndex, // Accept tableIndex
+    required this.tableIndex,
+    required this.floorIndex, // Accept floorIndex
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Consumer<SeatProvider>(
       builder: (context, seatModel, child) {
-        final selectedSeats =
-            seatModel.tableSeatColors[tableIndex]?.keys.toSet() ??
-                {}; // Use tableIndex
+        final selectedSeats = seatModel
+                .floorTableSeatColors[floorIndex]?[tableIndex]?.keys
+                .toSet() ??
+            {}; // Use floorIndex
 
         void handleSeatPressed(int seatIndex) {
-          seatModel.toggleSeatColor(tableIndex, seatIndex); // Pass tableIndex
+          seatModel.toggleSeatColor(
+              floorIndex, tableIndex, seatIndex); // Pass floorIndex
         }
 
         return Column(
@@ -40,6 +44,7 @@ class TableWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(25),
               ),
               child: SeatsWidget(
+                floorIndex: floorIndex,
                 onSeatPressed: handleSeatPressed,
                 numSeats: numSeats,
                 circleRadius: circleRadius,
