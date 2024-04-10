@@ -1,10 +1,10 @@
 import 'package:One_Bytes_Food/constants/global_colors.dart';
 import 'package:One_Bytes_Food/dependency_injection.dart';
 import 'package:One_Bytes_Food/firebase_options.dart';
-import 'package:One_Bytes_Food/model/seat_provider.dart';
 import 'package:One_Bytes_Food/onboarding/onboarding_view.dart';
 import 'package:One_Bytes_Food/provider/location_provider.dart';
 import 'package:One_Bytes_Food/provider/qr_code_provider.dart';
+import 'package:One_Bytes_Food/provider/seat_provider.dart';
 import 'package:One_Bytes_Food/routes/app_routes.dart';
 import 'package:One_Bytes_Food/screens/dashboard_screen.dart';
 import 'package:One_Bytes_Food/screens/login_page.dart';

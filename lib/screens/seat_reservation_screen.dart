@@ -88,7 +88,6 @@ class _SeatReservationScreenState extends State<SeatReservationScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        // this all datashall also be rendered in real time using stream builder and all
         _buildSeatInfoText(" 4 seats available"),
         _buildSeatInfoText("27 person"),
       ],

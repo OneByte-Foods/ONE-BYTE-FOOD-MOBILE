@@ -1,9 +1,8 @@
 import 'package:One_Bytes_Food/constants/app_style.dart';
+import 'package:One_Bytes_Food/provider/seat_provider.dart';
 import 'package:One_Bytes_Food/widgets/seats_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../model/seat_provider.dart';
 
 class TableWidget extends StatelessWidget {
   final double circleRadius;

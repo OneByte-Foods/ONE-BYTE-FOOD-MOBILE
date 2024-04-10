@@ -56,7 +56,7 @@ class SeatProvider extends ChangeNotifier {
         .child('floor$floorIndex')
         .child('${whichTable().toString()}')
         .child('seat${seatNumber - 10}')
-        .set({
+        .update({
       "userName": UserConstants.userNameUrl.toString(),
       "useProfilePic": UserConstants.userImageUrl.toString(),
       'status': _floorTableSeatColors[floorIndex]![tableIndex]!
