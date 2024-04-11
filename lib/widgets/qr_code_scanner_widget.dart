@@ -42,6 +42,10 @@ class _QrCodeScannerState extends State<QrCodeScanner> {
                             width: 100,
                           ),
                           Image.asset(
+                            "assets/icons/esewa_logo.png",
+                            width: 100,
+                          ),
+                          Image.asset(
                             "assets/icons/connect_ips.png",
                             width: 75,
                           ),

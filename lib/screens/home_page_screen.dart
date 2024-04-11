@@ -17,13 +17,16 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late PageController _pageController;
+  late PageController _itemsPageController;
   int currentPage = 0;
   List<Widget> pages = [];
+  List<Widget> items = [];
 
   @override
   void initState() {
     super.initState();
     _pageController = PageController();
+    _itemsPageController = PageController();
   }
 
   @override
@@ -31,10 +34,20 @@ class _HomePageState extends State<HomePage> {
     super.didChangeDependencies();
     Provider.of<LocationProvider>(context, listen: false).updateLocation();
 
+    // populate items dynamically
+    items = [
+      _buildItems("assets/images/biriyani.png", "Chicken Biryani",
+          "Ambrosia Hotel & Restaurant"),
+      _buildItems("assets/images/susi.png", "Sauce Tonkatsu",
+          "Handi Restaurant,Chittagong"),
+      _buildItems("assets/images/katsu.png", "Chicken Katsu",
+          "Ambrosia Hotel & Restaurant"),
+    ];
+
     // Populate pages dynamically
     pages = [
       Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
         child: _buildPage(
           "Flash Offer",
           "We are here with the best \ndesserts in town.",
@@ -54,6 +67,18 @@ class _HomePageState extends State<HomePage> {
           colors: [Color(0xff32B768), Color(0xffB3FFD1)],
         ),
       ),
+      Padding(
+        padding: const EdgeInsets.only(left: 10, right: 40),
+        child: _buildPage(
+          "Flash Offer",
+          "We are here with the best \ndesserts in town.",
+          "assets/images/small_burger.png",
+          "assets/images/burger.png",
+          LinearGradient(
+            colors: [Color.fromARGB(198, 255, 160, 6), Color(0xffFFE1B4)],
+          ),
+        ),
+      ),
     ];
   }
 
@@ -62,37 +87,89 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: buildAppBar(),
       backgroundColor: AppColors.scaffoldBackgroundColor,
-      body: Column(
+      body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ModernSearchBar(),
+              ],
+            ),
+            SizedBox(height: 20),
+            SizedBox(
+              height: 120,
+              child: _buildCarousel(),
+            ),
+            SizedBox(height: 20),
+            SmoothPageIndicator(
+              onDotClicked: (index) {
+                _pageController.animateToPage(
+                  index,
+                  duration: Duration(milliseconds: 400),
+                  curve: Curves.easeIn,
+                );
+              },
+              controller: _pageController,
+              count: pages.length,
+              effect: WormEffect(
+                dotHeight: 8,
+                activeDotColor: AppColors.green,
+                dotColor: Color(0xffE6E6E6),
+              ),
+            ),
+            _buildDescription("Today New Arivable",
+                "Best of the today food list update", "See All"),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: SizedBox(
+                height: 120,
+                child: _buildItemsCarousel(),
+              ),
+            ),
+            _buildDescription("Explore Restaurant",
+                "Check your city Near by Restaurant", "See All"),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDescription(
+    String title,
+    String description,
+    String btnText,
+  ) {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ModernSearchBar(),
+              Text(
+                title,
+                style: AppStyles.text16PxBold,
+              ),
+              Text(
+                description,
+                style: AppStyles.text14PxLight,
+              ),
             ],
           ),
-          SizedBox(height: 40),
-          SizedBox(
-            height: 120,
-            child: _buildCarousel(),
-          ),
-          SizedBox(height: 20),
-          SmoothPageIndicator(
-            onDotClicked: (index) {
-              _pageController.animateToPage(
-                index,
-                duration: Duration(milliseconds: 400),
-                curve: Curves.easeIn,
-              );
-            },
-            controller: _pageController,
-            count: pages.length,
-            effect: WormEffect(
-              strokeWidth: 15,
-              dotHeight: 15,
-              activeDotColor: AppColors.green,
-              dotColor: Color(0xffE6E6E6),
-            ),
-          ),
+          Row(
+            children: [
+              Text(
+                btnText,
+                style: AppStyles.text12PxRegular
+                    .copyWith(color: Color(0xff6B7280)),
+              ),
+              SizedBox(width: 5),
+              Icon(Icons.arrow_forward_ios, color: Color(0xff6B7280), size: 15)
+            ],
+          )
         ],
       ),
     );
@@ -105,6 +182,75 @@ class _HomePageState extends State<HomePage> {
       physics: BouncingScrollPhysics(),
       itemCount: pages.length,
       itemBuilder: (context, index) => pages[index],
+    );
+  }
+
+  Widget _buildItemsCarousel() {
+    return ListView.builder(
+      scrollDirection: Axis.horizontal,
+      physics: BouncingScrollPhysics(),
+      itemCount: items.length,
+      itemBuilder: (context, index) => items[index],
+    );
+  }
+
+  Widget _buildItems(
+    String imgUrl,
+    String title,
+    String location,
+  ) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        constraints: BoxConstraints(maxHeight: 400),
+        width: 148,
+        height: 196,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          color: Colors.white,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(
+              child: Image.asset(
+                imgUrl,
+                width: 200,
+                height: 200,
+                fit: BoxFit.cover,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                title,
+                style: AppStyles.text16PxSemiBold,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    "assets/icons/location_icon.png",
+                    width: 20,
+                  ),
+                  SizedBox(width: 5),
+                  Flexible(
+                    child: Text(
+                      location,
+                      style: AppStyles.text10PxRegular,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -191,7 +337,6 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: AppColors.scaffoldBackgroundColor,
       title: Consumer<LocationProvider>(
         builder: (context, locationProvider, child) {
-          print("Location -> " + locationProvider.currentLocation);
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
