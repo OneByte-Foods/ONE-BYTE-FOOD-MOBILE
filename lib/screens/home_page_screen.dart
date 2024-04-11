@@ -18,16 +18,43 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late PageController _pageController;
   int currentPage = 0;
+  List<Widget> pages = [];
+
   @override
   void initState() {
     super.initState();
     _pageController = PageController();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     Provider.of<LocationProvider>(context, listen: false).updateLocation();
-    _pageController.addListener(() {
-      setState(() {
-        currentPage = _pageController.page!.round();
-      });
-    });
+
+    // Populate pages dynamically
+    pages = [
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: _buildPage(
+          "Flash Offer",
+          "We are here with the best \ndesserts in town.",
+          "assets/images/small_burger.png",
+          "assets/images/burger.png",
+          LinearGradient(
+            colors: [Color.fromARGB(198, 255, 160, 6), Color(0xffFFE1B4)],
+          ),
+        ),
+      ),
+      _buildPage(
+        "New Arrival",
+        "We are here with the best \ndesserts in town.",
+        "assets/images/small_pizza.png",
+        "assets/images/pizza.png",
+        LinearGradient(
+          colors: [Color(0xff32B768), Color(0xffB3FFD1)],
+        ),
+      ),
+    ];
   }
 
   @override
@@ -51,11 +78,14 @@ class _HomePageState extends State<HomePage> {
           SizedBox(height: 20),
           SmoothPageIndicator(
             onDotClicked: (index) {
-              _pageController.animateToPage(index,
-                  duration: Duration(milliseconds: 400), curve: Curves.easeIn);
+              _pageController.animateToPage(
+                index,
+                duration: Duration(milliseconds: 400),
+                curve: Curves.easeIn,
+              );
             },
             controller: _pageController,
-            count: 2,
+            count: pages.length,
             effect: WormEffect(
               strokeWidth: 15,
               dotHeight: 15,
@@ -69,30 +99,28 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildCarousel() {
-    return ListView(
+    return ListView.builder(
       controller: _pageController,
       scrollDirection: Axis.horizontal,
       physics: BouncingScrollPhysics(),
-      children: [
-        SizedBox(width: 20),
-        _buildFirstPage(),
-        SizedBox(width: 20),
-        _buildSecondPage(),
-        SizedBox(width: 30),
-      ],
+      itemCount: pages.length,
+      itemBuilder: (context, index) => pages[index],
     );
   }
 
-  Widget _buildFirstPage() {
+  Widget _buildPage(
+    String title,
+    String description,
+    String smallImage,
+    String bigImage,
+    LinearGradient gradient,
+  ) {
     return Container(
       width: MediaQuery.of(context).size.width - 100,
       height: 120,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(28),
-        gradient: LinearGradient(colors: [
-          Color.fromARGB(198, 255, 160, 6),
-          Color(0xffFFE1B4),
-        ]),
+        gradient: gradient,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -103,113 +131,53 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Image.asset(
-                  "assets/images/small_burger.png",
+                  smallImage,
                   width: 44,
                   height: 26,
                 ),
-                Text("Flash Offer",
-                    style: AppStyles.text16PxBold.copyWith(
-                      color: Colors.white,
-                    )),
-                Text("We are here with the best \ndeserts intown.",
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w500,
-                      height: 1.5,
-                    )),
+                Text(
+                  title,
+                  style: AppStyles.text16PxBold.copyWith(color: Colors.white),
+                ),
+                Text(
+                  description,
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 10,
+                    fontWeight: FontWeight.w500,
+                    height: 1.5,
+                  ),
+                ),
                 SizedBox(height: 10),
                 Row(
                   children: [
-                    Text("Order",
-                        style: AppStyles.text8PxBold.copyWith(
-                          color: Colors.white,
-                        )),
+                    Text(
+                      "Order",
+                      style:
+                          AppStyles.text8PxBold.copyWith(color: Colors.white),
+                    ),
                     Icon(Icons.arrow_forward_ios, color: Colors.white, size: 10)
                   ],
                 )
               ],
             ),
           ),
-          Image.asset(
-            "assets/images/burger.png",
-            width: 135,
-            height: 117,
-          )
+          bigImage == "assets/images/pizza.png"
+              ? Container(
+                  padding: EdgeInsets.only(bottom: 18),
+                  child: Image.asset(
+                    bigImage,
+                    width: 135,
+                    height: 117,
+                  ),
+                )
+              : Image.asset(
+                  bigImage,
+                  width: 135,
+                  height: 117,
+                )
         ],
-      ),
-    );
-  }
-
-  Widget _buildSecondPage() {
-    return Expanded(
-      child: Container(
-        width: MediaQuery.of(context).size.width - 100,
-        height: 120,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(28),
-          gradient: LinearGradient(colors: [
-            Color(0xff32B768),
-            Color(0xffB3FFD1),
-          ]),
-        ),
-        child: Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 30),
-                    child: Image.asset(
-                      "assets/images/small_pizza.png",
-                      width: 38,
-                      height: 38,
-                    ),
-                  ),
-                  Text("New Arrival",
-                      style: AppStyles.text16PxBold.copyWith(
-                        color: Colors.white,
-                      )),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Text(
-                      "We are here with the best \ndeserts intown.",
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 8,
-                        fontWeight: FontWeight.w500,
-                        height: 1.5,
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  Row(
-                    children: [
-                      Text("Order",
-                          style: AppStyles.text8PxBold.copyWith(
-                            color: Colors.white,
-                          )),
-                      Icon(Icons.arrow_forward_ios,
-                          color: Colors.white, size: 10),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Image.asset(
-                "assets/images/pizza.png",
-                width: 150,
-                height: 165,
-              ),
-            )
-          ],
-        ),
       ),
     );
   }
