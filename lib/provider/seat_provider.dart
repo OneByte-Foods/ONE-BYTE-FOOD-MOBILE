@@ -53,17 +53,22 @@ class SeatProvider extends ChangeNotifier {
     }
     database
         .child('Bookings')
-        .child('floor$floorIndex')
-        .child('${whichTable().toString()}')
-        .child('seat${seatNumber - 10}')
-        .update({
-      "userName": UserConstants.userNameUrl.toString(),
-      "useProfilePic": UserConstants.userImageUrl.toString(),
-      'status': _floorTableSeatColors[floorIndex]![tableIndex]!
-              .containsKey(seatNumber)
-          ? 'booked'
-          : 'unbooked',
-    });
+        .child('floorLevel$floorIndex')
+        .child('users')
+        .push()
+        .set(
+      {
+        "tableType": "${whichTable().toString()}",
+        "seatNumber": seatNumber - 10.toInt(),
+        'status': _floorTableSeatColors[floorIndex]![tableIndex]!
+                .containsKey(seatNumber)
+            ? 'booked'
+            : 'unbooked',
+        "userName": UserConstants.userNameUrl.toString(),
+        "useProfilePic": UserConstants.userImageUrl.toString(),
+        "userEmail": UserConstants.userEmail.toString(),
+      },
+    );
 
     notifyListeners();
   }
