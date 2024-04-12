@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../widgets/build_btn.dart';
 import '../widgets/search_bar_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,16 +18,15 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late PageController _pageController;
-  late PageController _itemsPageController;
   int currentPage = 0;
   List<Widget> pages = [];
   List<Widget> items = [];
+  List<Widget> resturantList = [];
 
   @override
   void initState() {
     super.initState();
     _pageController = PageController();
-    _itemsPageController = PageController();
   }
 
   @override
@@ -42,6 +42,18 @@ class _HomePageState extends State<HomePage> {
           "Handi Restaurant,Chittagong"),
       _buildItems("assets/images/katsu.png", "Chicken Katsu",
           "Ambrosia Hotel & Restaurant"),
+    ];
+
+    // populate resturant list dynamically
+    resturantList = [
+      _buildRestaurant("Ambrosia Hotel & Restaurant", "assets/images/susi.png",
+          "kazi Deiry, Taiger Pass Chittagong"),
+      _buildRestaurant("Ambrosia Hotel & Restaurant", "assets/images/susi.png",
+          "kazi Deiry, Taiger Pass Chittagong"),
+      _buildRestaurant("Ambrosia Hotel & Restaurant", "assets/images/susi.png",
+          "kazi Deiry, Taiger Pass Chittagong"),
+      _buildRestaurant("Ambrosia Hotel & Restaurant", "assets/images/susi.png",
+          "kazi Deiry, Taiger Pass Chittagong"),
     ];
 
     // Populate pages dynamically
@@ -88,7 +100,6 @@ class _HomePageState extends State<HomePage> {
       appBar: buildAppBar(),
       backgroundColor: AppColors.scaffoldBackgroundColor,
       body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
         child: Column(
           children: [
             Row(
@@ -130,6 +141,68 @@ class _HomePageState extends State<HomePage> {
             ),
             _buildDescription("Explore Restaurant",
                 "Check your city Near by Restaurant", "See All"),
+            SizedBox(
+                height: MediaQuery.of(context).size.height * 0.5,
+                child: _buildRestaurantList()),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildRestaurant(
+    String restaurantName,
+    String imgUrl,
+    String location,
+  ) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        constraints: BoxConstraints(maxHeight: 400),
+        width: 310,
+        height: 80,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.white,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset(
+              imgUrl,
+              width: 64,
+              height: 64,
+            ),
+            SizedBox(width: 10),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(restaurantName, style: AppStyles.text16PxSemiBold),
+                Row(
+                  children: [
+                    Image.asset(
+                      "assets/icons/location_icon.png",
+                      width: 20,
+                    ),
+                    SizedBox(width: 5),
+                    Text(
+                      location,
+                      style: AppStyles.text10PxRegular,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            SizedBox(width: 10),
+            buildButton(
+                width: 60,
+                height: 35,
+                context,
+                text: "Book",
+                color: AppColors.green,
+                onPressed: () {})
           ],
         ),
       ),
@@ -360,6 +433,14 @@ class _HomePageState extends State<HomePage> {
           );
         },
       ),
+    );
+  }
+
+  Widget _buildRestaurantList() {
+    return ListView.builder(
+      itemCount: resturantList.length,
+      itemBuilder: (context, index) => resturantList[index],
+      physics: BouncingScrollPhysics(),
     );
   }
 }
