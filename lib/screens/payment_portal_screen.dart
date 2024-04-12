@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../constants/global_colors.dart';
 import '../provider/qr_code_provider.dart';
+import '../services/esewa_service.dart';
 import '../widgets/build_btn.dart';
 import '../widgets/circle_avatar_widget.dart';
 
@@ -21,6 +22,7 @@ class _PaymentPortalScreenState extends State<PaymentPortalScreen> {
   TextEditingController _phoneNumberController = TextEditingController();
   TextEditingController _remarksController = TextEditingController();
   String? _selectedPurpose;
+  String? whichTable;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -32,6 +34,7 @@ class _PaymentPortalScreenState extends State<PaymentPortalScreen> {
       var qrCodeValueObj = provider.getQrCodeObject();
       if (qrCodeValueObj != null) {
         String? khaltiID = qrCodeValueObj['Khalti_ID'];
+
         _phoneNumberController.text = khaltiID ?? "";
       }
     });
@@ -47,21 +50,8 @@ class _PaymentPortalScreenState extends State<PaymentPortalScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.scaffoldBackgroundColor,
-      appBar: AppBar(
-        backgroundColor: AppColors.scaffoldBackgroundColor,
-        actions: [
-          buildCircleAvatar(radius: 20),
-        ],
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ),
-      body: Padding(
+    Widget buildKhaltiPaymentPortal(Map<String, dynamic> qrCodeValueObj) {
+      return Padding(
         padding: const EdgeInsets.all(20.0),
         child: Form(
           key: _formKey, // Added Form widget and assigned GlobalKey
@@ -137,7 +127,39 @@ class _PaymentPortalScreenState extends State<PaymentPortalScreen> {
             ],
           ),
         ),
+      );
+    }
+
+    Widget buildPaymentPortal() {
+      final provider = Provider.of<QrCodeProvider>(context, listen: false);
+      var qrCodeValueObj = provider.getQrCodeObject();
+
+      if (qrCodeValueObj != null && qrCodeValueObj.containsKey("Khalti_ID")) {
+        return buildKhaltiPaymentPortal(qrCodeValueObj);
+      } else if (qrCodeValueObj != null &&
+          qrCodeValueObj.containsKey("eSewa_id")) {
+        Esewa esewa = Esewa();
+        return esewa.pay();
+      } else {
+        return Container();
+      }
+    }
+
+    return Scaffold(
+      backgroundColor: AppColors.scaffoldBackgroundColor,
+      appBar: AppBar(
+        backgroundColor: AppColors.scaffoldBackgroundColor,
+        actions: [
+          buildCircleAvatar(radius: 20),
+        ],
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
+      body: buildPaymentPortal(),
     );
   }
 

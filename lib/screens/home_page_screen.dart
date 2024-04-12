@@ -142,7 +142,7 @@ class _HomePageState extends State<HomePage> {
             _buildDescription("Explore Restaurant",
                 "Check your city Near by Restaurant", "See All"),
             SizedBox(
-                height: MediaQuery.of(context).size.height * 0.5,
+                height: MediaQuery.of(context).size.height * 0.7,
                 child: _buildRestaurantList()),
           ],
         ),
