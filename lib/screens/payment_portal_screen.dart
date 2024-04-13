@@ -22,7 +22,6 @@ class _PaymentPortalScreenState extends State<PaymentPortalScreen> {
   TextEditingController _phoneNumberController = TextEditingController();
   TextEditingController _remarksController = TextEditingController();
   String? _selectedPurpose;
-  String? whichTable;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override

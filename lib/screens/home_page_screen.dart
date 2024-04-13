@@ -156,19 +156,17 @@ class _HomePageState extends State<HomePage> {
     String location,
   ) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
       child: Container(
-        constraints: BoxConstraints(maxHeight: 400),
-        width: 310,
-        height: 80,
+        height: MediaQuery.of(context).size.height * 0.1,
+        width: MediaQuery.of(context).size.width * 0.2,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Colors.white,
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            SizedBox(width: 10),
             Image.asset(
               imgUrl,
               width: 64,
@@ -179,7 +177,15 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(restaurantName, style: AppStyles.text16PxSemiBold),
+                Container(
+                  width: 200,
+                  child: Text(
+                    restaurantName,
+                    style: AppStyles.text16PxSemiBold,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                SizedBox(height: 5),
                 Row(
                   children: [
                     Image.asset(
@@ -197,12 +203,13 @@ class _HomePageState extends State<HomePage> {
             ),
             SizedBox(width: 10),
             buildButton(
-                width: 60,
-                height: 35,
-                context,
-                text: "Book",
-                color: AppColors.green,
-                onPressed: () {})
+              width: 60,
+              height: 35,
+              context,
+              text: "Book",
+              color: AppColors.green,
+              onPressed: () {},
+            ),
           ],
         ),
       ),

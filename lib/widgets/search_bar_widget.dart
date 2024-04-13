@@ -19,6 +19,7 @@ class _ModernSearchBarState extends State<ModernSearchBar> {
       width: 280.0,
       height: 36.0,
       child: TextField(
+        onTap: () {},
         controller: _controller,
         onChanged: (value) {
           setState(() {
