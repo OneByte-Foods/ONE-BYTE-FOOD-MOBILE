@@ -1,5 +1,7 @@
+import 'package:One_Bytes_Food/constants/app_style.dart';
 import 'package:One_Bytes_Food/constants/global_colors.dart';
 import 'package:One_Bytes_Food/constants/user_constants.dart';
+import 'package:One_Bytes_Food/widgets/build_btn.dart';
 import 'package:One_Bytes_Food/widgets/circle_avatar_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -54,12 +56,94 @@ class _ProfilePageState extends State<ProfilePage> {
                       Text(UserConstants.userEmail!),
                     ],
                   ),
+                  Image.asset(
+                    "assets/icons/notification.png",
+                  ),
                 ],
               ),
             ),
           ),
+          _buildCard(
+            context: context,
+            title: "Account Settings",
+            firstIcon: "assets/icons/profile_icon.png",
+            secondIcon: "assets/icons/edit_icon.png",
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          _buildCard(
+            context: context,
+            title: "Language",
+            firstIcon: "assets/icons/language_icon.png",
+            secondIcon: "assets/icons/arrow_icon.png",
+            width: 180,
+          ),
+          _buildCard(
+            context: context,
+            title: "Feedback",
+            firstIcon: "assets/icons/feedback_icon.png",
+            secondIcon: "assets/icons/arrow_icon.png",
+            width: 180,
+            randi: false,
+          ),
+          _buildCard(
+            context: context,
+            title: "Rate us",
+            firstIcon: "assets/icons/rate_icon.png",
+            secondIcon: "assets/icons/arrow_icon.png",
+            width: 200,
+            randi: false,
+          ),
+          _buildCard(
+            randi: false,
+            context: context,
+            title: "New version",
+            firstIcon: "assets/icons/version_icon.png",
+            secondIcon: "assets/icons/arrow_icon.png",
+            width: 160,
+          ),
+          SizedBox(height: 30),
+          buildButton(
+            context,
+            width: 100,
+            text: "Logout",
+            color: Colors.red,
+            onPressed: () {},
+          )
         ],
       ),
     );
   }
+}
+
+Widget _buildCard({
+  required BuildContext context,
+  required String title,
+  required String firstIcon,
+  required String secondIcon,
+  double? width,
+  bool randi = true,
+}) {
+  return Container(
+    padding: const EdgeInsets.all(10),
+    height: 50,
+    width: MediaQuery.of(context).size.width * 0.9,
+    decoration: BoxDecoration(
+      color: AppColors.white,
+      borderRadius: randi ? BorderRadius.circular(11) : null,
+    ),
+    child: Row(
+      children: [
+        Image.asset(firstIcon),
+        SizedBox(width: 20),
+        Text(
+          title,
+          style: AppStyles.text18PxRegular,
+        ),
+        SizedBox(width: width ?? 120),
+        Image.asset(secondIcon),
+      ],
+    ),
+  );
 }

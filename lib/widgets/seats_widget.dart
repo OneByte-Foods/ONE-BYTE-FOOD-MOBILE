@@ -20,6 +20,7 @@ class SeatsWidget extends StatefulWidget {
   _SeatsWidgetState createState() => _SeatsWidgetState();
 }
 
+// we need a listner which listens the data from the firebase ani tespachi cheii update garne ani update gareko data lai display garne
 class _SeatsWidgetState extends State<SeatsWidget> {
   @override
   Widget build(BuildContext context) {
