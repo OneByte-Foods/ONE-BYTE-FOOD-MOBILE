@@ -60,7 +60,6 @@ class _SeatReservationScreenState extends State<SeatReservationScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 10),
-                  _buildSeatInformation(),
                   _buildTables(floor),
                   _buildBarCounter(floor),
                   SizedBox(height: 10),
@@ -81,16 +80,6 @@ class _SeatReservationScreenState extends State<SeatReservationScreen> {
           )
         ],
       ),
-    );
-  }
-
-  Widget _buildSeatInformation() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        _buildSeatInfoText(" 4 seats available"),
-        _buildSeatInfoText("27 person"),
-      ],
     );
   }
 

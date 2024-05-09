@@ -85,7 +85,7 @@ class _ProfilePageState extends State<ProfilePage> {
             firstIcon: "assets/icons/feedback_icon.png",
             secondIcon: "assets/icons/arrow_icon.png",
             width: 180,
-            randi: false,
+            xyz: false,
           ),
           _buildCard(
             context: context,
@@ -93,10 +93,10 @@ class _ProfilePageState extends State<ProfilePage> {
             firstIcon: "assets/icons/rate_icon.png",
             secondIcon: "assets/icons/arrow_icon.png",
             width: 200,
-            randi: false,
+            xyz: false,
           ),
           _buildCard(
-            randi: false,
+            xyz: false,
             context: context,
             title: "New version",
             firstIcon: "assets/icons/version_icon.png",
@@ -109,7 +109,11 @@ class _ProfilePageState extends State<ProfilePage> {
             width: 100,
             text: "Logout",
             color: Colors.red,
-            onPressed: () {},
+            onPressed: () {
+              showAboutDialog(
+                context: context,
+              );
+            },
           )
         ],
       ),
@@ -123,7 +127,7 @@ Widget _buildCard({
   required String firstIcon,
   required String secondIcon,
   double? width,
-  bool randi = true,
+  bool xyz = true,
 }) {
   return Container(
     padding: const EdgeInsets.all(10),
@@ -131,7 +135,7 @@ Widget _buildCard({
     width: MediaQuery.of(context).size.width * 0.9,
     decoration: BoxDecoration(
       color: AppColors.white,
-      borderRadius: randi ? BorderRadius.circular(11) : null,
+      borderRadius: xyz ? BorderRadius.circular(11) : null,
     ),
     child: Row(
       children: [

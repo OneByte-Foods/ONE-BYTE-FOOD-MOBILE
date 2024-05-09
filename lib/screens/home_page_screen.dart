@@ -1,6 +1,7 @@
 import 'package:One_Bytes_Food/constants/app_style.dart';
 import 'package:One_Bytes_Food/constants/global_colors.dart';
 import 'package:One_Bytes_Food/provider/location_provider.dart';
+import 'package:One_Bytes_Food/services/khalti_payment.dart';
 import 'package:One_Bytes_Food/widgets/circle_avatar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -208,7 +209,9 @@ class _HomePageState extends State<HomePage> {
               context,
               text: "Book",
               color: AppColors.green,
-              onPressed: () {},
+              onPressed: () {
+                payWithKhaltiInApp(context);
+              },
             ),
           ],
         ),
