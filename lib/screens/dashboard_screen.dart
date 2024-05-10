@@ -60,7 +60,7 @@ class _HomeScreenState extends State<DashboardScreen> {
             buildBottomNavItem("assets/icons/home_icon.png", "Home", 0),
             buildBottomNavItem("assets/icons/table_icon.png", "Booking", 1),
             SizedBox(width: 0.5),
-            buildBottomNavItem("assets/icons/board_icon.png", "Food", 2),
+            buildBottomNavItem("assets/icons/board_icon.png", "Restaurant", 2),
             buildBottomNavItem("assets/icons/person_icon.png", "Profile", 3),
           ],
         ),

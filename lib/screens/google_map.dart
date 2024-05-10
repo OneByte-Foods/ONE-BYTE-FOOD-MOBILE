@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -20,6 +21,7 @@ class _GoogleKoMapState extends State<GoogleMapScreeen> {
 
   @override
   void initState() {
+    dotenv.load(fileName: '.env');
     getPolyPoints();
     super.initState();
   }
@@ -70,7 +72,7 @@ class _GoogleKoMapState extends State<GoogleMapScreeen> {
                           topLeft: Radius.circular(50),
                           topRight: Radius.circular(50)),
                     ),
-                    height: MediaQuery.of(context).size.height * 0.5,
+                    height: MediaQuery.of(context).size.height * 0.2,
                     width: MediaQuery.of(context).size.width * 0.98,
                     child: const Text("hello"),
                   );
@@ -84,7 +86,7 @@ class _GoogleKoMapState extends State<GoogleMapScreeen> {
   void getPolyPoints() async {
     PolylinePoints polylinePoints = PolylinePoints();
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-      "AIzaSyDmMzGmGbjESph5OSbXVTktwB3OkVd6W18",
+      "${dotenv.env["GOOGLE_MAP_API"]}",
       PointLatLng(sourceLocation.latitude, sourceLocation.longitude),
       PointLatLng(destination.latitude, destination.longitude),
     );
