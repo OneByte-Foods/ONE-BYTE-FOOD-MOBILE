@@ -1,4 +1,4 @@
-import 'package:One_Bytes_Food/screens/google_map.dart';
+import 'package:One_Bytes_Food/screens/menu/menu_view.dart';
 import 'package:flutter/material.dart';
 
 class FavoritesPage extends StatefulWidget {
@@ -14,6 +14,6 @@ class _FavoritesPageState extends State<FavoritesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: GoogleMapScreeen());
+    return Scaffold(body: MenuView());
   }
 }

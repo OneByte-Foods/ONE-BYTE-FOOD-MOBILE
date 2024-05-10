@@ -3,12 +3,16 @@ import 'package:flutter/material.dart';
 class AppColors {
   static const Color kPrimaryColor = Color(0xFF24394D);
   static const Color kPitchBlackColor = Color(0xFF434343);
-
   static const Color pitchColor = Color(0xFF506171);
   static const Color blackColor = Color(0xFF000000);
   static const Color greySecondary = Color(0xFFE5E5E5);
   static const Color white = Color(0xFFFFFFFF);
   static const Color green = Color(0xfff32B768);
+  static const Color placeholder = Color(0xffB6B7B7);
+  static const Color primary = Color(0xfff32B768);
+  static const Color secondaryText = const Color(0xff7C7D7E);
+  static const Color primaryText = const Color(0xff7C7D7E);
+  static const Color textfield = const Color(0xffF2F2F2);
   static const Color pitchWhiteColor = Color(0xFFDCEDFF);
   static const Color pitchBlackColor = Color(0xFF1F2937);
   static const Color pitchGreenColor = Color(0xFFD1FAE5);
