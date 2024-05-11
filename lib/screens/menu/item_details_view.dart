@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:provider/provider.dart';
 
 import '../../constants/global_colors.dart';
+import '../../provider/cart_provider.dart';
 import '../../widgets/round_icon_button.dart';
 import '../my_order_view.dart';
 
@@ -16,6 +18,11 @@ class _ItemDetailsViewState extends State<ItemDetailsView> {
   double price = 15;
   int qty = 1;
   bool isFav = false;
+  String? _selectedItem;
+  String? _selectedItem2;
+  void addToCart(Map<String, dynamic> item) {
+    context.read<CartModel>().addToCart(item);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -211,8 +218,9 @@ class _ItemDetailsViewState extends State<ItemDetailsView> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 15),
                                   decoration: BoxDecoration(
-                                      color: AppColors.textfield,
-                                      borderRadius: BorderRadius.circular(5)),
+                                    color: AppColors.textfield,
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
                                   child: DropdownButtonHideUnderline(
                                     child: DropdownButton(
                                       isExpanded: true,
@@ -227,7 +235,14 @@ class _ItemDetailsViewState extends State<ItemDetailsView> {
                                           ),
                                         );
                                       }).toList(),
-                                      onChanged: (val) {},
+                                      onChanged: (val) {
+                                        setState(() {
+                                          // Step 2: Update the state with the selected value
+                                          _selectedItem = val;
+                                        });
+                                      },
+                                      value:
+                                          _selectedItem, // Use the selected value
                                       hint: Text(
                                         "- Select the size of portion -",
                                         textAlign: TextAlign.center,
@@ -249,8 +264,9 @@ class _ItemDetailsViewState extends State<ItemDetailsView> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 15),
                                   decoration: BoxDecoration(
-                                      color: AppColors.textfield,
-                                      borderRadius: BorderRadius.circular(5)),
+                                    color: AppColors.textfield,
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
                                   child: DropdownButtonHideUnderline(
                                     child: DropdownButton(
                                       isExpanded: true,
@@ -265,7 +281,14 @@ class _ItemDetailsViewState extends State<ItemDetailsView> {
                                           ),
                                         );
                                       }).toList(),
-                                      onChanged: (val) {},
+                                      onChanged: (val) {
+                                        setState(() {
+                                          // Step 2: Update the state with the selected value
+                                          _selectedItem2 = val;
+                                        });
+                                      },
+                                      value:
+                                          _selectedItem2, // Use the selected value
                                       hint: Text(
                                         "- Select the ingredients -",
                                         textAlign: TextAlign.center,
@@ -460,7 +483,15 @@ class _ItemDetailsViewState extends State<ItemDetailsView> {
                                                             "assets/img/shopping_add.png",
                                                         color:
                                                             AppColors.primary,
-                                                        onPressed: () {}),
+                                                        onPressed: () {
+                                                          addToCart({
+                                                            "name":
+                                                                "Beef Burger",
+                                                            "qty": qty,
+                                                            "price":
+                                                                price * qty,
+                                                          });
+                                                        }),
                                                   )
                                                 ],
                                               )),

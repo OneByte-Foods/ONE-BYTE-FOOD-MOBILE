@@ -1,7 +1,9 @@
 import 'package:One_Bytes_Food/screens/checkout_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../constants/global_colors.dart';
+import '../provider/cart_provider.dart';
 import '../widgets/round_button.dart';
 
 class MyOrderView extends StatefulWidget {
@@ -185,48 +187,52 @@ class _MyOrderViewState extends State<MyOrderView> {
               ),
               Container(
                 decoration: BoxDecoration(color: AppColors.textfield),
-                child: ListView.separated(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  padding: EdgeInsets.zero,
-                  itemCount: itemArr.length,
-                  separatorBuilder: ((context, index) => Divider(
-                        indent: 25,
-                        endIndent: 25,
-                        color: AppColors.secondaryText.withOpacity(0.5),
-                        height: 1,
-                      )),
-                  itemBuilder: ((context, index) {
-                    var cObj = itemArr[index] as Map? ?? {};
-                    return Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 15, horizontal: 25),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: Text(
-                              "${cObj["name"].toString()} x${cObj["qty"].toString()}",
-                              style: TextStyle(
-                                  color: AppColors.primaryText,
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w500),
-                            ),
+                child: Consumer<CartModel>(
+                  builder: (context, cart, child) {
+                    return ListView.separated(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      padding: EdgeInsets.zero,
+                      itemCount: cart.items.length,
+                      separatorBuilder: ((context, index) => Divider(
+                            indent: 25,
+                            endIndent: 25,
+                            color: AppColors.secondaryText.withOpacity(0.5),
+                            height: 1,
+                          )),
+                      itemBuilder: ((context, index) {
+                        var cObj = cart.items[index];
+                        return Container(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 25),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  "${cObj["name"].toString()} x${cObj["qty"].toString()}",
+                                  style: TextStyle(
+                                      color: AppColors.primaryText,
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 15,
+                              ),
+                              Text(
+                                "\$${cObj["price"].toString()}",
+                                style: TextStyle(
+                                    color: AppColors.primaryText,
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w700),
+                              )
+                            ],
                           ),
-                          const SizedBox(
-                            width: 15,
-                          ),
-                          Text(
-                            "\$${cObj["price"].toString()}",
-                            style: TextStyle(
-                                color: AppColors.primaryText,
-                                fontSize: 13,
-                                fontWeight: FontWeight.w700),
-                          )
-                        ],
-                      ),
+                        );
+                      }),
                     );
-                  }),
+                  },
                 ),
               ),
               Padding(
@@ -234,30 +240,6 @@ class _MyOrderViewState extends State<MyOrderView> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Delivery Instructions",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: AppColors.primaryText,
-                              fontSize: 13,
-                              fontWeight: FontWeight.w700),
-                        ),
-                        TextButton.icon(
-                          onPressed: () {},
-                          icon: Icon(Icons.add, color: AppColors.primary),
-                          label: Text(
-                            "Add Notes",
-                            style: TextStyle(
-                                color: AppColors.primary,
-                                fontSize: 13,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        )
-                      ],
-                    ),
                     Divider(
                       color: AppColors.secondaryText.withOpacity(0.5),
                       height: 1,
@@ -276,13 +258,21 @@ class _MyOrderViewState extends State<MyOrderView> {
                               fontSize: 13,
                               fontWeight: FontWeight.w700),
                         ),
-                        Text(
-                          "\$68",
-                          style: TextStyle(
-                              color: AppColors.primary,
-                              fontSize: 13,
-                              fontWeight: FontWeight.w700),
-                        )
+                        Consumer<CartModel>(
+                          builder: (context, cart, child) {
+                            return Text(
+                              "\$" +
+                                  cart
+                                      .calculateSubTotal(cart.items)
+                                      .toStringAsFixed(2),
+                              style: TextStyle(
+                                color: AppColors.primary,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            );
+                          },
+                        ),
                       ],
                     ),
                     const SizedBox(
@@ -329,13 +319,21 @@ class _MyOrderViewState extends State<MyOrderView> {
                               fontSize: 13,
                               fontWeight: FontWeight.w700),
                         ),
-                        Text(
-                          "\$70",
-                          style: TextStyle(
-                              color: AppColors.primary,
-                              fontSize: 22,
-                              fontWeight: FontWeight.w700),
-                        )
+                        Consumer<CartModel>(
+                          builder: (context, cart, child) {
+                            return Text(
+                              "\$" +
+                                  cart
+                                      .calculateTotal(cart.items)
+                                      .toStringAsFixed(2),
+                              style: TextStyle(
+                                color: AppColors.primary,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            );
+                          },
+                        ),
                       ],
                     ),
                     const SizedBox(
