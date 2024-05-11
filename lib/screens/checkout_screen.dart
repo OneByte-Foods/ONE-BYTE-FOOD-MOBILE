@@ -1,6 +1,8 @@
+import 'package:One_Bytes_Food/provider/cart_provider.dart';
 import 'package:One_Bytes_Food/screens/change_address_view.dart';
 import 'package:One_Bytes_Food/services/khalti_payment.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../constants/global_colors.dart';
 import '../services/esewa_service.dart';
@@ -128,29 +130,16 @@ class _CheckoutViewState extends State<CheckoutView> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Payment method",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: AppColors.secondaryText,
-                              fontSize: 13,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        TextButton.icon(
-                          onPressed: () {},
-                          icon: Icon(Icons.add, color: AppColors.primary),
-                          label: Text(
-                            "Add Card",
-                            style: TextStyle(
-                                color: AppColors.primary,
-                                fontSize: 13,
-                                fontWeight: FontWeight.w700),
-                          ),
-                        )
-                      ],
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "Payment method",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: AppColors.secondaryText,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500),
                     ),
                     ListView.builder(
                         physics: const NeverScrollableScrollPhysics(),
@@ -239,13 +228,21 @@ class _CheckoutViewState extends State<CheckoutView> {
                               fontSize: 13,
                               fontWeight: FontWeight.w500),
                         ),
-                        Text(
-                          "\$68",
-                          style: TextStyle(
-                              color: AppColors.primaryText,
-                              fontSize: 13,
-                              fontWeight: FontWeight.w700),
-                        )
+                        Consumer<CartModel>(
+                          builder: (context, cart, child) {
+                            return Text(
+                              "\$" +
+                                  cart
+                                      .calculateSubTotal(cart.items)
+                                      .toStringAsFixed(2),
+                              style: TextStyle(
+                                color: AppColors.primary,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            );
+                          },
+                        ),
                       ],
                     ),
                     const SizedBox(
@@ -286,7 +283,7 @@ class _CheckoutViewState extends State<CheckoutView> {
                               fontWeight: FontWeight.w500),
                         ),
                         Text(
-                          "-\$4",
+                          "-\$400",
                           style: TextStyle(
                               color: AppColors.primaryText,
                               fontSize: 13,
@@ -315,13 +312,22 @@ class _CheckoutViewState extends State<CheckoutView> {
                               fontSize: 13,
                               fontWeight: FontWeight.w500),
                         ),
-                        Text(
-                          "\$66",
-                          style: TextStyle(
-                              color: AppColors.primaryText,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w700),
-                        )
+                        Consumer<CartModel>(
+                          builder: (context, cart, child) {
+                            return Text(
+                              "\$" +
+                                  cart
+                                      .calculateTotalWithDiscount(
+                                          cart.items, 10)
+                                      .toStringAsFixed(2),
+                              style: TextStyle(
+                                color: AppColors.primary,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            );
+                          },
+                        ),
                       ],
                     ),
                   ],

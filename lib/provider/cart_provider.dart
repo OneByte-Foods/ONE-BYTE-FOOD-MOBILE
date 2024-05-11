@@ -33,4 +33,12 @@ class CartModel extends ChangeNotifier {
     // Add delivery cost to the sub total
     return calculateSubTotal(items) + 2; // Assuming delivery cost is $2
   }
+
+  double calculateTotalWithDiscount(
+      List<Map<String, dynamic>> items, double discountPercentage) {
+    double subTotal = calculateSubTotal(items);
+    double total = subTotal + 2; // Assuming delivery cost is $2
+    double discountAmount = (subTotal * discountPercentage) / 100;
+    return total - discountAmount;
+  }
 }
