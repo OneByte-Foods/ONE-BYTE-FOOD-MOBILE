@@ -16,8 +16,8 @@ class _GoogleKoMapState extends State<GoogleMapScreeen> {
   final Completer<GoogleMapController> _controller = Completer();
   List<LatLng> _polylineCoordinates = [];
 
-  static const LatLng sourceLocation = LatLng(37.33500926, -122.03272188);
-  static const LatLng destination = LatLng(37.33429383, -122.06600055);
+  static const LatLng sourceLocation = LatLng(27.7196, 85.3461);
+  static const LatLng destination = LatLng(27.7278, 85.3782);
 
   @override
   void initState() {

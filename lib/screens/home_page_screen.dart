@@ -1,5 +1,6 @@
 import 'package:One_Bytes_Food/constants/app_style.dart';
 import 'package:One_Bytes_Food/constants/global_colors.dart';
+import 'package:One_Bytes_Food/constants/user_constants.dart';
 import 'package:One_Bytes_Food/provider/location_provider.dart';
 import 'package:One_Bytes_Food/services/khalti_payment.dart';
 import 'package:One_Bytes_Food/widgets/circle_avatar_widget.dart';
@@ -8,7 +9,6 @@ import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../widgets/build_btn.dart';
-import '../widgets/search_bar_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -103,12 +103,6 @@ class _HomePageState extends State<HomePage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ModernSearchBar(),
-              ],
-            ),
             SizedBox(height: 20),
             SizedBox(
               height: 120,
@@ -413,28 +407,63 @@ class _HomePageState extends State<HomePage> {
 
   PreferredSizeWidget buildAppBar() {
     return AppBar(
-      leading: Image.asset(
-        "assets/icons/drawer_icon.png",
-        width: 20,
-      ),
+      automaticallyImplyLeading: false,
       backgroundColor: AppColors.scaffoldBackgroundColor,
       title: Consumer<LocationProvider>(
         builder: (context, locationProvider, child) {
+          String greeting = '';
+          var hour = DateTime.now().hour;
+          if (hour < 12) {
+            greeting = 'Good Morning';
+          } else if (hour < 17) {
+            greeting = 'Good Afternoon';
+          } else {
+            greeting = 'Good Evening';
+          }
+
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(width: 30),
-                  Image.asset(
-                    "assets/icons/location_icon.png",
-                    width: 20,
-                  ),
-                  SizedBox(width: 5),
-                  Text(
-                    locationProvider.currentLocation,
-                    style: AppStyles.text12PxRegular,
+                  Column(
+                    children: [
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text.rich(
+                        TextSpan(
+                          children: <InlineSpan>[
+                            TextSpan(
+                              text: '   $greeting, ',
+                              style: TextStyle(
+                                color: Colors.green,
+                                fontSize: 17,
+                              ),
+                            ),
+                            TextSpan(
+                                text: "${UserConstants.userNameUrl}",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 17,
+                                ))
+                          ],
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      Row(
+                        children: [
+                          Image.asset(
+                            "assets/icons/location_icon.png",
+                            width: 20,
+                          ),
+                          Text(
+                            locationProvider.currentLocation,
+                            style: AppStyles.text14PxRegular,
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ],
               ),

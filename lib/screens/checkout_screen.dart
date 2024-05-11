@@ -1,7 +1,9 @@
 import 'package:One_Bytes_Food/screens/change_address_view.dart';
+import 'package:One_Bytes_Food/services/khalti_payment.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/global_colors.dart';
+import '../services/esewa_service.dart';
 import '../widgets/round_button.dart';
 import 'checkout_message_view.dart';
 
@@ -15,8 +17,9 @@ class CheckoutView extends StatefulWidget {
 class _CheckoutViewState extends State<CheckoutView> {
   List paymentArr = [
     {"name": "Cash on delivery", "icon": "assets/img/cash.png"},
-    {"name": "**** **** **** 2187", "icon": "assets/img/visa_icon.png"},
-    {"name": "test@gmail.com", "icon": "assets/img/paypal.png"},
+    {"name": "Esewa", "icon": "assets/icons/esewa_logo.png"},
+    {"name": "Khalti", "icon": "assets/icons/khalti_logo.png"},
+    {"name": "Connect IPS", "icon": "assets/icons/connect_ips.png"},
   ];
 
   int selectMethod = -1;
@@ -170,7 +173,6 @@ class _CheckoutViewState extends State<CheckoutView> {
                               children: [
                                 Image.asset(pObj["icon"].toString(),
                                     width: 50, height: 20, fit: BoxFit.contain),
-                                // const SizedBox(width: 8),
                                 Expanded(
                                   child: Text(
                                     pObj["name"],
@@ -180,9 +182,18 @@ class _CheckoutViewState extends State<CheckoutView> {
                                         fontWeight: FontWeight.w500),
                                   ),
                                 ),
-
                                 InkWell(
                                   onTap: () {
+                                    if (pObj["name"] == "Esewa") {
+                                      Esewa esewa = Esewa();
+                                      esewa.pay();
+                                    }
+                                    if (pObj["name"] == "Khalti") {
+                                      payWithKhaltiInApp(context);
+                                    }
+                                    if (pObj["name"] == "Connect IPS") {
+                                      payWithKhaltiInApp(context);
+                                    }
                                     setState(() {
                                       selectMethod = index;
                                     });

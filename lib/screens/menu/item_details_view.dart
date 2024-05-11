@@ -93,7 +93,7 @@ class _ItemDetailsViewState extends State<ItemDetailsView> {
                                         IgnorePointer(
                                           ignoring: true,
                                           child: RatingBar.builder(
-                                            initialRating: 4,
+                                            initialRating: 2,
                                             minRating: 1,
                                             direction: Axis.horizontal,
                                             allowHalfRating: true,

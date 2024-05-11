@@ -1,4 +1,5 @@
 import 'package:One_Bytes_Food/constants/global_colors.dart';
+import 'package:One_Bytes_Food/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/round_button.dart';
@@ -77,9 +78,15 @@ class _CheckoutMessageViewState extends State<CheckoutMessageView> {
           const SizedBox(
             height: 35,
           ),
-          RoundButton(title: "Track My Order", onPressed: () {}),
+          RoundButton(
+              title: "Track My Order",
+              onPressed: () {
+                Navigator.pushNamed(context, AppRoutes.googleMapScreen);
+              }),
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, AppRoutes.homePageScreen);
+            },
             child: Text(
               "Back To Home",
               textAlign: TextAlign.center,
