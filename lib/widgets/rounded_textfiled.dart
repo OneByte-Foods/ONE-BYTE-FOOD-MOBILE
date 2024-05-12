@@ -17,7 +17,8 @@ class RoundTextfield extends StatelessWidget {
       this.keyboardType,
       this.bgColor,
       this.left,
-      this.obscureText = false});
+      this.obscureText = false,
+      void Function(String query)? onChanged});
 
   @override
   Widget build(BuildContext context) {

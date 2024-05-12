@@ -76,7 +76,6 @@ class _ChangeAddressViewState extends State<ChangeAddressView> {
         ),
       ),
       body: CustomGoogleMapMarkerBuilder(
-        //screenshotDelay: const Duration(seconds: 4),
         customMarkers: _customMarkers,
         builder: (BuildContext context, Set<Marker>? markers) {
           if (markers == null) {

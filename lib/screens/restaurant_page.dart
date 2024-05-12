@@ -1,10 +1,9 @@
+import 'package:One_Bytes_Food/constants/app_style.dart';
 import 'package:One_Bytes_Food/screens/menu/menu_view.dart';
 import 'package:flutter/material.dart';
 
-import '../constants/global_colors.dart';
 import '../widgets/menu_item_row.dart';
 import '../widgets/rounded_textfiled.dart';
-import 'my_order_view.dart';
 
 class RestaurantPage extends StatefulWidget {
   const RestaurantPage({super.key});
@@ -17,70 +16,90 @@ class _RestaurantPageState extends State<RestaurantPage> {
   TextEditingController searchText = TextEditingController();
   List menuItemsArr = [
     {
-      "image": "assets/img/dess_1.png",
-      "name": "French Apple Pie",
-      "rate": "4.9",
+      "image": "assets/img/lavie_garden.jpg",
+      "name": "Lavie Garden",
+      "rate": "3.2",
       "rating": "124",
       "type": "Minute by tuk tuk",
       "food_type": "Desserts"
     },
     {
-      "image": "assets/img/dess_2.png",
-      "name": "Dark Chocolate Cake",
-      "rate": "4.9",
+      "image": "assets/img/alia.jpg",
+      "name": "AILA RESTAURANT AND LOUNGE",
+      "rate": "5.0",
       "rating": "124",
       "type": "Cakes by Tella",
       "food_type": "Desserts"
     },
     {
-      "image": "assets/img/dess_3.png",
-      "name": "Street Shake",
-      "rate": "4.9",
+      "image": "assets/img/hyatt.jpg",
+      "name": "Hyatt RESTAURANT",
+      "rate": "3.9",
       "rating": "124",
       "type": "Café Racer",
       "food_type": "Desserts"
     },
     {
-      "image": "assets/img/dess_4.png",
-      "name": "Fudgy Chewy Brownies",
+      "image": "assets/img/bhojan.jpg",
+      "name": "BHOJAN GRIHA",
       "rate": "4.9",
       "rating": "124",
       "type": "Minute by tuk tuk",
       "food_type": "Desserts"
     },
     {
-      "image": "assets/img/dess_1.png",
-      "name": "French Apple Pie",
-      "rate": "4.9",
+      "image": "assets/img/jimbu.jpg",
+      "name": "Jimbu Thakali",
+      "rate": "5.9",
       "rating": "124",
       "type": "Minute by tuk tuk",
       "food_type": "Desserts"
     },
     {
-      "image": "assets/img/dess_2.png",
-      "name": "Dark Chocolate Cake",
-      "rate": "4.9",
+      "image": "assets/img/solatee.jpg",
+      "name": "The Soaltee Hotel",
+      "rate": "3.9",
       "rating": "124",
       "type": "Cakes by Tella",
       "food_type": "Desserts"
     },
     {
-      "image": "assets/img/dess_3.png",
-      "name": "Street Shake",
-      "rate": "4.9",
+      "image": "assets/img/krishna.jpg",
+      "name": "Krishnarpan Nepali Restaurant",
+      "rate": "5.0",
       "rating": "124",
       "type": "Café Racer",
       "food_type": "Desserts"
     },
     {
-      "image": "assets/img/dess_4.png",
-      "name": "Fudgy Chewy Brownies",
+      "image": "assets/img/garden.jpeg",
+      "name": "Garden of Dreams",
       "rate": "4.9",
       "rating": "124",
       "type": "Minute by tuk tuk",
       "food_type": "Desserts"
     },
   ];
+  List filteredMenuItems = [];
+
+  @override
+  void initState() {
+    super.initState();
+    filteredMenuItems = menuItemsArr;
+  }
+
+  void filterMenuItems(String query) {
+    setState(() {
+      if (query.isEmpty) {
+        filteredMenuItems = menuItemsArr;
+      } else {
+        filteredMenuItems = menuItemsArr
+            .where((item) =>
+                item['name'].toLowerCase().contains(query.toLowerCase()))
+            .toList();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,52 +109,16 @@ class _RestaurantPageState extends State<RestaurantPage> {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: Image.asset("assets/img/btn_back.png",
-                          width: 20, height: 20),
-                    ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    Expanded(
-                      child: Text(
-                        "Restaurant",
-                        style: TextStyle(
-                            color: AppColors.primaryText,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w800),
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const MyOrderView()));
-                      },
-                      icon: Image.asset(
-                        "assets/img/shopping_cart.png",
-                        width: 25,
-                        height: 25,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 20,
+              SizedBox(height: 30),
+              Text(
+                "Restaurants",
+                style: AppStyles.text18PxRegular,
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                 child: RoundTextfield(
-                  hintText: "Search Food",
+                  hintText: "Search Restaurant",
                   controller: searchText,
                   left: Container(
                     alignment: Alignment.center,
@@ -146,6 +129,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
                       height: 20,
                     ),
                   ),
+                  onChanged: filterMenuItems,
                 ),
               ),
               ListView.builder(
@@ -154,7 +138,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
                 padding: EdgeInsets.zero,
                 itemCount: menuItemsArr.length,
                 itemBuilder: ((context, index) {
-                  var mObj = menuItemsArr[index] as Map? ?? {};
+                  var mObj = filteredMenuItems[index] as Map? ?? {};
                   return MenuItemRow(
                     mObj: mObj,
                     onTap: () {
