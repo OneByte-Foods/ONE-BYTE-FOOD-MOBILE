@@ -66,14 +66,26 @@ class _MenuViewState extends State<MenuView> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: Image.asset("assets/img/btn_back.png",
+                              width: 20, height: 20),
+                        ),
+                        SizedBox(
+                          width: 30,
+                        ),
                         Text(
                           "Menu",
                           style: TextStyle(
                               color: AppColors.primaryText,
                               fontSize: 20,
                               fontWeight: FontWeight.w800),
+                        ),
+                        SizedBox(
+                          width: 160,
                         ),
                         IconButton(
                           onPressed: () {
