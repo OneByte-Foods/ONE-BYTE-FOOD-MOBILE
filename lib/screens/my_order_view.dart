@@ -1,4 +1,5 @@
 import 'package:One_Bytes_Food/screens/checkout_screen.dart';
+import 'package:One_Bytes_Food/widgets/swipeable_remove.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -21,6 +22,9 @@ class _MyOrderViewState extends State<MyOrderView> {
     {"name": "Chicken Legs Basket", "qty": "1", "price": 15.0},
     {"name": "French Fires Large", "qty": "1", "price": 6.0}
   ];
+  void removeFromCart(int index) {
+    context.read<CartModel>().removeFromCart(index);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -202,34 +206,11 @@ class _MyOrderViewState extends State<MyOrderView> {
                           )),
                       itemBuilder: ((context, index) {
                         var cObj = cart.items[index];
-                        return Container(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 15, horizontal: 25),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  "${cObj["name"].toString()} x${cObj["qty"].toString()}",
-                                  style: TextStyle(
-                                      color: AppColors.primaryText,
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 15,
-                              ),
-                              Text(
-                                "\$${cObj["price"].toString()}",
-                                style: TextStyle(
-                                    color: AppColors.primaryText,
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.w700),
-                              )
-                            ],
-                          ),
-                        );
+
+                        return SwipeAbleRemove(
+                            cObj: cObj,
+                            removeFromCart: removeFromCart,
+                            index: index);
                       }),
                     );
                   },

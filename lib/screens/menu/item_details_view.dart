@@ -494,7 +494,9 @@ class _ItemDetailsViewState extends State<ItemDetailsView> {
                                                           });
                                                           Utils.showToast(
                                                               context,
-                                                              "Item added to cart 🛒");
+                                                              "Item added to cart 🛒",
+                                                              AppColors
+                                                                  .khaltiColor);
                                                         }),
                                                   )
                                                 ],
