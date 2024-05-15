@@ -3,10 +3,12 @@ import 'dart:ui';
 
 import 'package:One_Bytes_Food/constants/user_constants.dart';
 import 'package:One_Bytes_Food/utils/location_utility.dart';
+import 'package:One_Bytes_Food/widgets/circle_avatar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../constants/app_style.dart';
 import '../../constants/global_colors.dart';
@@ -19,8 +21,8 @@ class MapScreen extends StatefulWidget {
 }
 
 class MapScreenState extends State<MapScreen> {
-  late LatLng _driverLatLng = LatLng(27.7172, 85.3240);
-  late LatLng _customerLatLng = LatLng(27.7278, 85.3782);
+  late LatLng _driverLatLng = LatLng(27.7278, 85.3782);
+  late LatLng _customerLatLng = LatLng(27.7166, 85.3485);
   Set<Marker> markers = {};
   Set<Marker> get _markers => markers;
   PolylinePoints polylinePoints = PolylinePoints();
@@ -71,9 +73,8 @@ class MapScreenState extends State<MapScreen> {
     driverAddress = dAddress;
     print("driverLatLng---> $_driverLatLng");
     // }
-    final Uint8List driverIcon = await convertAssetToUnit8List(
-      "assets/icons/driver.png",
-    );
+    final Uint8List driverIcon =
+        await convertAssetToUnit8List("assets/icons/driver.png", width: 300);
 
     final Uint8List customerIcon = await convertAssetToUnit8List(
       "assets/icons/customer.png",
@@ -249,7 +250,7 @@ class MapScreenState extends State<MapScreen> {
                       customerinformation(
                           name: "Kushal Chaulagain",
                           profileImage: UserConstants.userImageUrl,
-                          phoneNumber: "9849816262")
+                          phoneNumber: "9849816262"),
                     ],
                   ),
                 ),
@@ -259,6 +260,15 @@ class MapScreenState extends State<MapScreen> {
         ),
       ),
     );
+  }
+
+  void _makePhoneCall(String phoneNumber) async {
+    final Uri launchUri = Uri(
+      scheme: 'tel',
+      path: phoneNumber,
+    );
+    // ignore: deprecated_member_use
+    await launch(launchUri.toString());
   }
 
   Widget customerinformation(
@@ -280,6 +290,7 @@ class MapScreenState extends State<MapScreen> {
             children: [
               Column(
                 children: [
+                  buildCircleAvatar(radius: 20),
                   Text(
                     name ?? 'Please wait...',
                     style: AppStyles.text12PxMedium,
@@ -294,7 +305,15 @@ class MapScreenState extends State<MapScreen> {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [Text("hello")],
+            children: [
+              InkWell(
+                onTap: () => _makePhoneCall("9849816262"),
+                child: Icon(
+                  Icons.phone_enabled,
+                  size: 30,
+                ),
+              )
+            ],
           )
         ],
       ),
@@ -302,7 +321,7 @@ class MapScreenState extends State<MapScreen> {
   }
 
   Future<Uint8List> convertAssetToUnit8List(String imagePath,
-      {int width = 100}) async {
+      {int width = 50}) async {
     ByteData data = await rootBundle.load(imagePath);
     Codec codec = await instantiateImageCodec(data.buffer.asUint8List(),
         targetWidth: width);
