@@ -1,8 +1,8 @@
 import 'package:One_Bytes_Food/onboarding/onboarding_view.dart';
 import 'package:One_Bytes_Food/screens/dashboard_screen.dart';
 import 'package:One_Bytes_Food/screens/forgot_password.dart';
-import 'package:One_Bytes_Food/screens/google_map.dart';
 import 'package:One_Bytes_Food/screens/login_page.dart';
+import 'package:One_Bytes_Food/screens/map/map_screen.dart';
 import 'package:One_Bytes_Food/screens/payment_portal_screen.dart';
 import 'package:One_Bytes_Food/screens/seat_reservation_screen.dart';
 import 'package:One_Bytes_Food/screens/signup_screen.dart';
@@ -37,6 +37,6 @@ class AppRoutes {
     backEmailScreen: (context) => BackEmailScreen(),
     paymentPortalScreen: (context) => PaymentPortalScreen(),
     seatReservationScreen: (context) => SeatReservationScreen(),
-    googleMapScreen: (context) => GoogleMapScreeen(),
+    googleMapScreen: (context) => MapScreen(),
   };
 }
