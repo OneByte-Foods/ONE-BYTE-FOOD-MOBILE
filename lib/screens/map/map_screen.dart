@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:One_Bytes_Food/controller/notification_controller.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -40,6 +42,15 @@ class MapScreenState extends State<MapScreen> {
 
   @override
   void initState() {
+    AwesomeNotifications().setListeners(
+        onActionReceivedMethod: NotificationController.onActionReceivedMethod,
+        onNotificationCreatedMethod:
+            NotificationController.onNotificationCreatedMethod,
+        onNotificationDisplayedMethod:
+            NotificationController.onNotificationDisplayedMethod,
+        onDismissActionReceivedMethod:
+            NotificationController.onDismissActionReceivedMethod);
+    dotenv.load(fileName: '.env');
     super.initState();
     fetchData();
   }
@@ -176,6 +187,12 @@ class MapScreenState extends State<MapScreen> {
         });
       } else {
         timer.cancel();
+        AwesomeNotifications().createNotification(
+            content: NotificationContent(
+                id: 1,
+                channelKey: "basic_channel",
+                title: "Order Delivered",
+                body: "Your order has been delivered successfully!"));
       }
     });
   }
