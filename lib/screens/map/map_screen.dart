@@ -169,6 +169,12 @@ class MapScreenState extends State<MapScreen> {
   }
 
   void _startMovingMarker() {
+    AwesomeNotifications().createNotification(
+        content: NotificationContent(
+            id: 1,
+            channelKey: "basic_channel",
+            title: "Your order is on the way!",
+            body: " Your order is on the way! Please wait..."));
     const duration = Duration(seconds: 1);
     _timer = Timer.periodic(duration, (Timer timer) {
       if (_currentPositionIndex < polylineCoordinates.length) {
