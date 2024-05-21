@@ -3,6 +3,7 @@ import 'package:One_Bytes_Food/screens/dashboard_screen.dart';
 import 'package:One_Bytes_Food/screens/forgot_password.dart';
 import 'package:One_Bytes_Food/screens/login_page.dart';
 import 'package:One_Bytes_Food/screens/map/map_screen.dart';
+import 'package:One_Bytes_Food/screens/menu/menu_view.dart';
 import 'package:One_Bytes_Food/screens/payment_portal_screen.dart';
 import 'package:One_Bytes_Food/screens/seat_reservation_screen.dart';
 import 'package:One_Bytes_Food/screens/signup_screen.dart';
@@ -25,6 +26,7 @@ class AppRoutes {
   static const String qrCodeScannerScreen = '/qr-code-scanner-screen';
   static const String paymentPortalScreen = '/payment-portal-screen';
   static const String googleMapScreen = '/google-maps-screen';
+  static const String menuViewScreen = '/menu-view-screen';
 
   static Map<String, WidgetBuilder> routes = {
     onBoardingScreen: (context) => OnBoardingView(),
@@ -38,5 +40,6 @@ class AppRoutes {
     paymentPortalScreen: (context) => PaymentPortalScreen(),
     seatReservationScreen: (context) => SeatReservationScreen(),
     googleMapScreen: (context) => MapScreen(),
+    menuViewScreen: (context) => MenuView(),
   };
 }
