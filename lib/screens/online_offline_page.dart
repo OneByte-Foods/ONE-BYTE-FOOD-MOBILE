@@ -11,7 +11,7 @@ class ModeScreen extends StatefulWidget {
 }
 
 class _ModeScreenState extends State<ModeScreen> {
-  List<Map<String, String>> servicesArr = [
+  final List<Map<String, String>> servicesArr = [
     {
       "name": "Online Food Order",
       "description":
@@ -26,6 +26,11 @@ class _ModeScreenState extends State<ModeScreen> {
     },
   ];
 
+  final List<List<Color>> gradients = [
+    [Colors.greenAccent, Colors.greenAccent.shade700],
+    [Colors.pinkAccent, Colors.orangeAccent],
+  ];
+
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
@@ -35,9 +40,7 @@ class _ModeScreenState extends State<ModeScreen> {
           padding: const EdgeInsets.symmetric(vertical: 20),
           child: Column(
             children: [
-              const SizedBox(
-                height: 46,
-              ),
+              const SizedBox(height: 46),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
@@ -49,27 +52,28 @@ class _ModeScreenState extends State<ModeScreen> {
                       icon: Image.asset("assets/img/btn_back.png",
                           width: 20, height: 20),
                     ),
-                    const SizedBox(
-                      width: 30,
-                    ),
+                    const SizedBox(width: 30),
                     Text(
                       "Our Services",
                       style: TextStyle(
-                          color: AppColors.primaryText,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w800),
+                        color: AppColors.primaryText,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 1.2,
+                      ),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 70,
-              ),
+              const SizedBox(height: 20),
               Column(
-                children: servicesArr.map((mObj) {
+                children: servicesArr.asMap().entries.map((entry) {
+                  int index = entry.key;
+                  Map<String, String> mObj = entry.value;
                   var name = mObj["name"]!;
                   var description = mObj["description"]!;
                   var image = mObj["image"]!;
+                  var gradientColors = gradients[index % gradients.length];
 
                   return GestureDetector(
                     onTap: () {
@@ -90,16 +94,20 @@ class _ModeScreenState extends State<ModeScreen> {
                       }
                     },
                     child: Container(
-                      margin: const EdgeInsets.symmetric(vertical: 8),
-                      width: media.width - 40,
-                      padding: const EdgeInsets.all(10),
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 20),
+                      padding: const EdgeInsets.all(15),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        gradient: LinearGradient(
+                          colors: gradientColors,
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: [
                           BoxShadow(
                             color: Colors.black12,
-                            blurRadius: 7,
+                            blurRadius: 8,
                             offset: const Offset(0, 4),
                           ),
                         ],
@@ -112,9 +120,7 @@ class _ModeScreenState extends State<ModeScreen> {
                             height: 80,
                             fit: BoxFit.contain,
                           ),
-                          const SizedBox(
-                            width: 15,
-                          ),
+                          const SizedBox(width: 15),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -122,19 +128,18 @@ class _ModeScreenState extends State<ModeScreen> {
                                 Text(
                                   name,
                                   style: const TextStyle(
-                                    color: AppColors.primaryText,
+                                    color: Colors.white,
                                     fontSize: 22,
-                                    fontWeight: FontWeight.w700,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 4,
-                                ),
+                                const SizedBox(height: 4),
                                 Text(
                                   description,
                                   style: const TextStyle(
-                                    color: AppColors.secondaryText,
+                                    color: Colors.white70,
                                     fontSize: 16,
+                                    height: 1.5,
                                   ),
                                 ),
                               ],
