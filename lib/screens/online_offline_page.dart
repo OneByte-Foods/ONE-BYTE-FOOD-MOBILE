@@ -4,7 +4,9 @@ import 'package:One_Bytes_Food/screens/seat_reservation_screen.dart';
 import 'package:flutter/material.dart';
 
 class ModeScreen extends StatefulWidget {
-  const ModeScreen({Key? key}) : super(key: key);
+  final String restaurantName;
+
+  const ModeScreen({Key? key, required this.restaurantName}) : super(key: key);
 
   @override
   State<ModeScreen> createState() => _ModeScreenState();
@@ -40,6 +42,8 @@ class _ModeScreenState extends State<ModeScreen> {
           padding: const EdgeInsets.symmetric(vertical: 20),
           child: Column(
             children: [
+              Text(widget.restaurantName,
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
               const SizedBox(height: 46),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),

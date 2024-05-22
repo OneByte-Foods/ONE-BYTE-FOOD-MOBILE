@@ -109,7 +109,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               Text(
                 "Restaurants",
                 style: AppStyles.text18PxRegular,
@@ -136,7 +136,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 padding: EdgeInsets.zero,
-                itemCount: menuItemsArr.length,
+                itemCount: filteredMenuItems.length,
                 itemBuilder: ((context, index) {
                   var mObj = filteredMenuItems[index] as Map? ?? {};
                   return MenuItemRow(
@@ -145,7 +145,10 @@ class _RestaurantPageState extends State<RestaurantPage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const ModeScreen()),
+                          builder: (context) => ModeScreen(
+                            restaurantName: mObj['name'],
+                          ),
+                        ),
                       );
                     },
                   );
