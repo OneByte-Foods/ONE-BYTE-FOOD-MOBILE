@@ -1,5 +1,5 @@
 import 'package:One_Bytes_Food/constants/app_style.dart';
-import 'package:One_Bytes_Food/screens/menu/menu_view.dart';
+import 'package:One_Bytes_Food/screens/online_offline_page.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/menu_item_row.dart';
@@ -145,7 +145,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const MenuView()),
+                            builder: (context) => const ModeScreen()),
                       );
                     },
                   );

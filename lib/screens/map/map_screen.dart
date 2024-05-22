@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:One_Bytes_Food/controller/notification_controller.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -21,9 +23,11 @@ class MapScreen extends StatefulWidget {
   MapScreenState createState() => MapScreenState();
 }
 
+// restaurant location dynamic and the delivery address
+
 class MapScreenState extends State<MapScreen> {
-  late LatLng _driverLatLng = LatLng(27.7278, 85.3782);
-  late LatLng _customerLatLng = LatLng(27.7166, 85.3485);
+  late LatLng _restaurantLatLng = LatLng(27.7278, 85.3782);
+  late LatLng _deliveryAddressLatLng = LatLng(27.7166, 85.3485);
   Set<Marker> markers = {};
   Set<Marker> get _markers => markers;
   PolylinePoints polylinePoints = PolylinePoints();
@@ -40,6 +44,15 @@ class MapScreenState extends State<MapScreen> {
 
   @override
   void initState() {
+    AwesomeNotifications().setListeners(
+        onActionReceivedMethod: NotificationController.onActionReceivedMethod,
+        onNotificationCreatedMethod:
+            NotificationController.onNotificationCreatedMethod,
+        onNotificationDisplayedMethod:
+            NotificationController.onNotificationDisplayedMethod,
+        onDismissActionReceivedMethod:
+            NotificationController.onDismissActionReceivedMethod);
+    dotenv.load(fileName: '.env');
     super.initState();
     fetchData();
   }
@@ -53,26 +66,26 @@ class MapScreenState extends State<MapScreen> {
   Future<void> fetchData() async {
     isDriverCoordinatesAvailable = true;
 
-    _customerLatLng = LatLng(
+    _deliveryAddressLatLng = LatLng(
       double.parse('27.6888212'.trim()),
       double.parse('85.3450481'.trim()),
     );
     final cAddress = await LocationUtility.getAddress(
-      double.parse("${_customerLatLng.latitude}"),
-      double.parse("${_customerLatLng.longitude}"),
+      double.parse("${_deliveryAddressLatLng.latitude}"),
+      double.parse("${_deliveryAddressLatLng.longitude}"),
     );
     customerAddress = cAddress;
 
-    _driverLatLng = LatLng(
+    _restaurantLatLng = LatLng(
       double.parse('27.7018658'.trim()),
       double.parse('85.3363784'.trim()),
     );
     final dAddress = await LocationUtility.getAddress(
-      double.parse("${_driverLatLng.latitude}"),
-      double.parse("${_driverLatLng.longitude}"),
+      double.parse("${_restaurantLatLng.latitude}"),
+      double.parse("${_restaurantLatLng.longitude}"),
     );
     driverAddress = dAddress;
-    print("driverLatLng---> $_driverLatLng");
+    print("driverLatLng---> $_restaurantLatLng");
 
     final Uint8List driverIcon =
         await convertAssetToUnit8List("assets/icons/driver.png", width: 200);
@@ -82,24 +95,24 @@ class MapScreenState extends State<MapScreen> {
     );
 
     _setMarker(
-      _driverLatLng,
+      _restaurantLatLng,
       'Driver',
       BitmapDescriptor.fromBytes(driverIcon),
     );
     _setMarker(
-      _customerLatLng,
+      _deliveryAddressLatLng,
       'Customer',
       BitmapDescriptor.fromBytes(customerIcon),
     );
 
     LatLngBounds bounds = LatLngBounds(
       southwest: LatLng(
-        min(_driverLatLng.latitude, _customerLatLng.latitude),
-        min(_driverLatLng.longitude, _customerLatLng.longitude),
+        min(_restaurantLatLng.latitude, _deliveryAddressLatLng.latitude),
+        min(_restaurantLatLng.longitude, _deliveryAddressLatLng.longitude),
       ),
       northeast: LatLng(
-        max(_driverLatLng.latitude, _customerLatLng.latitude),
-        max(_driverLatLng.longitude, _customerLatLng.longitude),
+        max(_restaurantLatLng.latitude, _deliveryAddressLatLng.latitude),
+        max(_restaurantLatLng.longitude, _deliveryAddressLatLng.longitude),
       ),
     );
 
@@ -107,7 +120,7 @@ class MapScreenState extends State<MapScreen> {
       CameraUpdate.newLatLngBounds(bounds, 100),
     );
 
-    _drawPolyline(_driverLatLng, _customerLatLng);
+    _drawPolyline(_restaurantLatLng, _deliveryAddressLatLng);
 
     _startMovingMarker();
   }
@@ -158,6 +171,12 @@ class MapScreenState extends State<MapScreen> {
   }
 
   void _startMovingMarker() {
+    AwesomeNotifications().createNotification(
+        content: NotificationContent(
+            id: 1,
+            channelKey: "basic_channel",
+            title: "Your order is on the way!",
+            body: " Your order is on the way! Please wait..."));
     const duration = Duration(seconds: 1);
     _timer = Timer.periodic(duration, (Timer timer) {
       if (_currentPositionIndex < polylineCoordinates.length) {
@@ -176,6 +195,12 @@ class MapScreenState extends State<MapScreen> {
         });
       } else {
         timer.cancel();
+        AwesomeNotifications().createNotification(
+            content: NotificationContent(
+                id: 1,
+                channelKey: "basic_channel",
+                title: "Order Delivered",
+                body: "Your order has been delivered successfully!"));
       }
     });
   }
@@ -192,7 +217,7 @@ class MapScreenState extends State<MapScreen> {
                 mapType: MapType.normal,
                 minMaxZoomPreference: const MinMaxZoomPreference(0, 20),
                 initialCameraPosition: CameraPosition(
-                  target: _driverLatLng,
+                  target: _restaurantLatLng,
                   zoom: 10,
                 ),
                 zoomGesturesEnabled: true,
@@ -209,7 +234,7 @@ class MapScreenState extends State<MapScreen> {
                 },
                 onCameraMove: (position) {
                   print("Camera moving...");
-                  _driverLatLng = position.target;
+                  _restaurantLatLng = position.target;
                 },
                 onCameraMoveStarted: () {
                   print("Camera moving...");
@@ -225,7 +250,7 @@ class MapScreenState extends State<MapScreen> {
                       _mapController!.animateCamera(
                         CameraUpdate.newCameraPosition(
                           CameraPosition(
-                            target: _customerLatLng,
+                            target: _deliveryAddressLatLng,
                             zoom: 17,
                           ),
                         ),

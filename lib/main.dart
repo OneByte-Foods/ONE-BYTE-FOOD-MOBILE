@@ -9,6 +9,7 @@ import 'package:One_Bytes_Food/provider/seat_provider.dart';
 import 'package:One_Bytes_Food/routes/app_routes.dart';
 import 'package:One_Bytes_Food/screens/dashboard_screen.dart';
 import 'package:One_Bytes_Food/screens/login_page.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -19,6 +20,29 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  AwesomeNotifications().initialize(null, [
+    NotificationChannel(
+      channelKey: 'basic_channel',
+      channelName: 'Basic notifications',
+      channelDescription: 'Notification channel for basic tests',
+      defaultColor: Color(0xFF9D50DD),
+      ledColor: Colors.white,
+    )
+  ], channelGroups: [
+    NotificationChannelGroup(
+      channelGroupKey: "basic_channel_group",
+      channelGroupName: "Basic Group",
+    )
+  ]);
+
+  bool awesomeNotifications =
+      await AwesomeNotifications().isNotificationAllowed();
+
+  if (!awesomeNotifications) {
+    await AwesomeNotifications().requestPermissionToSendNotifications();
+  }
+
   await Firebase.initializeApp();
 
   final prefs = await SharedPreferences.getInstance();

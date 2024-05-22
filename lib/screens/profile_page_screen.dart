@@ -110,11 +110,32 @@ class _ProfilePageState extends State<ProfilePage> {
             text: "Logout",
             color: Colors.red,
             onPressed: () {
-              showAboutDialog(
+              showDialog(
                 context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text("Logout"),
+                    content: Text("Are you sure you want to logout?"),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text("Cancel"),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          // Perform logout action here
+                          Navigator.of(context).pop();
+                        },
+                        child: Text("Logout"),
+                      ),
+                    ],
+                  );
+                },
               );
             },
-          )
+          ),
         ],
       ),
     );
