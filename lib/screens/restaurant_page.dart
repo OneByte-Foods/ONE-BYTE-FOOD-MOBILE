@@ -21,7 +21,8 @@ class _RestaurantPageState extends State<RestaurantPage> {
       "rate": "3.2",
       "rating": "124",
       "type": "Minute by tuk tuk",
-      "food_type": "Desserts"
+      "food_type": "Desserts",
+      "location": "Kathmandu"
     },
     {
       "image": "assets/img/alia.jpg",
@@ -29,7 +30,8 @@ class _RestaurantPageState extends State<RestaurantPage> {
       "rate": "5.0",
       "rating": "124",
       "type": "Cakes by Tella",
-      "food_type": "Desserts"
+      "food_type": "Desserts",
+      "location": "Pokhara"
     },
     {
       "image": "assets/img/hyatt.jpg",
@@ -37,7 +39,8 @@ class _RestaurantPageState extends State<RestaurantPage> {
       "rate": "3.9",
       "rating": "124",
       "type": "Café Racer",
-      "food_type": "Desserts"
+      "food_type": "Desserts",
+      "location": "Lalitpur"
     },
     {
       "image": "assets/img/bhojan.jpg",
@@ -45,7 +48,8 @@ class _RestaurantPageState extends State<RestaurantPage> {
       "rate": "4.9",
       "rating": "124",
       "type": "Minute by tuk tuk",
-      "food_type": "Desserts"
+      "food_type": "Desserts",
+      "location": "Bhaktapur"
     },
     {
       "image": "assets/img/jimbu.jpg",
@@ -53,7 +57,8 @@ class _RestaurantPageState extends State<RestaurantPage> {
       "rate": "5.9",
       "rating": "124",
       "type": "Minute by tuk tuk",
-      "food_type": "Desserts"
+      "food_type": "Desserts",
+      "location": "Biratnagar"
     },
     {
       "image": "assets/img/solatee.jpg",
@@ -61,7 +66,8 @@ class _RestaurantPageState extends State<RestaurantPage> {
       "rate": "3.9",
       "rating": "124",
       "type": "Cakes by Tella",
-      "food_type": "Desserts"
+      "food_type": "Desserts",
+      "location": "Janakpur"
     },
     {
       "image": "assets/img/krishna.jpg",
@@ -69,7 +75,8 @@ class _RestaurantPageState extends State<RestaurantPage> {
       "rate": "5.0",
       "rating": "124",
       "type": "Café Racer",
-      "food_type": "Desserts"
+      "food_type": "Desserts",
+      "location": "Dharan"
     },
     {
       "image": "assets/img/garden.jpeg",
@@ -77,8 +84,9 @@ class _RestaurantPageState extends State<RestaurantPage> {
       "rate": "4.9",
       "rating": "124",
       "type": "Minute by tuk tuk",
-      "food_type": "Desserts"
-    },
+      "food_type": "Desserts",
+      "location": "Chitwan"
+    }
   ];
   List filteredMenuItems = [];
 
@@ -147,6 +155,8 @@ class _RestaurantPageState extends State<RestaurantPage> {
                         MaterialPageRoute(
                           builder: (context) => ModeScreen(
                             restaurantName: mObj['name'],
+                            restaurantImg: mObj['image'],
+                            restaurantLocation: mObj['location'],
                           ),
                         ),
                       );
