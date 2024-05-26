@@ -13,9 +13,31 @@ class SeatProvider extends ChangeNotifier {
   // Map to store selected seats for each table on each floor
   Map<int, Map<int, Map<int, Color>>> _floorTableSeatColors = {};
 
+  // Instance variables for current indices
+  int _floorIndex = 0;
+  int _tableIndex = 0;
+  int _rowNumber = 0;
+  int _seatNumber = 0;
+
   // Getter to access the selected seats for each table on each floor
   Map<int, Map<int, Map<int, Color>>> get floorTableSeatColors =>
       _floorTableSeatColors;
+
+  // Getters for the indices
+  int get floorIndex => _floorIndex;
+  int get tableIndex => _tableIndex;
+  int get rowNumber => _rowNumber;
+  int get seatNumber => _seatNumber;
+
+  // Method to update indices
+  void setIndices(
+      int floorIndex, int tableIndex, int rowNumber, int seatNumber) {
+    _floorIndex = floorIndex;
+    _tableIndex = tableIndex;
+    _rowNumber = rowNumber;
+    _seatNumber = seatNumber;
+    notifyListeners();
+  }
 
   void toggleSeat(
       int floorIndex, int tableIndex, int seatNumber, int rowNumber) {
@@ -44,13 +66,14 @@ class SeatProvider extends ChangeNotifier {
           Colors.green;
 
       print(
-          'Floor: $floorIndex, Row: $rowNumber, Table: ${whichTable()}, Seat: ${seatNumber} booked');
+          'Floor: $floorIndex, Row: $rowNumber, Table: ${whichTable()}, Seat: $seatNumber booked');
     } else {
       // Seat is already booked, so unbook it
       _floorTableSeatColors[floorIndex]![tableIndex]!.remove(seatNumber);
       print(
-          'Floor: $floorIndex, Row: $rowNumber, Table: ${whichTable()}, Seat: ${seatNumber} unbooked');
+          'Floor: $floorIndex, Row: $rowNumber, Table: ${whichTable()}, Seat: $seatNumber unbooked');
     }
+
     database
         .child('Bookings')
         .child('floorLevel$floorIndex')
@@ -58,15 +81,15 @@ class SeatProvider extends ChangeNotifier {
         .push()
         .set(
       {
-        "tableType": "${whichTable().toString()}",
-        "seatNumber": seatNumber - 10.toInt(),
+        "tableType": whichTable(),
+        "seatNumber": seatNumber - 10,
         'status': _floorTableSeatColors[floorIndex]![tableIndex]!
                 .containsKey(seatNumber)
             ? 'booked'
             : 'unbooked',
-        "userName": UserConstants.userNameUrl.toString(),
-        "useProfilePic": UserConstants.userImageUrl.toString(),
-        "userEmail": UserConstants.userEmail.toString(),
+        "userName": UserConstants.userNameUrl,
+        "useProfilePic": UserConstants.userImageUrl,
+        "userEmail": UserConstants.userEmail,
       },
     );
 

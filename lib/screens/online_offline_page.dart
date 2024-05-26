@@ -1,10 +1,19 @@
+import 'package:One_Bytes_Food/constants/app_style.dart';
 import 'package:One_Bytes_Food/constants/global_colors.dart';
 import 'package:One_Bytes_Food/screens/menu/menu_view.dart';
 import 'package:One_Bytes_Food/screens/seat_reservation_screen.dart';
 import 'package:flutter/material.dart';
 
 class ModeScreen extends StatefulWidget {
-  const ModeScreen({Key? key}) : super(key: key);
+  final String restaurantName;
+  final String restaurantImg;
+  final String restaurantLocation;
+  const ModeScreen({
+    Key? key,
+    required this.restaurantName,
+    required this.restaurantImg,
+    required this.restaurantLocation,
+  }) : super(key: key);
 
   @override
   State<ModeScreen> createState() => _ModeScreenState();
@@ -40,7 +49,7 @@ class _ModeScreenState extends State<ModeScreen> {
           padding: const EdgeInsets.symmetric(vertical: 20),
           child: Column(
             children: [
-              const SizedBox(height: 46),
+              const SizedBox(height: 30),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
@@ -64,6 +73,111 @@ class _ModeScreenState extends State<ModeScreen> {
                     ),
                   ],
                 ),
+              ),
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  const SizedBox(width: 23),
+                  ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: Image.asset(
+                        widget.restaurantImg,
+                        width: 80,
+                        height: 80,
+                        fit: BoxFit.cover,
+                      )),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(widget.restaurantName,
+                            textAlign: TextAlign.center,
+                            style: AppStyles.text16PxRegular),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Image.asset(
+                              "assets/img/rate.png",
+                              width: 10,
+                              height: 10,
+                              fit: BoxFit.cover,
+                            ),
+                            const SizedBox(
+                              width: 4,
+                            ),
+                            Text(
+                              "4.9",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: AppColors.primary, fontSize: 12),
+                            ),
+                            const SizedBox(
+                              width: 8,
+                            ),
+                            Text(
+                              "(124 Ratings)",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: AppColors.secondaryText, fontSize: 12),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Burger",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: AppColors.secondaryText, fontSize: 12),
+                            ),
+                            Text(
+                              "Western Food",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: AppColors.secondaryText, fontSize: 12),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Image.asset(
+                              "assets/img/location-pin.png",
+                              width: 13,
+                              height: 13,
+                              fit: BoxFit.contain,
+                            ),
+                            const SizedBox(
+                              width: 4,
+                            ),
+                            Expanded(
+                              child: Text(
+                                "No 03, 4th Lane, Newyork",
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    color: AppColors.secondaryText,
+                                    fontSize: 12),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: 20),
               Column(
