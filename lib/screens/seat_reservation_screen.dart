@@ -1,7 +1,8 @@
-import 'package:One_Bytes_Food/utils/utils.dart';
+import 'package:One_Bytes_Food/provider/seat_provider.dart';
 import 'package:One_Bytes_Food/widgets/table_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart'; // Add this import for date formatting
+import 'package:provider/provider.dart';
 
 import '../constants/app_style.dart';
 import '../constants/global_colors.dart';
@@ -135,7 +136,8 @@ class _SeatReservationScreenState extends State<SeatReservationScreen> {
                       _selectedTimeSlot = slot;
                     });
                     Navigator.of(context).pop();
-                    _reserveTable(); // Proceed with reservation after selecting time slot
+                    _reserveTable(
+                        context); // Proceed with reservation after selecting time slot
                   },
                 );
               }).toList(),
@@ -146,84 +148,105 @@ class _SeatReservationScreenState extends State<SeatReservationScreen> {
     );
   }
 
-  void _reserveTable() {
+  void _reserveTable(BuildContext context) {
+    final seatProvider = Provider.of<SeatProvider>(context, listen: false);
+
     if (_selectedTimeSlot != null) {
-      // Logic to handle table reservation goes here
-      Utils.showToast(
-          context,
-          "Table reserved for $_selectedDate at $_selectedTimeSlot",
-          Colors.green);
+      int floorIndex = seatProvider.floorIndex;
+      int tableIndex = seatProvider.tableIndex;
+      int rowNumber = seatProvider.rowNumber;
+      int seatNumber = seatProvider.seatNumber;
+
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Reservation Confirmed"),
+            content: Text(
+              "Table reserved for ${DateFormat('EEEE, MMMM d, yyyy').format(DateTime.now())} at $_selectedTimeSlot on Floor: $floorIndex, Table: $tableIndex, Row: $rowNumber, Seat: $seatNumber",
+            ),
+            actions: [
+              TextButton(
+                child: Text("OK"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
     } else {
       print("No time slot selected");
     }
   }
+}
 
-  Widget _buildTables(int floor) {
-    return Padding(
-      padding: EdgeInsets.only(bottom: 16.0),
-      child: Column(
-        children: [
-          SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _buildTableRow(1, 6.0, 1, floor),
-              _buildTableRow(2, 2.0, 2, floor),
-              _buildTableRow(3, 2.0, 3, floor),
-            ],
-          ),
-          SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _buildTableRow(4, 4.0, 4, floor),
-              _buildTableRow(5, 4.0, 5, floor),
-              _buildTableRow(6, 2.0, 6, floor),
-            ],
-          ),
-          SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _buildTableRow(7, 4.0, 7, floor),
-              _buildTableRow(8, 4.0, 8, floor),
-              _buildTableRow(9, 2.0, 9, floor),
-            ],
-          ),
-        ],
+Widget _buildTables(int floor) {
+  return Padding(
+    padding: EdgeInsets.only(bottom: 16.0),
+    child: Column(
+      children: [
+        SizedBox(height: 10),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            _buildTableRow(1, 6.0, 1, floor),
+            _buildTableRow(2, 2.0, 2, floor),
+            _buildTableRow(3, 2.0, 3, floor),
+          ],
+        ),
+        SizedBox(height: 10),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            _buildTableRow(4, 4.0, 4, floor),
+            _buildTableRow(5, 4.0, 5, floor),
+            _buildTableRow(6, 2.0, 6, floor),
+          ],
+        ),
+        SizedBox(height: 10),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            _buildTableRow(7, 4.0, 7, floor),
+            _buildTableRow(8, 4.0, 8, floor),
+            _buildTableRow(9, 2.0, 9, floor),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildTableRow(
+    int index, double numSeats, int tableIndex, int floorIndex) {
+  return Row(
+    children: [
+      TableWidget(
+        floorIndex: floorIndex,
+        index: index,
+        circleRadius: 13,
+        numSeats: numSeats,
+        tableIndex: tableIndex,
       ),
-    );
-  }
+    ],
+  );
+}
 
-  Widget _buildTableRow(
-      int index, double numSeats, int tableIndex, int floorIndex) {
-    return Row(
+Widget _buildBarCounter(int floorIndex) {
+  return Padding(
+    padding: const EdgeInsets.only(left: 20, top: 10),
+    child: Row(
       children: [
         TableWidget(
           floorIndex: floorIndex,
-          index: index,
+          index: 7,
           circleRadius: 13,
-          numSeats: numSeats,
-          tableIndex: tableIndex,
+          numSeats: 7.0,
+          tableIndex: 10,
         ),
       ],
-    );
-  }
-
-  Widget _buildBarCounter(int floorIndex) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 20, top: 10),
-      child: Row(
-        children: [
-          TableWidget(
-            floorIndex: floorIndex,
-            index: 7,
-            circleRadius: 13,
-            numSeats: 7.0,
-            tableIndex: 10,
-          ),
-        ],
-      ),
-    );
-  }
+    ),
+  );
 }
