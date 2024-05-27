@@ -14,10 +14,10 @@ class SeatProvider extends ChangeNotifier {
   Map<int, Map<int, Map<int, Color>>> _floorTableSeatColors = {};
 
   // Instance variables for current indices
-  int _floorIndex = 0;
-  int _tableIndex = 0;
-  int _rowNumber = 0;
-  int _seatNumber = 0;
+  int _floorIndex = 1;
+  int _tableIndex = 2;
+  int _rowNumber = 1;
+  int _seatNumber = 3;
 
   // Getter to access the selected seats for each table on each floor
   Map<int, Map<int, Map<int, Color>>> get floorTableSeatColors =>
