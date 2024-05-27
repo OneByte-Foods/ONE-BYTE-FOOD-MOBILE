@@ -115,10 +115,10 @@ class _BookingScreenState extends State<BookingScreen> {
           } else {
             return ListView.builder(
               itemCount:
-                  snapshot.data!.length, // Use snapshot.data for itemCount
+                  snapshot.data!.length, 
               itemBuilder: (context, index) {
                 Booking booking =
-                    snapshot.data![index]; // Use snapshot.data for bookings
+                    snapshot.data![index];
                 return ListTile(
                   leading: booking.userProfilePic != null
                       ? buildCircleAvatar(radius: 25)

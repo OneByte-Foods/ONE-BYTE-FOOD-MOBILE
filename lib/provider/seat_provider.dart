@@ -75,7 +75,7 @@ class SeatProvider extends ChangeNotifier {
     }
 
     database
-        .child('Bookings')
+        .child('Bookings/jimbu thakali 01')
         .child('floorLevel$floorIndex')
         .child('users')
         .push()
