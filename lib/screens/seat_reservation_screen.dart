@@ -161,18 +161,65 @@ class _SeatReservationScreenState extends State<SeatReservationScreen> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("Reservation Confirmed"),
-            content: Text(
-              "Table reserved for ${DateFormat('EEEE, MMMM d, yyyy').format(DateTime.now())} at $_selectedTimeSlot on Floor: $floorIndex, Table: $tableIndex, Row: $rowNumber, Seat: $seatNumber",
+            title: Row(
+              children: [
+                Icon(Icons.check_circle, color: Colors.green),
+                SizedBox(width: 8),
+                Text(
+                  "Reservation Confirmed",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
+                ),
+              ],
             ),
-            actions: [
-              TextButton(
-                child: Text("OK"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 8),
+                Row(
+                  children: [
+                    Icon(Icons.calendar_today, color: Colors.blue),
+                    SizedBox(width: 8),
+                    Text(
+                      "Table reserved for",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 8),
+                Text(
+                  "${DateFormat('EEEE, MMMM d, yyyy').format(DateTime.now())}",
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.black87,
+                  ),
+                ),
+                SizedBox(height: 4),
+                Text(
+                  "at $_selectedTimeSlot",
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.black87,
+                  ),
+                ),
+                SizedBox(height: 8),
+                Text(
+                  "Floor: $floorIndex, Table: $tableIndex, Row: $rowNumber, Seat: $seatNumber",
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.black87,
+                  ),
+                ),
+              ],
+            ),
           );
         },
       );

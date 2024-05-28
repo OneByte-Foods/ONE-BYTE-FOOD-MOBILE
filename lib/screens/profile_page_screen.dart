@@ -1,6 +1,7 @@
 import 'package:One_Bytes_Food/constants/app_style.dart';
 import 'package:One_Bytes_Food/constants/global_colors.dart';
 import 'package:One_Bytes_Food/constants/user_constants.dart';
+import 'package:One_Bytes_Food/routes/app_routes.dart';
 import 'package:One_Bytes_Food/widgets/build_btn.dart';
 import 'package:One_Bytes_Food/widgets/circle_avatar_widget.dart';
 import 'package:flutter/material.dart';
@@ -125,8 +126,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       TextButton(
                         onPressed: () {
-                          // Perform logout action here
-                          Navigator.of(context).pop();
+                          Navigator.pushNamed(context, AppRoutes.welcomeScreen);
                         },
                         child: Text("Logout"),
                       ),

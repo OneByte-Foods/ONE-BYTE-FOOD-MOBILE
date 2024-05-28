@@ -2,6 +2,7 @@ import 'package:One_Bytes_Food/constants/app_style.dart';
 import 'package:One_Bytes_Food/constants/global_colors.dart';
 import 'package:One_Bytes_Food/constants/user_constants.dart';
 import 'package:One_Bytes_Food/provider/location_provider.dart';
+import 'package:One_Bytes_Food/routes/app_routes.dart';
 import 'package:One_Bytes_Food/services/khalti_payment.dart';
 import 'package:One_Bytes_Food/widgets/circle_avatar_widget.dart';
 import 'package:flutter/material.dart';
@@ -236,16 +237,22 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
-          Row(
-            children: [
-              Text(
-                btnText,
-                style: AppStyles.text12PxRegular
-                    .copyWith(color: Color(0xff6B7280)),
-              ),
-              SizedBox(width: 5),
-              Icon(Icons.arrow_forward_ios, color: Color(0xff6B7280), size: 15)
-            ],
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, AppRoutes.restaurantPageScreen);
+            },
+            child: Row(
+              children: [
+                Text(
+                  btnText,
+                  style: AppStyles.text12PxRegular
+                      .copyWith(color: Color(0xff6B7280)),
+                ),
+                SizedBox(width: 5),
+                Icon(Icons.arrow_forward_ios,
+                    color: Color(0xff6B7280), size: 15)
+              ],
+            ),
           )
         ],
       ),
